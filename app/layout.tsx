@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   description:
     'Signal Harbor audits how your business appears across AI answers, citations, competitor recommendations, and hallucinated claims — scored 0–100.',
   metadataBase: new URL('https://signalharborconsulting.com'),
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     title: 'Signal Harbor — AI Visibility Audit',
     description:
