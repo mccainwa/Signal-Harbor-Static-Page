@@ -22,7 +22,10 @@ export const metadata: Metadata = {
     'Signal Harbor audits how your business appears across AI answers, citations, competitor recommendations, and hallucinated claims — scored 0–100.',
   metadataBase: new URL('https://signalharborconsulting.com'),
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png', sizes: '512x512' },
+    ],
     shortcut: '/favicon.ico',
     apple: '/apple-icon.png',
   },
