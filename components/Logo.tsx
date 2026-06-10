@@ -1,41 +1,28 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
 type LogoProps = {
-  /** Size of the square logo mark, in px. */
+  /** Size of the square mark, in px. */
   size?: number;
   href?: string;
-  /** Show the typed "Signal Harbor" wordmark beside the mark. */
   showWordmark?: boolean;
 };
 
 /**
- * Brand lockup using the actual lighthouse logo (public/SH_Lighthouse_Logo.png,
- * no text in the file) inside a clean white rounded container, with the typed
- * "Signal Harbor" wordmark beside it. object-cover crops the image's white
- * margins so the lighthouse mark fills the square without distortion.
+ * Brand lockup using the small cropped lighthouse mark (public/sh-mark.png) in
+ * a clean white rounded square, with the typed "Signal Harbor" wordmark. Plain
+ * <img> so it always displays in static export / GitHub Pages.
  */
-export default function Logo({ size = 56, href = '/', showWordmark = true }: LogoProps) {
+export default function Logo({ size = 44, href = '/', showWordmark = true }: LogoProps) {
   return (
     <Link href={href} aria-label="Signal Harbor — home" className="inline-flex items-center gap-3">
       <span
-        className="relative inline-block overflow-hidden rounded-2xl bg-white shadow-card ring-1 ring-white/10"
+        className="inline-flex items-center justify-center overflow-hidden rounded-xl bg-white ring-1 ring-white/15"
         style={{ width: size, height: size }}
       >
-        <Image
-          src="/SH_Lighthouse_Logo.png"
-          alt="Signal Harbor"
-          fill
-          unoptimized
-          sizes="56px"
-          className="object-cover"
-          priority
-        />
+        <img src="/sh-mark.png" alt="Signal Harbor" width={size} height={size} className="h-full w-full object-cover" />
       </span>
       {showWordmark && (
-        <span className="font-sora text-xl font-bold tracking-tight text-white">
-          Signal Harbor
-        </span>
+        <span className="font-sora text-xl font-bold tracking-tight text-white">Signal Harbor</span>
       )}
     </Link>
   );

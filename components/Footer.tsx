@@ -4,27 +4,25 @@ import { SITE } from '@/lib/site';
 
 const columns = [
   {
-    heading: 'Product',
+    heading: 'Explore',
     links: [
-      { label: 'AI Visibility Audit', href: '#audit-framework' },
-      { label: 'How It Works', href: '#how-it-works' },
-      { label: 'Sample Report', href: '#sample-report' },
-    ],
-  },
-  {
-    heading: 'Use Cases',
-    links: [
-      { label: 'Personal Injury Law', href: '#use-cases' },
-      { label: 'Construction Software', href: '#use-cases' },
-      { label: 'Medical & Dental', href: '#use-cases' },
+      { label: 'Services', href: '/#services' },
+      { label: 'Methodology', href: '/#methodology' },
+      { label: 'Use Cases', href: '/#use-cases' },
+      { label: 'Packages', href: '/#pricing' },
     ],
   },
   {
     heading: 'Company',
     links: [
-      { label: 'About', href: '#about' },
-      { label: 'Contact', href: '#contact' },
+      { label: 'Privacy', href: '/privacy' },
+      { label: 'Terms', href: '/terms' },
+      { label: 'Contact', href: '/#contact' },
     ],
+  },
+  {
+    heading: 'Get started',
+    links: [{ label: 'Book a Call', href: SITE.bookingUrl }],
   },
 ];
 
@@ -36,13 +34,12 @@ export default function Footer() {
           <div>
             <Logo size={56} />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/55">
-              AI visibility intelligence for businesses that depend on being
-              found, trusted, cited, and recommended.
+              AI visibility intelligence and GEO services for companies that need
+              to be found, cited, understood, and recommended across AI-mediated
+              buyer research.
             </p>
             <p className="mt-4 text-sm text-white/55">
-              <a href={SITE.mailto} className="hover:text-blue">
-                {SITE.email}
-              </a>
+              <a href={SITE.mailto} className="hover:text-blue">{SITE.email}</a>
             </p>
           </div>
 
@@ -50,32 +47,36 @@ export default function Footer() {
             <div key={col.heading}>
               <h3 className="text-sm font-semibold text-white">{col.heading}</h3>
               <ul className="mt-4 space-y-3">
-                {col.links.map((l) => (
-                  <li key={l.label}>
-                    <Link
-                      href={l.href}
-                      className="text-sm text-white/60 hover:text-white"
-                    >
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
+                {col.links.map((l) => {
+                  const external = /^https?:/.test(l.href);
+                  return (
+                    <li key={l.label}>
+                      {external ? (
+                        <a href={l.href} target="_blank" rel="noopener noreferrer" className="text-sm text-white/60 hover:text-white">{l.label}</a>
+                      ) : (
+                        <Link href={l.href} className="text-sm text-white/60 hover:text-white">{l.label}</Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
-          <p className="text-xs text-white/45">
-            © 2026 Signal Harbor. signalharborconsulting.com
-          </p>
+        {/* Short results disclaimer — present but not prominent. */}
+        <p className="mt-12 max-w-3xl text-xs leading-relaxed text-white/35">
+          Signal Harbor measures observable AI visibility signals across selected
+          platforms and prompt sets. Results can vary by model, location, account
+          state, prompt wording, source availability, and time. Signal Harbor does
+          not guarantee placement, ranking, recommendation, or sales outcomes.
+        </p>
+
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
+          <p className="text-xs text-white/45">© 2026 Signal Harbor. signalharborconsulting.com</p>
           <div className="flex gap-6">
-            <Link href="#" className="text-xs text-white/45 hover:text-white">
-              Privacy
-            </Link>
-            <Link href="#" className="text-xs text-white/45 hover:text-white">
-              Terms
-            </Link>
+            <Link href="/privacy" className="text-xs text-white/45 hover:text-white">Privacy</Link>
+            <Link href="/terms" className="text-xs text-white/45 hover:text-white">Terms</Link>
           </div>
         </div>
       </div>

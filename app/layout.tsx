@@ -17,9 +17,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Signal Harbor — AI Visibility Audit',
+  title: 'Signal Harbor | AI Visibility Intelligence & GEO Services',
   description:
-    'Signal Harbor audits how your business appears across AI answers, citations, competitor recommendations, and hallucinated claims — scored 0–100.',
+    'Signal Harbor helps companies measure, verify, and improve how they appear across AI-generated answers, citations, source ecosystems, and modern buyer research workflows.',
   metadataBase: new URL('https://signalharborconsulting.com'),
   icons: {
     icon: [
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     apple: '/apple-icon.png',
   },
   openGraph: {
-    title: 'Signal Harbor — AI Visibility Audit',
+    title: 'Signal Harbor — Make your company visible where buyers now ask',
     description:
-      'See how ChatGPT, Perplexity, Gemini, Copilot, and Grok describe, cite, and recommend your business.',
+      'AI visibility intelligence and GEO services. We measure how ChatGPT, Perplexity, Gemini, Copilot, and Grok describe, cite, compare, and recommend companies — then turn it into a practical action plan.',
     type: 'website',
   },
 };

@@ -6,5 +6,5 @@ export const SITE = {
   email: "info@signalharborconsulting.com",
   mailto:
     "mailto:info@signalharborconsulting.com?subject=AI%20Visibility%20Audit%20Inquiry",
-  aiSystems: ["ChatGPT", "Perplexity", "Gemini", "Copilot", "Grok"],
+  aiSystems: ["ChatGPT", "Claude", "Perplexity", "Gemini", "Copilot", "Grok"],
 };
