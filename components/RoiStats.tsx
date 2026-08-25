@@ -40,7 +40,7 @@ export default function RoiStats() {
           <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="card-dark lift group rounded-2xl border border-white/12 p-6">
             <div className="font-sora text-4xl font-extrabold text-blue">{s.stat}</div>
             <p className="mt-3 text-[15px] leading-snug text-white/80">{s.label}</p>
-            <p className="mt-4 inline-flex items-center gap-1.5 text-xs text-white/45 group-hover:text-white/70">{s.src}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg></p>
+            <p className="mt-4 inline-flex items-center gap-1.5 text-xs text-white/55 group-hover:text-white/70">{s.src}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg></p>
           </a>
         ))}
       </div>

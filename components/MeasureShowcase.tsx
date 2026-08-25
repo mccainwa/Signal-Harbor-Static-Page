@@ -16,9 +16,9 @@ export default function MeasureShowcase() {
         <div className="card-dark rounded-2xl border border-white/12 p-6 lg:col-span-2">
           <p className="text-xs font-semibold uppercase tracking-wider text-white/55">Prompt testing matrix</p>
           <div className="mt-4 overflow-hidden rounded-xl border border-white/10">
-            <div className="grid grid-cols-[1.4fr_repeat(4,1fr)] bg-navy text-[11px] font-semibold text-white/45">
+            <div className="grid grid-cols-[1.4fr_repeat(4,1fr)] bg-navy text-[11px] font-semibold text-white/55">
               <span className="px-3 py-2">Prompt</span>
-              {['ChatGPT', 'Claude', 'Perplexity', 'Gemini'].map((e) => (<span key={e} className="px-2 py-2 text-center">{e}</span>))}
+              {['Platform A', 'Platform B', 'Platform C', 'Platform D'].map((e) => (<span key={e} className="px-2 py-2 text-center">{e}</span>))}
             </div>
             {[
               ['“best providers for…”', [1, 1, 0, 1]],

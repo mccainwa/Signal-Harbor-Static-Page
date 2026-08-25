@@ -71,7 +71,7 @@ export default function Footer() {
         </div>
 
         {/* Short results disclaimer — present but not prominent. */}
-        <p className="mt-12 max-w-3xl text-xs leading-relaxed text-white/35">
+        <p className="mt-12 max-w-3xl text-xs leading-relaxed text-white/55">
           Signal Harbor measures observable AI visibility signals across selected
           platforms and prompt sets. Results can vary by model, location, account
           state, prompt wording, source availability, and time. Signal Harbor does
@@ -79,10 +79,10 @@ export default function Footer() {
         </p>
 
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
-          <p className="text-xs text-white/45">© 2026 Signal Harbor. {SITE.domain}</p>
+          <p className="text-xs text-white/55">© 2026 Signal Harbor. {SITE.domain}</p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="text-xs text-white/45 hover:text-white">Privacy</Link>
-            <Link href="/terms" className="text-xs text-white/45 hover:text-white">Terms</Link>
+            <Link href="/privacy" className="text-xs text-white/55 hover:text-white">Privacy</Link>
+            <Link href="/terms" className="text-xs text-white/55 hover:text-white">Terms</Link>
           </div>
         </div>
       </div>

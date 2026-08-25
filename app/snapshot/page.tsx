@@ -58,7 +58,7 @@ export default function SnapshotPage() {
               <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.short}</CTAButton>
               <CTAButton href={SITE.mailto} variant="secondary">Email Signal Harbor</CTAButton>
             </div>
-            <p className="mt-6 max-w-2xl text-sm text-white/45">{CTA.boundary}</p>
+            <p className="mt-6 max-w-2xl text-sm text-white/55">{CTA.boundary}</p>
           </div>
         </Section>
 
@@ -71,7 +71,7 @@ export default function SnapshotPage() {
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {included.map(([t, d], i) => (
               <div key={t} className="card-light accent-top">
-                <span className="font-sora text-sm font-bold text-blue">0{i + 1}</span>
+                <span className="font-sora text-sm font-bold text-[#0369A1]">0{i + 1}</span>
                 <h3 className="mt-2 text-lg font-bold text-navy">{t}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-navy/65">{d}</p>
               </div>

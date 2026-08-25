@@ -16,20 +16,20 @@ export const metadata: Metadata = {
 
 const whyItMatters = [
   {
-    t: 'Buyers ask AI before they ask you',
-    d: 'People use AI assistants to compare options, summarize providers, and draft shortlists before they visit a single website. The answers shape which companies get considered at all.',
+    t: 'Buyers can research with AI first',
+    d: 'Buyers can use AI tools to compare providers, summarize options, and form shortlists before visiting a website. Industry research tracking this shift is collected on our research page.',
   },
   {
-    t: 'The answers steer real decisions',
-    d: 'When an AI platform recommends three providers and your company is not one of them, that opportunity ends before your analytics record anything.',
+    t: 'The answers can influence real decisions',
+    d: 'AI-generated answers can influence which companies buyers consider. When a recommendation goes elsewhere, your analytics may never show that the comparison happened.',
   },
   {
-    t: 'Nobody is accountable for the answer',
-    d: 'AI systems compose answers from public sources. If those sources are thin, wrong, or outdated, the answer inherits the problem, and no one notifies you.',
+    t: 'No one reviews the answer for you',
+    d: 'AI-generated answers draw heavily on the sources available to the system. When those sources are thin, wrong, or outdated, the answers can inherit the problem, and no one notifies you.',
   },
   {
     t: 'It can be measured and improved',
-    d: 'AI visibility is observable. Ask the questions your buyers ask, record the answers, trace the sources, fix what is fixable, and measure whether the result moved.',
+    d: 'AI visibility is observable. Ask the questions your buyers ask, record the answers, trace the sources where they can be traced, fix what is fixable, and measure whether the result moved.',
   },
 ];
 
@@ -40,7 +40,7 @@ const failureModes = [
   },
   {
     t: 'Incorrect facts',
-    d: 'The answer states something untrue about your products, pricing, or capabilities. Buyers rarely verify it, and a wrong fact stated confidently reads exactly like a right one.',
+    d: 'The answer states something untrue about your products, pricing, or capabilities. Buyers may not verify it, and a wrong fact stated confidently reads like a right one.',
   },
   {
     t: 'Unsupported claims',
@@ -84,8 +84,8 @@ const disciplines = [
 
 const wrongSteps = [
   ['Capture the answer', 'Record the question, the platform, the date, and the exact statement. A wrong answer you cannot reproduce is an anecdote, not a finding.'],
-  ['Confirm it repeats', 'Run the same question several times over several days. AI answers vary, and a one-off error matters less than one that appears consistently.'],
-  ['Trace the likely sources', 'Most wrong statements echo a public source. Find the pages, profiles, or articles that carry the same error, because that is usually where the fix lives.'],
+  ['Confirm it repeats', 'Run the same question several times over several days. Repeated testing helps distinguish an isolated response from a consistent pattern.'],
+  ['Trace the likely sources', 'Some incorrect answers can be traced to outdated or inaccurate public sources, while others have no clear attributable source. Start with the pages, profiles, or articles that repeat the same error.'],
   ['Fix the sources you control', 'Update your website, documentation, and official profiles so the correct fact is easy to find and unambiguous.'],
   ['Pursue corrections you do not control', 'Directories, review sites, and articles can often be corrected on request. Prioritize the sources that appear most often alongside the error.'],
   ['Retest on a schedule', 'Corrections take time to reach AI answers, and platforms update on their own cadence. Rerun the same questions periodically and record whether the error persists.'],
@@ -147,12 +147,12 @@ export default function AiVisibilityPage() {
           <SectionHeading
             tone="light"
             eyebrow="Why it matters"
-            title="The shortlist forms before anyone contacts you."
+            title="Shortlists can form before anyone contacts you."
           />
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {whyItMatters.map((item, i) => (
               <div key={item.t} className="flex gap-4">
-                <span className="grid h-9 w-9 flex-none place-items-center rounded-full bg-navy/[0.06] font-sora text-sm font-bold text-navy/60">{i + 1}</span>
+                <span className="grid h-9 w-9 flex-none place-items-center rounded-full bg-navy/[0.06] font-sora text-sm font-bold text-navy/70">{i + 1}</span>
                 <div>
                   <h3 className="text-base font-bold text-navy">{item.t}</h3>
                   <p className="mt-1.5 text-[15px] leading-relaxed text-navy/65">{item.d}</p>
@@ -160,6 +160,11 @@ export default function AiVisibilityPage() {
               </div>
             ))}
           </div>
+          <p className="mt-8 text-[15px] text-navy/70">
+            The buyer-behavior research behind this section is collected, with
+            sources and dates, on the{' '}
+            <Link href="/research" className="font-semibold text-[#0369A1] underline">research page</Link>.
+          </p>
         </Section>
 
         <Section tone="navy-deep">
@@ -187,7 +192,7 @@ export default function AiVisibilityPage() {
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {disciplines.map((d) => (
               <div key={d.abbr} className="card-light accent-top flex flex-col">
-                <span className="font-sora text-sm font-bold tracking-wider text-blue">{d.abbr}</span>
+                <span className="font-sora text-sm font-bold tracking-wider text-[#0369A1]">{d.abbr}</span>
                 <h3 className="mt-2 text-lg font-bold text-navy">{d.name}</h3>
                 <p className="mt-2 flex-1 text-[15px] leading-relaxed text-navy/65">{d.d}</p>
               </div>
@@ -222,8 +227,9 @@ export default function AiVisibilityPage() {
           </ol>
           <p className="mt-8 max-w-3xl text-[15px] leading-relaxed text-white/60">
             Signal Harbor runs this as a managed process: repeated measurement
-            across AI platforms, source and claim review, and a prioritized
-            plan. Read the{' '}
+            across selected AI platforms, source and claim review, and a
+            prioritized plan. Signal Harbor measures observable answers and
+            sources. It does not control the AI systems. Read the{' '}
             <Link href="/methodology" className="text-blue underline">methodology</Link> for how
             measurement works, or start with a{' '}
             <Link href="/snapshot" className="text-blue underline">complimentary snapshot</Link> of

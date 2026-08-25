@@ -25,9 +25,9 @@ export default function ResearchHome() {
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {refs.map((r) => (
           <a key={r.title} href={r.href} target="_blank" rel="noopener noreferrer" className="card-light lift group flex flex-col">
-            <span className="inline-flex w-fit rounded-full bg-navy/[0.06] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-navy/55">{r.cat}</span>
+            <span className="inline-flex w-fit rounded-full bg-navy/[0.06] px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-navy/70">{r.cat}</span>
             <h3 className="mt-3 flex-1 text-[15px] font-bold leading-snug text-navy">{r.title}</h3>
-            <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-blue">
+            <span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-[#0369A1]">
               {r.src}
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg>
             </span>

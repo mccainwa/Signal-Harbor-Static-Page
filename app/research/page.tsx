@@ -6,7 +6,7 @@ import Section from '@/components/Section';
 export const metadata: Metadata = {
   title: 'Research Basis',
   description:
-    'External references and research that inform the Signal Harbor AI visibility methodology, from platform guidance to peer-reviewed measurement work.',
+    'External references and research that inform the Signal Harbor AI visibility methodology, from platform guidance to public measurement research.',
   alternates: { canonical: '/research/' },
 };
 

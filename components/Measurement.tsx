@@ -29,7 +29,7 @@ export default function Measurement() {
           <p className="text-xs font-semibold uppercase tracking-wider text-white/55">AI visibility score</p>
           <div className="mt-2 flex items-end gap-3">
             <CountUp to={68} className="font-sora text-6xl font-extrabold leading-none text-white" />
-            <span className="mb-1 text-sm text-white/45">/ 100</span>
+            <span className="mb-1 text-sm text-white/55">/ 100</span>
             <span className="mb-1.5 ml-auto inline-flex items-center gap-1 rounded-full bg-blue/10 px-2.5 py-1 text-xs font-semibold text-blue">▲ +9 pts (sample)</span>
           </div>
           <svg viewBox="0 0 280 90" className="mt-5 w-full" aria-hidden="true">
@@ -70,7 +70,7 @@ export default function Measurement() {
         </div>
       </div>
 
-      <p className="mt-6 text-sm leading-relaxed text-white/45">
+      <p className="mt-6 text-sm leading-relaxed text-white/55">
         AI visibility is measurable and influenceable, not fully controllable.
         Results vary by model, prompt wording, location, source availability, and time.
       </p>

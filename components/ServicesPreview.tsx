@@ -27,7 +27,7 @@ export default function ServicesPreview() {
               <h3 className="mt-4 text-base font-bold text-navy">{s.name}</h3>
               <p className="mt-2 flex-1 text-[15px] leading-relaxed text-navy/65">{s.desc}</p>
               <span className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-blue/10 px-3 py-1 text-xs font-semibold text-navy ring-1 ring-blue/20"><span className="h-1.5 w-1.5 rounded-full bg-blue" />{s.outcome}</span>
-              <Link href={s.href} className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-blue hover:underline">
+              <Link href={s.href} className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[#0369A1] hover:underline">
                 {s.cta}
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </Link>

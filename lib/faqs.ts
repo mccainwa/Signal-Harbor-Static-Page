@@ -18,7 +18,7 @@ export const faqs = [
   },
   {
     q: 'What platforms do you test?',
-    a: 'We currently run structured prompt testing across ChatGPT, Claude, Perplexity, Gemini, Copilot, and Grok. The exact set depends on your category, market, and where your buyers are likely to research.',
+    a: 'We select the AI platforms that are most relevant to your buyers, category, and audit scope. The exact platform set is confirmed before testing begins.',
   },
   {
     q: 'Can you guarantee that AI tools recommend us?',

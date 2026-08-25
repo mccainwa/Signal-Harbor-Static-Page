@@ -14,7 +14,7 @@ function Gauge({ score }: { score: number }) {
       <div className="absolute flex flex-col items-center">
         <span className="font-sora text-4xl font-extrabold leading-none text-white">{score}</span>
         <span className="text-[10px] text-white/40">/ 100</span>
-        <span className="mt-1 text-[9px] font-semibold uppercase tracking-wider text-white/35">AI Visibility</span>
+        <span className="mt-1 text-[9px] font-semibold uppercase tracking-wider text-white/55">AI Visibility</span>
       </div>
     </div>
   );
@@ -151,8 +151,8 @@ export default function Hero() {
           </div>
 
           <p className="mt-4 max-w-xl text-sm text-white/55">{CTA.supporting}</p>
-          <p className="mt-3 text-sm text-white/45">
-            Tested across ChatGPT, Claude, Perplexity, Gemini, Copilot &amp; Grok
+          <p className="mt-3 text-sm text-white/55">
+            Measured across selected AI platforms based on your market and scope.
           </p>
         </div>
 

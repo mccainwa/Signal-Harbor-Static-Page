@@ -30,7 +30,7 @@ export default function ProblemCompare() {
 
       <div className="mt-10 grid gap-5 md:grid-cols-2">
         <div className="rounded-2xl border border-navy/10 bg-white p-7 shadow-[0_18px_44px_-24px_rgba(10,22,40,0.35)]">
-          <p className="text-xs font-semibold uppercase tracking-wider text-navy/45">Old search</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-navy/70">Old search</p>
           <div className="mt-4"><Flow steps={['Keyword', 'Rankings', 'Clicks', 'Landing page']} /></div>
         </div>
         <div className="relative overflow-hidden rounded-2xl border border-blue/30 bg-navy p-7">

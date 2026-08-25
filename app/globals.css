@@ -68,6 +68,12 @@
     @apply text-xs font-semibold uppercase tracking-[0.18em] text-blue;
   }
 
+  /* Brand cyan fails WCAG AA on the light background, so eyebrows inside
+     light sections use an accessible deep blue instead. */
+  .bg-off-white .eyebrow {
+    color: #0369a1;
+  }
+
   /* Premium navy gradient for the hero */
   .hero-gradient {
     background:

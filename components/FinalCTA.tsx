@@ -23,7 +23,7 @@ export default function FinalCTA() {
               <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
               <CTAButton href={SITE.mailto} variant="secondary">Email Signal Harbor</CTAButton>
             </div>
-            <p className="mx-auto mt-6 max-w-2xl text-sm text-white/45">{CTA.boundary}</p>
+            <p className="mx-auto mt-6 max-w-2xl text-sm text-white/55">{CTA.boundary}</p>
           </div>
         </div>
       </div>
