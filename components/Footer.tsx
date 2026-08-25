@@ -27,6 +27,7 @@ const columns = [
     heading: 'Get started',
     links: [
       { label: 'Complimentary Snapshot', href: '/snapshot' },
+      { label: 'AI Visibility Audit', href: '/audit' },
       { label: CTA.short, href: SITE.bookingUrl },
     ],
   },

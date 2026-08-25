@@ -95,6 +95,11 @@ for (const [route, { html }] of pages) {
     else if (canonical !== expected) flag(`${route}: canonical ${canonical}, expected ${expected}`);
   }
 
+  // Accidental noindex. Only the 404 error document may carry it.
+  if (!is404(route) && /<meta[^>]+name="robots"[^>]+noindex/i.test(html)) {
+    flag(`${route}: unexpected noindex directive`);
+  }
+
   // JSON-LD.
   for (const b of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
     try {

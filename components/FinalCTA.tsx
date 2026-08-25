@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import CTAButton from './CTAButton';
 import { SITE, CTA } from '@/lib/site';
 
@@ -23,7 +24,10 @@ export default function FinalCTA() {
               <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
               <CTAButton href={SITE.mailto} variant="secondary">Email Signal Harbor</CTAButton>
             </div>
-            <p className="mx-auto mt-6 max-w-2xl text-sm text-white/55">{CTA.boundary}</p>
+            <p className="mx-auto mt-6 max-w-2xl text-sm text-white/55">
+              {CTA.boundary}{' '}
+              <Link href="/snapshot" className="text-blue underline">See what the Snapshot includes</Link>.
+            </p>
           </div>
         </div>
       </div>

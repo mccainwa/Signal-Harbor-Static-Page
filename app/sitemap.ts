@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/',
     '/about/',
     '/ai-visibility/',
+    '/audit/',
     '/faq/',
     '/methodology/',
     '/platform/',

@@ -13,7 +13,7 @@ const menus: Menu[] = [
     label: 'Services',
     items: [
       { label: 'Complimentary Snapshot', href: '/snapshot' },
-      { label: 'AI Visibility Diagnostic', href: '/services#diagnostic' },
+      { label: 'AI Visibility Audit', href: '/audit' },
       { label: 'GEO Strategy Sprint', href: '/services#geo-sprint' },
       { label: 'Accuracy & Source Review', href: '/services#accuracy' },
       { label: 'Ongoing Monitoring', href: '/services#monitoring' },

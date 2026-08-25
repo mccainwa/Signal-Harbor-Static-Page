@@ -82,6 +82,14 @@ const disciplines = [
   },
 ];
 
+const improveSteps = [
+  ['Establish a baseline', 'Measure before changing anything. Run the questions your buyers actually ask, repeatedly and across platforms, and record where you appear, how you are described, and who is recommended instead.'],
+  ['Correct the record where AI systems read it', 'Your website, documentation, and public profiles are the sources you control. Bring them current, factual, and consistent before working on anything you do not control.'],
+  ['Publish content that answers real buyer questions', 'Direct, verifiable explanations of what you do, who it is for, and how you compare give answer systems something accurate to work with.'],
+  ['Strengthen the evidence around your company', 'AI answers lean on third-party sources. Where coverage of your company is thin, wrong, or outdated, closing the gap is slower but durable work.'],
+  ['Retest and hold the work accountable', 'Rerun the original questions under comparable conditions and record what moved and what did not. Without a retest, an improvement claim is an assumption.'],
+];
+
 const wrongSteps = [
   ['Capture the answer', 'Record the question, the platform, the date, and the exact statement. A wrong answer you cannot reproduce is an anecdote, not a finding.'],
   ['Confirm it repeats', 'Run the same question several times over several days. Repeated testing helps distinguish an isolated response from a consistent pattern.'],
@@ -208,11 +216,35 @@ export default function AiVisibilityPage() {
           </p>
         </Section>
 
+        <Section tone="navy-deep">
+          <SectionHeading
+            eyebrow="How to improve AI visibility"
+            title="Five steps, in the order that works."
+            intro="There is no shortcut and no secret file. Improvement is evidence work: measure, correct, publish, strengthen, retest."
+          />
+          <ol className="mt-10 grid gap-4 md:grid-cols-2">
+            {improveSteps.map(([t, d], i) => (
+              <li key={t} className="flex gap-4 rounded-2xl border border-white/12 bg-navy-panel p-5">
+                <span className="grid h-9 w-9 flex-none place-items-center rounded-full bg-blue/15 font-sora text-sm font-bold text-blue ring-1 ring-blue/30">{i + 1}</span>
+                <div>
+                  <h3 className="text-[15px] font-bold text-white">{t}</h3>
+                  <p className="mt-1 text-sm leading-snug text-white/60">{d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <p className="mt-8 text-[15px] text-white/60">
+            The <Link href="/audit" className="text-blue underline">AI Visibility Audit</Link> runs
+            these steps as a managed engagement, with the baseline, evidence,
+            and roadmap delivered together.
+          </p>
+        </Section>
+
         <Section tone="navy">
           <SectionHeading
             eyebrow="When the answer is wrong"
             title="What to do when AI platforms get your company wrong."
-            intro="There is no correction hotline for an AI answer. The durable fix is almost always in the sources the platforms read, which is work you can plan and verify."
+            intro="There is no correction hotline for an AI answer. The durable fix is usually in the sources the platforms read, which is work you can plan and verify."
           />
           <ol className="mt-10 grid gap-4 md:grid-cols-2">
             {wrongSteps.map(([t, d], i) => (

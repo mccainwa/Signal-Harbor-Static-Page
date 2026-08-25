@@ -87,9 +87,10 @@ export default function SnapshotPage() {
                 The AI Visibility Audit is the comprehensive paid engagement: a
                 full prompt set, measurement across multiple AI platforms,
                 competitor tracking, a source map, an accuracy review, and a
-                prioritized action roadmap. See{' '}
-                <Link href="/services" className="text-blue underline">the services page</Link> for
-                how it fits with optimization sprints and ongoing monitoring.
+                prioritized action roadmap. Read the{' '}
+                <Link href="/audit" className="text-blue underline">full audit details</Link> or see{' '}
+                <Link href="/services" className="text-blue underline">all services</Link> for how it
+                fits with optimization sprints and ongoing monitoring.
               </p>
             </div>
             <div className="flex-none">

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Section, { SectionHeading } from '@/components/Section';
@@ -9,7 +10,7 @@ import CTAButton from '@/components/CTAButton';
 import { SITE, CTA } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Services',
+  title: 'AI Visibility and GEO Services',
   description:
     'AI visibility audits, GEO strategy, citation mapping, accuracy review, vendor accountability, optimization, and ongoing monitoring.',
   alternates: { canonical: '/services/' },
@@ -33,7 +34,7 @@ export default function ServicesPage() {
         <Section tone="navy" id="services-top">
           <div className="max-w-2xl">
             <p className="eyebrow mb-3">Services</p>
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">AI visibility services.</h1>
+            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">AI visibility and GEO services.</h1>
             <p className="mt-5 text-lg leading-relaxed text-white/75">Each service can stand alone, but the strongest path is audit first, implementation second, monitoring third.</p>
             <div className="mt-7"><CTAButton href={SITE.bookingUrl} variant="primary">{CTA.audit}</CTAButton></div>
           </div>
@@ -44,6 +45,11 @@ export default function ServicesPage() {
                 <h2 className="mt-2 text-xl font-bold text-white">{s.name}</h2>
                 <p className="mt-2 text-[15px] leading-relaxed text-white/70">{s.desc}</p>
                 <p className="mt-4 border-t border-white/10 pt-3 text-sm text-white/65"><span className="font-semibold text-white">Outcome:</span> {s.outcome}</p>
+                {s.id === 'diagnostic' && (
+                  <p className="mt-3 text-sm">
+                    <Link href="/audit" className="font-semibold text-blue underline">Full audit details</Link>
+                  </p>
+                )}
               </div>
             ))}
           </div>

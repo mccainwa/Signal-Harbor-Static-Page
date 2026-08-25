@@ -26,8 +26,9 @@ export default function PlatformPage() {
               <p className="eyebrow mb-3">Platform</p>
               <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">What Signal Harbor measures.</h1>
               <p className="mt-5 text-lg leading-relaxed text-white/75">
-                One connected intelligence layer, from the prompts we test to
-                the actions you take.
+                One connected intelligence layer: visibility scoring, AI
+                recommendation tracking, source mapping, and accuracy review,
+                from the prompts we test to the actions you take.
               </p>
               <div className="mt-7"><CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton></div>
             </div>

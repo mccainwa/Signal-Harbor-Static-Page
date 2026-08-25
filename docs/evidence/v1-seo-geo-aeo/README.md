@@ -8,9 +8,11 @@ design mockup.
 
 - Desktop viewport: 1440x900
 - Mobile viewport: 390x844 (reduced motion)
-- Commit: the remediation commit on PR #1 that introduced this directory (its parent is f91f98c, branch refresh/v1-seo-geo-aeo)
-- Lighthouse at this commit: home 80/100/100/100, /ai-visibility 82/100/100/100,
-  /snapshot 83/100/100/100 (performance / accessibility / best practices / SEO)
+- Commit: the discoverability commit on PR #1 that last touched this
+  directory (branch `refresh/v1-seo-geo-aeo`, following d591cc5)
+- Lighthouse at this commit (performance / accessibility / best practices /
+  SEO): home 81/100/100/100, /ai-visibility 81/100/100/100,
+  /snapshot 82/100/100/100, /audit 83/100/100/100
 
 | File                         | Page                                   |
 | ---------------------------- | -------------------------------------- |
@@ -20,6 +22,8 @@ design mockup.
 | `ai-visibility-mobile.png`   | `/ai-visibility`, mobile               |
 | `snapshot-desktop.png`       | `/snapshot`, desktop                   |
 | `snapshot-mobile.png`        | `/snapshot`, mobile                    |
+| `audit-desktop.png`          | `/audit`, desktop                      |
+| `audit-mobile.png`           | `/audit`, mobile                       |
 | `mobile-nav-open.png`        | Open mobile navigation with its CTA    |
 
 This directory lives under `docs/` and is not part of the exported website:

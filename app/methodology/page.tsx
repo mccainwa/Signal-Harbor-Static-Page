@@ -65,7 +65,13 @@ export default function MethodologyPage() {
           <div className="flex flex-col gap-4 rounded-3xl border border-blue/25 bg-blue/[0.06] p-8 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-2xl font-bold text-white">The research behind the method.</h2>
-              <p className="mt-2 max-w-xl text-[15px] text-white/65">See the external references that inform how we test and measure.</p>
+              <p className="mt-2 max-w-xl text-[15px] text-white/65">
+                See the external references that inform how we test and
+                measure, read the{' '}
+                <Link href="/ai-visibility" className="text-blue underline">plain-language guide to AI visibility</Link>, or
+                review{' '}
+                <Link href="/audit" className="text-blue underline">what the full audit covers</Link>.
+              </p>
             </div>
             <div className="flex flex-none gap-3">
               <Link href="/research" className="inline-flex items-center rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:border-blue/50">View research basis</Link>
