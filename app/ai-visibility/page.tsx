@@ -25,7 +25,7 @@ const whyItMatters = [
   },
   {
     t: 'No one reviews the answer for you',
-    d: 'AI-generated answers draw heavily on the sources available to the system. When those sources are thin, wrong, or outdated, the answers can inherit the problem, and no one notifies you.',
+    d: 'AI-generated answers can draw heavily on the sources available to the system. When those sources are thin, wrong, or outdated, the answers can inherit the problem, and you may not be notified.',
   },
   {
     t: 'It can be measured and improved',
@@ -36,7 +36,7 @@ const whyItMatters = [
 const failureModes = [
   {
     t: 'Missing visibility',
-    d: 'Buyers ask a relevant question and your company does not appear. The recommendation goes to whoever does, and nothing alerts you to an answer you were never in.',
+    d: 'Buyers ask a relevant question and your company does not appear. A competitor may be recommended instead, and your company may have no direct visibility into that answer.',
   },
   {
     t: 'Incorrect facts',
@@ -48,7 +48,7 @@ const failureModes = [
   },
   {
     t: 'Outdated information',
-    d: 'The answer describes the company you were years ago. Old positioning, retired products, and superseded prices persist in AI answers long after your website moved on.',
+    d: 'The answer describes the company you were years ago. Old positioning, retired products, and superseded prices can persist in AI answers long after your website moved on.',
   },
   {
     t: 'Weak recommendation positioning',
@@ -56,7 +56,7 @@ const failureModes = [
   },
   {
     t: 'Competitor preference',
-    d: 'The answer consistently recommends a competitor for questions you should win. There is usually a reason in the sources, and it can be found and worked on.',
+    d: 'The answer consistently recommends a competitor for questions you want to win. Source patterns can sometimes help explain the difference and identify what can be improved.',
   },
   {
     t: 'Inconsistent answers',
@@ -86,7 +86,7 @@ const improveSteps = [
   ['Establish a baseline', 'Measure before changing anything. Run the questions your buyers actually ask, repeatedly and across platforms, and record where you appear, how you are described, and who is recommended instead.'],
   ['Correct the record where AI systems read it', 'Your website, documentation, and public profiles are the sources you control. Bring them current, factual, and consistent before working on anything you do not control.'],
   ['Publish content that answers real buyer questions', 'Direct, verifiable explanations of what you do, who it is for, and how you compare give answer systems something accurate to work with.'],
-  ['Strengthen the evidence around your company', 'AI answers lean on third-party sources. Where coverage of your company is thin, wrong, or outdated, closing the gap is slower but durable work.'],
+  ['Strengthen the evidence around your company', 'AI answers can draw on third-party sources. Where coverage of your company is thin, wrong, or outdated, closing the gap is slower but durable work.'],
   ['Retest and hold the work accountable', 'Rerun the original questions under comparable conditions and record what moved and what did not. Without a retest, an improvement claim is an assumption.'],
 ];
 

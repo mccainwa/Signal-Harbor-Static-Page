@@ -8,8 +8,8 @@ design mockup.
 
 - Desktop viewport: 1440x900
 - Mobile viewport: 390x844 (reduced motion)
-- Commit: the discoverability commit on PR #1 that last touched this
-  directory (branch `refresh/v1-seo-geo-aeo`, following d591cc5)
+- Commit: the truthfulness-cleanup commit on PR #1 that last touched
+  this directory (branch `refresh/v1-seo-geo-aeo`, following 565d9bc)
 - Lighthouse at this commit (performance / accessibility / best practices /
   SEO): home 81/100/100/100, /ai-visibility 81/100/100/100,
   /snapshot 82/100/100/100, /audit 83/100/100/100

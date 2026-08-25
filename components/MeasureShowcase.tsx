@@ -76,11 +76,11 @@ export default function MeasureShowcase() {
           </svg>
         </div>
         <div className="card-dark rounded-2xl border border-white/12 p-6">
-          <p className="text-xs font-semibold uppercase tracking-wider text-white/55">30/60/90 action roadmap</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-white/55">Prioritized action roadmap</p>
           <div className="mt-3 space-y-2.5">
-            {[['0-30', 'Fix entity profiles and top claims'], ['30-60', 'Add comparison pages, strengthen sources'], ['60-90', 'Re-test, monitor drift, expand coverage']].map(([d, t]) => (
+            {[['Priority 1', 'Fix entity profiles and top claims'], ['Priority 2', 'Add comparison pages, strengthen sources'], ['Priority 3', 'Re-test, monitor drift, expand coverage']].map(([d, t]) => (
               <div key={d} className="flex items-center gap-3">
-                <span className="inline-flex w-14 flex-none justify-center rounded-full border border-blue/30 bg-blue/10 py-1 text-[11px] font-semibold text-blue">{d}</span>
+                <span className="inline-flex w-20 flex-none justify-center rounded-full border border-blue/30 bg-blue/10 py-1 text-[11px] font-semibold text-blue">{d}</span>
                 <span className="text-sm text-white/75">{t}</span>
               </div>
             ))}

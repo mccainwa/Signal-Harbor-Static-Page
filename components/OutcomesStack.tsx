@@ -7,7 +7,7 @@ const docs = [
   'Prompt Performance Matrix',
   'Citation Map',
   'Accuracy Register',
-  '30/60/90 Action Roadmap',
+  'Prioritized Action Roadmap',
 ];
 
 /** Layered "report stack" preview — overlapping document tiles, not a card grid. */

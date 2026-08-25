@@ -1,8 +1,8 @@
 import Section, { SectionHeading } from './Section';
 
 const stages = [
-  { stage: '01', name: 'AI Visibility Audit', length: '14 to 30 days', purpose: 'Measure baseline and identify priority gaps.' },
-  { stage: '02', name: 'Optimization Sprint', length: '30 to 60 days', purpose: 'Implement the highest-leverage fixes.' },
+  { stage: '01', name: 'AI Visibility Audit', length: 'Scoped per engagement', purpose: 'Measure baseline and identify priority gaps.' },
+  { stage: '02', name: 'Optimization Sprint', length: 'Bounded sprint', purpose: 'Implement the highest-leverage fixes.' },
   { stage: '03', name: 'Monitoring Retainer', length: 'Monthly', purpose: 'Track movement, detect drift, and guide ongoing work.' },
   { stage: '04', name: 'Enterprise Intelligence Layer', length: 'Quarterly or annual', purpose: 'Integrate reporting with marketing, content, SEO, and leadership workflows.' },
 ];

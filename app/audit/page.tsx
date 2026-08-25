@@ -19,7 +19,7 @@ const covers = [
   ['Competitor tracking', 'Where competitors appear and you do not, across the same prompts, so displacement is observed rather than guessed.'],
   ['A source and citation map', 'The owned, earned, review, directory, and competitor sources that appear alongside the answers about your market.'],
   ['An accuracy and hallucination review', 'Unsupported, outdated, or incorrect statements about your company, ranked by correction priority.'],
-  ['A prioritized action roadmap', 'A 30/60/90-day plan tying each recommended fix to the observed gap behind it.'],
+  ['A prioritized action roadmap', 'A sequenced plan tying each recommended fix to the observed gap behind it.'],
 ];
 
 const steps = [
@@ -37,7 +37,7 @@ const comparison = [
   ['Competitor tracking', 'Not included', 'Included'],
   ['Source and citation map', 'Not included', 'Included'],
   ['Accuracy review', 'Notable issues only', 'Full register, ranked by priority'],
-  ['Output', 'Short summary and a call walkthrough', 'Executive scorecard, evidence, and a 30/60/90 roadmap'],
+  ['Output', 'Short summary and a call walkthrough', 'Executive scorecard, evidence, and a prioritized action roadmap'],
   ['Best for', 'Deciding whether the audit is worth doing', 'Acting on AI visibility with evidence'],
 ];
 
@@ -120,8 +120,8 @@ export default function AuditPage() {
           </ol>
           <p className="mt-8 text-[15px] text-white/60">
             Deliverables include the Executive Scorecard, Prompt Performance
-            Matrix, Citation Map, Accuracy Register, and the 30/60/90 Action
-            Roadmap, previewed on the{' '}
+            Matrix, Citation Map, Accuracy Register, and the prioritized
+            Action Roadmap, previewed on the{' '}
             <Link href="/methodology#deliverables" className="text-blue underline">methodology page</Link>.
           </p>
         </Section>

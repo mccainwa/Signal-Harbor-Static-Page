@@ -35,7 +35,7 @@ const items: { name: string; kind: 'score' | 'matrix' | 'map' | 'list' }[] = [
   { name: 'Accuracy / Hallucination Register', kind: 'list' },
   { name: 'Content Gap Plan', kind: 'list' },
   { name: 'Vendor Accountability Notes', kind: 'list' },
-  { name: '30/60/90-Day Action Roadmap', kind: 'list' },
+  { name: 'Prioritized Action Roadmap', kind: 'list' },
 ];
 
 export default function Deliverables() {

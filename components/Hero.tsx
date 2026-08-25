@@ -97,8 +97,8 @@ function HeroDashboard() {
           <div className="rounded-2xl border border-blue/25 bg-blue/[0.06] p-4">
             <p className="text-[10px] font-semibold uppercase tracking-wider text-blue">Action roadmap</p>
             <div className="mt-2 space-y-1.5 text-[11px] text-white/70">
-              {[['0-30', 'Fix entity profiles'], ['30-60', 'Add comparison pages'], ['60-90', 'Re-test and monitor']].map(([d, t]) => (
-                <div key={d} className="flex items-center gap-2"><span className="inline-flex w-12 flex-none justify-center rounded-full bg-blue/15 py-0.5 text-[9px] font-semibold text-blue">{d}</span>{t}</div>
+              {[['Priority 1', 'Fix entity profiles'], ['Priority 2', 'Add comparison pages'], ['Priority 3', 'Re-test and monitor']].map(([d, t]) => (
+                <div key={d} className="flex items-center gap-2"><span className="inline-flex w-16 flex-none justify-center rounded-full bg-blue/15 py-0.5 text-[9px] font-semibold text-blue">{d}</span>{t}</div>
               ))}
             </div>
           </div>
