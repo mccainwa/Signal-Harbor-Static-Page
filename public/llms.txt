@@ -1,0 +1,41 @@
+# Signal Harbor
+
+> Signal Harbor is an AI visibility intelligence and GEO services company. It tests the questions buyers ask AI platforms, measures how AI systems describe, compare, and recommend companies, identifies where a company is missing or misrepresented, and turns the findings into a clear executive scorecard and action plan.
+
+This file is an experimental supplement for systems that choose to read it. It is not a ranking mechanism and does not control any AI system. It states only what the public site states: no statistics, no customer claims, and no outcome promises.
+
+## What Signal Harbor does
+
+- Tests realistic buyer questions across selected AI platforms, repeatedly, because a single answer is not a stable result
+- Measures visibility, recommendations, brand accuracy, competitor appearance, answer consistency, and the sources shaping answers
+- Flags unsupported, outdated, or incorrect AI claims about a company
+- Delivers an executive scorecard and a prioritized action roadmap
+- Offers implementation support and ongoing monitoring as separate paid engagements
+
+## The offer structure
+
+- The introductory call is free.
+- Booking the call includes a complimentary AI Visibility Snapshot: a brief preview of how AI platforms currently describe and recommend the company.
+- The AI Visibility Audit is a separate, comprehensive, paid engagement. Optimization sprints, retainers, and implementation support are also paid.
+
+## Key definitions
+
+- AI visibility: how often, how accurately, and how favorably AI platforms present a company when buyers ask them to compare options or recommend providers
+- Generative Engine Optimization (GEO): the practice of improving how generative AI systems describe and recommend a company in the answers they produce
+- Answer Engine Optimization (AEO): the practice of structuring content so systems that return direct answers can find, interpret, and reuse it accurately
+
+## Pages
+
+- [Home](https://signalharborai.com/): what Signal Harbor does and why AI visibility matters
+- [What is AI visibility?](https://signalharborai.com/ai-visibility/): definitions of AI visibility, GEO, and AEO, the ways AI answers go wrong, and what to do about inaccurate answers
+- [Complimentary Snapshot](https://signalharborai.com/snapshot/): what the complimentary AI Visibility Snapshot includes and how to receive it
+- [Services](https://signalharborai.com/services/): the audit, optimization sprint, monitoring retainer, and implementation models
+- [What we measure](https://signalharborai.com/platform/): visibility scoring, competitor tracking, source mapping, and accuracy review
+- [Methodology](https://signalharborai.com/methodology/): how measurement works and why repeated testing matters
+- [Research basis](https://signalharborai.com/research/): the external references that inform the methodology
+- [FAQ](https://signalharborai.com/faq/): common questions, including the Snapshot and audit distinction
+- [About](https://signalharborai.com/about/): the company and how to reach it
+
+## Boundaries
+
+Signal Harbor measures observable AI visibility signals across selected platforms and prompt sets. Results can vary by model, location, account state, prompt wording, source availability, and time. Signal Harbor does not guarantee placement, ranking, recommendation, or sales outcomes.

@@ -1,6 +1,6 @@
 import Section from './Section';
 import CTAButton from './CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 
 const docs = [
   'Executive Scorecard',
@@ -44,8 +44,8 @@ export default function OutcomesStack() {
           <p className="eyebrow mb-3">Deliverables</p>
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">What you get.</h2>
           <p className="mt-4 text-lg leading-relaxed text-white/70">
-            Executive-ready outputs — built for decisions and execution, not raw
-            model dumps.
+            Executive-ready outputs, built for decisions and execution. Every
+            finding stays tied to the prompts and sources behind it.
           </p>
           <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
             {docs.map((d) => (
@@ -55,7 +55,7 @@ export default function OutcomesStack() {
               </li>
             ))}
           </ul>
-          <div className="mt-8"><CTAButton href={SITE.bookingUrl} variant="primary">Book a Diagnostic Call</CTAButton></div>
+          <div className="mt-8"><CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton></div>
         </div>
         <ReportStack />
       </div>

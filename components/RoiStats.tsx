@@ -16,10 +16,10 @@ export default function RoiStats() {
         <SectionHeading
           eyebrow="The stakes"
           title="AI is already shaping buyer shortlists."
-          intro="Buyers increasingly decide who to consider inside AI answers — long before they reach your site or sales team."
+          intro="Buyers increasingly decide who to consider inside AI answers, long before they reach your site or sales team."
         />
         <p className="max-w-xs text-xs leading-relaxed text-white/40">
-          Third-party industry research — not Signal Harbor performance claims or client results.
+          Third-party industry research. These are not Signal Harbor performance claims or client results.
         </p>
       </div>
 

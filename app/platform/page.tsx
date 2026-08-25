@@ -5,11 +5,13 @@ import MeasureShowcase from '@/components/MeasureShowcase';
 import ProductTour from '@/components/ProductTour';
 import Deliverables from '@/components/Deliverables';
 import CTAButton from '@/components/CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Platform — What We Measure | Signal Harbor',
-  description: 'The Signal Harbor intelligence layer: visibility scoring, competitor tracking, source mapping, accuracy review, and an action roadmap.',
+  title: 'What We Measure',
+  description:
+    'The Signal Harbor intelligence layer: visibility scoring, competitor tracking, source mapping, accuracy review, and an action roadmap.',
+  alternates: { canonical: '/platform/' },
 };
 
 export default function PlatformPage() {
@@ -22,12 +24,12 @@ export default function PlatformPage() {
           <div className="container-x relative py-16 sm:py-20">
             <div className="max-w-3xl">
               <p className="eyebrow mb-3">Platform</p>
-              <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Where SEO stops, AI visibility begins.</h1>
+              <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">What Signal Harbor measures.</h1>
               <p className="mt-5 text-lg leading-relaxed text-white/75">
-                One connected intelligence layer — from the prompts we test to the
-                actions you take.
+                One connected intelligence layer, from the prompts we test to
+                the actions you take.
               </p>
-              <div className="mt-7"><CTAButton href={SITE.bookingUrl} variant="primary">Book a Diagnostic Call</CTAButton></div>
+              <div className="mt-7"><CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton></div>
             </div>
           </div>
         </section>

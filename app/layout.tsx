@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Sora, DM_Sans } from 'next/font/google';
+import { SITE } from '@/lib/site';
 import './globals.css';
 
 const sora = Sora({
@@ -17,10 +18,14 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Signal Harbor | AI Visibility Intelligence & GEO Services',
+  title: {
+    default: 'Understand and Improve How AI Recommends Your Company | Signal Harbor',
+    template: '%s | Signal Harbor',
+  },
   description:
-    'Signal Harbor helps companies measure, verify, and improve how they appear across AI-generated answers, citations, source ecosystems, and modern buyer research workflows.',
-  metadataBase: new URL('https://signalharborconsulting.com'),
+    'Signal Harbor tests the questions buyers ask AI platforms, identifies where your company is missing or misrepresented, and turns the findings into a clear plan.',
+  metadataBase: new URL(SITE.url),
+  alternates: { canonical: '/' },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
@@ -30,11 +35,51 @@ export const metadata: Metadata = {
     apple: '/apple-icon.png',
   },
   openGraph: {
-    title: 'Signal Harbor — Make your company visible where buyers now ask',
+    siteName: 'Signal Harbor',
+    title: 'Understand and improve how AI recommends your company',
     description:
-      'AI visibility intelligence and GEO services. We measure how ChatGPT, Perplexity, Gemini, Copilot, and Grok describe, cite, compare, and recommend companies — then turn it into a practical action plan.',
+      'Signal Harbor tests the questions buyers ask AI platforms, identifies where your company is missing or misrepresented, and turns the findings into a clear plan.',
+    url: '/',
     type: 'website',
   },
+  twitter: {
+    card: 'summary',
+    title: 'Understand and improve how AI recommends your company',
+    description:
+      'Signal Harbor tests realistic buyer questions across AI platforms and turns the findings into a clear executive scorecard and plan.',
+  },
+};
+
+/**
+ * Sitewide structured data. Only facts that are visible on the site: the
+ * organization, its logo, its contact email, and the site itself. No ratings,
+ * reviews, customers, results, or locations are claimed.
+ */
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE.url}/#organization`,
+      name: SITE.name,
+      url: `${SITE.url}/`,
+      email: SITE.email,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE.url}/signal-harbor-logo.png`,
+      },
+      description:
+        'Signal Harbor tests the questions buyers ask AI platforms, measures how AI systems describe, compare, and recommend companies, and turns the findings into a clear executive scorecard and plan.',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE.url}/#website`,
+      name: SITE.name,
+      url: `${SITE.url}/`,
+      publisher: { '@id': `${SITE.url}/#organization` },
+      inLanguage: 'en',
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -44,7 +89,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${sora.variable} ${dmSans.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLd) }}
+        />
+      </body>
     </html>
   );
 }

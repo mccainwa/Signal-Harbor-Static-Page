@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import CTAButton from './CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 
 type Item = { label: string; href: string };
 type Menu = { label: string; items: Item[] };
@@ -12,6 +12,7 @@ const menus: Menu[] = [
   {
     label: 'Services',
     items: [
+      { label: 'Complimentary Snapshot', href: '/snapshot' },
       { label: 'AI Visibility Diagnostic', href: '/services#diagnostic' },
       { label: 'GEO Strategy Sprint', href: '/services#geo-sprint' },
       { label: 'Accuracy & Source Review', href: '/services#accuracy' },
@@ -31,9 +32,9 @@ const menus: Menu[] = [
   {
     label: 'Resources',
     items: [
+      { label: 'What Is AI Visibility?', href: '/ai-visibility' },
       { label: 'Research', href: '/research' },
       { label: 'FAQ', href: '/faq' },
-      { label: 'AI Visibility Guide', href: '/methodology' },
       { label: 'Privacy', href: '/privacy' },
       { label: 'Terms', href: '/terms' },
     ],
@@ -49,10 +50,11 @@ const menus: Menu[] = [
 
 function BrandLockup() {
   return (
-    <Link href="/" className="inline-flex items-center gap-3" aria-label="Signal Harbor — home">
+    <Link href="/" className="inline-flex items-center gap-3" aria-label="Signal Harbor home">
       <span className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-lg bg-white ring-1 ring-white/15">
-        {/* Small cropped lighthouse mark — plain img for guaranteed static-export display. */}
-        <img src="/sh-mark.png" alt="Signal Harbor" width={36} height={36} className="h-full w-full object-cover" />
+        {/* Small cropped lighthouse mark — plain img for guaranteed static-export display.
+            Decorative: the link's aria-label and the wordmark carry the name. */}
+        <img src="/sh-mark.png" alt="" width={36} height={36} className="h-full w-full object-cover" />
       </span>
       <span className="font-sora text-lg font-bold tracking-tight text-white">Signal Harbor</span>
     </Link>
@@ -89,7 +91,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:block">
-          <CTAButton href={SITE.bookingUrl}>Book a Call</CTAButton>
+          <CTAButton href={SITE.bookingUrl}>{CTA.short}</CTAButton>
         </div>
 
         <button type="button" className="inline-flex items-center justify-center rounded-md p-2 text-white lg:hidden" aria-expanded={open} aria-label="Toggle navigation menu" onClick={() => setOpen((v) => !v)}>
@@ -115,7 +117,7 @@ export default function Header() {
                 </div>
               </div>
             ))}
-            <CTAButton href={SITE.bookingUrl} className="w-full">Book a Call</CTAButton>
+            <CTAButton href={SITE.bookingUrl} className="w-full">{CTA.short}</CTAButton>
           </nav>
         </div>
       )}

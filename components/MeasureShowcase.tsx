@@ -1,6 +1,6 @@
 import Section, { SectionHeading } from './Section';
 import CTAButton from './CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 
 export default function MeasureShowcase() {
   return (
@@ -8,7 +8,7 @@ export default function MeasureShowcase() {
       <SectionHeading
         eyebrow="Measurement"
         title="Measure what AI is really saying."
-        intro="One connected view — from the prompts we test to the actions you take."
+        intro="One connected view, from the prompts we test to the actions you take. Sample data shown for illustration."
       />
 
       <div className="mt-12 grid gap-5 lg:grid-cols-3">
@@ -78,7 +78,7 @@ export default function MeasureShowcase() {
         <div className="card-dark rounded-2xl border border-white/12 p-6">
           <p className="text-xs font-semibold uppercase tracking-wider text-white/55">30/60/90 action roadmap</p>
           <div className="mt-3 space-y-2.5">
-            {[['0–30', 'Fix entity profiles & top claims'], ['30–60', 'Add comparison pages, strengthen sources'], ['60–90', 'Re-test, monitor drift, expand coverage']].map(([d, t]) => (
+            {[['0-30', 'Fix entity profiles and top claims'], ['30-60', 'Add comparison pages, strengthen sources'], ['60-90', 'Re-test, monitor drift, expand coverage']].map(([d, t]) => (
               <div key={d} className="flex items-center gap-3">
                 <span className="inline-flex w-14 flex-none justify-center rounded-full border border-blue/30 bg-blue/10 py-1 text-[11px] font-semibold text-blue">{d}</span>
                 <span className="text-sm text-white/75">{t}</span>
@@ -89,7 +89,7 @@ export default function MeasureShowcase() {
       </div>
 
       <div className="mt-10">
-        <CTAButton href={SITE.bookingUrl} variant="primary">Book a Diagnostic Call</CTAButton>
+        <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
       </div>
     </Section>
   );

@@ -3,8 +3,9 @@ import LegalLayout from '@/components/LegalLayout';
 import { SITE } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Signal Harbor',
+  title: 'Privacy Policy',
   description: 'How Signal Harbor handles information collected through this website.',
+  alternates: { canonical: '/privacy/' },
 };
 
 export default function PrivacyPage() {
@@ -12,7 +13,7 @@ export default function PrivacyPage() {
     <LegalLayout title="Privacy Policy">
       <p>
         Signal Harbor is an AI visibility intelligence and GEO services company
-        operating the website at signalharborconsulting.com. This notice
+        operating the website at signalharborai.com. This notice
         explains what information may be collected through the website and how it
         is used.
       </p>

@@ -4,15 +4,17 @@ import Footer from '@/components/Footer';
 import Section from '@/components/Section';
 
 export const metadata: Metadata = {
-  title: 'Research Basis | Signal Harbor',
-  description: 'External references and research that inform Signal Harbor’s AI visibility methodology.',
+  title: 'Research Basis',
+  description:
+    'External references and research that inform the Signal Harbor AI visibility methodology, from platform guidance to peer-reviewed measurement work.',
+  alternates: { canonical: '/research/' },
 };
 
 const refs = [
   { cat: 'Platform guidance', title: 'AI features and your website', src: 'Google Search Central', note: 'Guidance for site owners on how AI search features use and surface web content.', href: 'https://developers.google.com/search/docs/appearance/ai-features' },
   { cat: 'Structured data', title: 'Structured data & schema documentation', src: 'Schema.org', note: 'Standards that make pages machine-readable so systems understand entities clearly.', href: 'https://schema.org/' },
   { cat: 'Buyer behavior', title: '73% of B2B buyers use AI tools in purchase research', src: 'Loganix / PRNewswire, 2026', note: 'Multi-source analysis on AI search adoption and reported AI-search conversion vs. Google organic.', href: 'https://www.prnewswire.com/news-releases/73-of-b2b-buyers-use-ai-tools-in-purchase-research-multi-source-analysis-finds-302733319.html' },
-  { cat: 'Buyer behavior', title: 'Half of B2B software buyers start in an AI chatbot', src: 'G2 — “The Answer Economy,” 2026', note: 'Survey reporting AI chatbots increasingly influencing software research and vendor shortlists.', href: 'https://www.prnewswire.com/news-releases/new-g2-research-half-of-b2b-software-buyers-now-start-their-research-with-ai-chatbots-302742807.html' },
+  { cat: 'Buyer behavior', title: 'Half of B2B software buyers start in an AI chatbot', src: 'G2, "The Answer Economy," 2026', note: 'Survey reporting AI chatbots increasingly influencing software research and vendor shortlists.', href: 'https://www.prnewswire.com/news-releases/new-g2-research-half-of-b2b-software-buyers-now-start-their-research-with-ai-chatbots-302742807.html' },
   { cat: 'Research', title: 'From Citation Selection to Citation Absorption', src: 'arXiv, 2026', note: 'A framework distinguishing being cited from actually influencing the generated answer.', href: 'https://arxiv.org/abs/2604.25707' },
   { cat: 'Research', title: 'Measuring Google AI Overviews', src: 'arXiv, 2026', note: 'On source-selection differences and unsupported-claim risk in AI-generated answers.', href: 'https://arxiv.org/abs/2605.14021' },
 ];

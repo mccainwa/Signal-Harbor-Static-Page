@@ -1,12 +1,12 @@
 import Section, { SectionHeading } from './Section';
 import CTAButton from './CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 
 const packages = [
-  { name: 'AI Visibility Snapshot', best: 'Small or early-stage prospects', scope: 'A limited prompt set across one or two engines with a short report — a fast way to see whether AI systems understand your brand.' },
-  { name: 'GEO Diagnostic Pilot', best: 'Growth-stage and B2B companies', scope: 'A full prompt set, multi-engine measurement, source map, accuracy review, and action roadmap — a bounded diagnostic that reveals where your brand is visible, missing, or misrepresented.' },
-  { name: 'Optimization Sprint', best: 'Clients ready to improve after diagnosis', scope: 'Content briefs, source fixes, structured-data guidance, messaging cleanup, and a re-audit — a practical sprint to improve the signals AI systems rely on.' },
-  { name: 'Ongoing Intelligence Retainer', best: 'Companies that want continuous monitoring', scope: 'Monthly reporting, prompt tracking, competitor movement, hallucination alerts, and quarterly reviews — an always-on visibility layer for AI-era search.' },
+  { name: 'AI Visibility Snapshot', best: 'Any company starting out', scope: 'Complimentary when you book an introductory call. A limited prompt set across one or two engines with a short summary that shows how AI platforms currently describe and recommend your brand.' },
+  { name: 'AI Visibility Audit', best: 'Growth-stage and B2B companies', scope: 'The comprehensive paid engagement: a full prompt set, multi-engine measurement, source map, accuracy review, and action roadmap that reveals where your brand is visible, missing, or misrepresented.' },
+  { name: 'Optimization Sprint', best: 'Clients ready to improve after the audit', scope: 'A paid engagement covering content briefs, source fixes, structured-data guidance, messaging cleanup, and a re-audit to improve the signals AI systems rely on.' },
+  { name: 'Ongoing Intelligence Retainer', best: 'Companies that want continuous monitoring', scope: 'A paid engagement with monthly reporting, prompt tracking, competitor movement, hallucination alerts, and quarterly reviews.' },
 ];
 
 export default function Pricing() {
@@ -15,7 +15,7 @@ export default function Pricing() {
       <SectionHeading
         eyebrow="Packages"
         title="Packaged around outcomes and scope."
-        intro="Most engagements start with a diagnostic before implementation or monitoring. Each package can stand alone or lead into the next."
+        intro="Every engagement starts with an introductory call and a complimentary Snapshot. The audit, sprint, and retainer are paid engagements that can stand alone or lead into the next."
       />
       <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {packages.map((p) => (
@@ -30,9 +30,10 @@ export default function Pricing() {
         <p className="max-w-2xl text-[15px] leading-relaxed text-white/70">
           Pricing depends on prompt volume, the number of engines tested,
           reporting depth, implementation scope, and whether ongoing monitoring
-          is included. We scope it on a diagnostic call.
+          is included. We scope it on the introductory call, which is free and
+          includes your complimentary Snapshot.
         </p>
-        <CTAButton href={SITE.bookingUrl} variant="primary" className="flex-none">Book a Diagnostic Call</CTAButton>
+        <CTAButton href={SITE.bookingUrl} variant="primary" className="flex-none">{CTA.primary}</CTAButton>
       </div>
     </Section>
   );

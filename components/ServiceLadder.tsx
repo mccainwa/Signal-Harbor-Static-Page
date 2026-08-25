@@ -1,8 +1,8 @@
 import Section, { SectionHeading } from './Section';
 
 const stages = [
-  { stage: '01', name: 'Diagnostic Pilot', length: '14–30 days', purpose: 'Measure baseline and identify priority gaps.' },
-  { stage: '02', name: 'Optimization Sprint', length: '30–60 days', purpose: 'Implement the highest-leverage fixes.' },
+  { stage: '01', name: 'AI Visibility Audit', length: '14 to 30 days', purpose: 'Measure baseline and identify priority gaps.' },
+  { stage: '02', name: 'Optimization Sprint', length: '30 to 60 days', purpose: 'Implement the highest-leverage fixes.' },
   { stage: '03', name: 'Monitoring Retainer', length: 'Monthly', purpose: 'Track movement, detect drift, and guide ongoing work.' },
   { stage: '04', name: 'Enterprise Intelligence Layer', length: 'Quarterly or annual', purpose: 'Integrate reporting with marketing, content, SEO, and leadership workflows.' },
 ];
@@ -12,8 +12,8 @@ export default function ServiceLadder() {
     <Section tone="navy" id="service-ladder">
       <SectionHeading
         eyebrow="Engagement Path"
-        title="A clear ladder from diagnostic to ongoing intelligence."
-        intro="Most engagements start with a diagnostic pilot before implementation or monitoring."
+        title="A clear ladder from audit to ongoing intelligence."
+        intro="Most engagements start with the audit before implementation or monitoring. The introductory call and Snapshot come first and are complimentary."
       />
       <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {stages.map((s) => (

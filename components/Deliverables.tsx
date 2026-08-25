@@ -44,7 +44,7 @@ export default function Deliverables() {
       <SectionHeading
         eyebrow="Deliverables"
         title="A stack of executive-ready artifacts."
-        intro="Built for decisions and execution — not raw model dumps."
+        intro="Built for decisions and execution, with every finding tied to the prompts and sources behind it. Previews below use sample data."
       />
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((it) => (

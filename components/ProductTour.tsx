@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Section, { SectionHeading } from './Section';
 import CTAButton from './CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 import { IconRadar, IconRanking, IconMap, IconShield } from './icons';
 
 const tabs = [
@@ -16,7 +16,7 @@ const tabs = [
 type TabId = (typeof tabs)[number]['id'];
 
 const blurbs: Record<TabId, { title: string; body: string }> = {
-  visibility: { title: 'Are you mentioned at all?', body: 'See your AI visibility score, mention share, and which prompt categories include you — and which leave you out.' },
+  visibility: { title: 'Are you mentioned at all?', body: 'See your AI visibility score, mention share, and which prompt categories include you and which leave you out.' },
   competitors: { title: 'Who gets recommended instead?', body: 'Track where competitors appear and you do not, across the same buyer prompts and engines.' },
   sources: { title: 'What does AI actually cite?', body: 'Map the owned, earned, review, directory, and competitor sources shaping the answer.' },
   accuracy: { title: 'What is wrong or outdated?', body: 'Surface unsupported or outdated claims, ranked by correction priority.' },
@@ -98,7 +98,7 @@ export default function ProductTour() {
               </button>
             );
           })}
-          <div className="mt-2"><CTAButton href={SITE.bookingUrl} variant="primary" className="w-full">Book a Diagnostic Call</CTAButton></div>
+          <div className="mt-2"><CTAButton href={SITE.bookingUrl} variant="primary" className="w-full">{CTA.primary}</CTAButton></div>
         </div>
 
         {/* Panel */}

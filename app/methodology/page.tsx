@@ -5,11 +5,13 @@ import Footer from '@/components/Footer';
 import Measurement from '@/components/Measurement';
 import Deliverables from '@/components/Deliverables';
 import CTAButton from '@/components/CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Methodology | Signal Harbor',
-  description: 'How the AI visibility diagnostic works, what we measure, why repeated testing matters, and what you receive.',
+  title: 'Methodology',
+  description:
+    'How Signal Harbor measures AI visibility: prompt design, repeated testing, source classification, claim verification, and what you receive.',
+  alternates: { canonical: '/methodology/' },
 };
 
 const steps = [
@@ -32,11 +34,12 @@ export default function MethodologyPage() {
           <div className="container-x relative py-16 sm:py-20">
             <div className="max-w-3xl">
               <p className="eyebrow mb-3">Methodology</p>
-              <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Test patterns, not screenshots.</h1>
+              <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">How Signal Harbor measures AI visibility.</h1>
               <p className="mt-5 text-lg leading-relaxed text-white/75">
-                AI answers change over time, so a single snapshot is not enough. We
-                run structured, repeated diagnostics, classify the sources shaping
-                answers, verify claims, and translate findings into a practical plan.
+                AI answers change over time, so a single screenshot is not
+                enough. We run structured, repeated measurements, classify the
+                sources shaping answers, verify claims, and translate findings
+                into a practical plan.
               </p>
             </div>
           </div>
@@ -61,12 +64,12 @@ export default function MethodologyPage() {
         <section className="container-x py-16 sm:py-20">
           <div className="flex flex-col gap-4 rounded-3xl border border-blue/25 bg-blue/[0.06] p-8 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-white">Built on research, not guesswork.</h2>
+              <h2 className="text-2xl font-bold text-white">The research behind the method.</h2>
               <p className="mt-2 max-w-xl text-[15px] text-white/65">See the external references that inform how we test and measure.</p>
             </div>
             <div className="flex flex-none gap-3">
               <Link href="/research" className="inline-flex items-center rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:border-blue/50">View research basis</Link>
-              <CTAButton href={SITE.bookingUrl} variant="primary">Book a Call</CTAButton>
+              <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
             </div>
           </div>
         </section>

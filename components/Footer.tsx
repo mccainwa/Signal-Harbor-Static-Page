@@ -1,20 +1,23 @@
 import Link from 'next/link';
 import Logo from './Logo';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 
 const columns = [
   {
     heading: 'Explore',
     links: [
-      { label: 'Services', href: '/#services' },
-      { label: 'Methodology', href: '/#methodology' },
-      { label: 'Use Cases', href: '/#use-cases' },
-      { label: 'Packages', href: '/#pricing' },
+      { label: 'Services', href: '/services' },
+      { label: 'Platform', href: '/platform' },
+      { label: 'Methodology', href: '/methodology' },
+      { label: 'What Is AI Visibility?', href: '/ai-visibility' },
+      { label: 'Research', href: '/research' },
+      { label: 'FAQ', href: '/faq' },
     ],
   },
   {
     heading: 'Company',
     links: [
+      { label: 'About', href: '/about' },
       { label: 'Privacy', href: '/privacy' },
       { label: 'Terms', href: '/terms' },
       { label: 'Contact', href: '/#contact' },
@@ -22,7 +25,10 @@ const columns = [
   },
   {
     heading: 'Get started',
-    links: [{ label: 'Book a Call', href: SITE.bookingUrl }],
+    links: [
+      { label: 'Complimentary Snapshot', href: '/snapshot' },
+      { label: CTA.short, href: SITE.bookingUrl },
+    ],
   },
 ];
 
@@ -73,7 +79,7 @@ export default function Footer() {
         </p>
 
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:flex-row">
-          <p className="text-xs text-white/45">© 2026 Signal Harbor. signalharborconsulting.com</p>
+          <p className="text-xs text-white/45">© 2026 Signal Harbor. {SITE.domain}</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="text-xs text-white/45 hover:text-white">Privacy</Link>
             <Link href="/terms" className="text-xs text-white/45 hover:text-white">Terms</Link>

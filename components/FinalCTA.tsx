@@ -1,5 +1,5 @@
 import CTAButton from './CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 
 export default function FinalCTA() {
   return (
@@ -13,16 +13,17 @@ export default function FinalCTA() {
           />
           <div className="relative">
             <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Find out what AI says before buyers rely on it.
+              Get a complimentary AI Visibility Snapshot.
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-white/70">
-              Book a diagnostic call to see where your company appears, where
-              competitors show up, and what needs to be fixed.
+              {CTA.supporting} On the call, we walk through it and agree whether
+              a full audit is worth doing.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <CTAButton href={SITE.bookingUrl} variant="primary">Book a Diagnostic Call</CTAButton>
+              <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
               <CTAButton href={SITE.mailto} variant="secondary">Email Signal Harbor</CTAButton>
             </div>
+            <p className="mx-auto mt-6 max-w-2xl text-sm text-white/45">{CTA.boundary}</p>
           </div>
         </div>
       </div>

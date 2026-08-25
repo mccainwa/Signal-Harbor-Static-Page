@@ -1,5 +1,5 @@
 import CTAButton from './CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 
 function Gauge({ score }: { score: number }) {
   const r = 46;
@@ -46,7 +46,7 @@ function HeroDashboard() {
             <span className="grid h-6 w-6 place-items-center rounded-md bg-blue/20 text-blue"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
             <span className="text-sm font-semibold text-white">Command Center</span>
           </div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#34d399]/10 px-2.5 py-1 text-[11px] font-semibold text-[#34d399]"><span className="h-1.5 w-1.5 rounded-full bg-[#34d399]" />Live · +11 pts</span>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.06] px-2.5 py-1 text-[11px] font-semibold text-white/55"><span className="h-1.5 w-1.5 rounded-full bg-blue" />Sample data</span>
         </div>
 
         <div className="grid gap-3 p-4 sm:grid-cols-2">
@@ -97,7 +97,7 @@ function HeroDashboard() {
           <div className="rounded-2xl border border-blue/25 bg-blue/[0.06] p-4">
             <p className="text-[10px] font-semibold uppercase tracking-wider text-blue">Action roadmap</p>
             <div className="mt-2 space-y-1.5 text-[11px] text-white/70">
-              {[['0–30', 'Fix entity profiles'], ['30–60', 'Add comparison pages'], ['60–90', 'Re-test & monitor']].map(([d, t]) => (
+              {[['0-30', 'Fix entity profiles'], ['30-60', 'Add comparison pages'], ['60-90', 'Re-test and monitor']].map(([d, t]) => (
                 <div key={d} className="flex items-center gap-2"><span className="inline-flex w-12 flex-none justify-center rounded-full bg-blue/15 py-0.5 text-[9px] font-semibold text-blue">{d}</span>{t}</div>
               ))}
             </div>
@@ -126,12 +126,12 @@ export default function Hero() {
         <div>
           <p className="eyebrow mb-4">AI Visibility Intelligence &amp; GEO Services</p>
           <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-[3.1rem]">
-            Own your visibility in AI search before your competitors do.
+            Understand and improve how AI recommends your company.
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/75">
-            Signal Harbor shows whether AI systems mention your company, recommend
-            competitors instead, cite the right sources, or describe you
-            incorrectly — then turns those findings into a practical action plan.
+            Signal Harbor tests the questions buyers ask AI platforms, identifies
+            where your company is missing or misrepresented, and turns the
+            findings into a clear plan.
           </p>
           <p className="mt-3 text-[15px] text-white/55">
             Built for companies that depend on being found, compared, trusted, and chosen.
@@ -146,11 +146,12 @@ export default function Hero() {
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <CTAButton href={SITE.bookingUrl} variant="primary">Book a Diagnostic Call</CTAButton>
+            <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
             <CTAButton href="#tour" variant="secondary">See What We Measure</CTAButton>
           </div>
 
-          <p className="mt-6 text-sm text-white/55">
+          <p className="mt-4 max-w-xl text-sm text-white/55">{CTA.supporting}</p>
+          <p className="mt-3 text-sm text-white/45">
             Tested across ChatGPT, Claude, Perplexity, Gemini, Copilot &amp; Grok
           </p>
         </div>

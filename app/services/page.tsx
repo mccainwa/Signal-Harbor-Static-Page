@@ -6,11 +6,13 @@ import ServiceLadder from '@/components/ServiceLadder';
 import Pricing from '@/components/Pricing';
 import ImplementationModel from '@/components/ImplementationModel';
 import CTAButton from '@/components/CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Services | Signal Harbor',
-  description: 'AI visibility diagnostics, GEO strategy, citation mapping, accuracy review, vendor accountability, optimization, and ongoing monitoring.',
+  title: 'Services',
+  description:
+    'AI visibility audits, GEO strategy, citation mapping, accuracy review, vendor accountability, optimization, and ongoing monitoring.',
+  alternates: { canonical: '/services/' },
 };
 
 const services = [
@@ -31,9 +33,9 @@ export default function ServicesPage() {
         <Section tone="navy" id="services-top">
           <div className="max-w-2xl">
             <p className="eyebrow mb-3">Services</p>
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Where SEO stops, AI visibility begins.</h1>
-            <p className="mt-5 text-lg leading-relaxed text-white/75">Each service can stand alone, but the strongest path is diagnostic first, implementation second, monitoring third.</p>
-            <div className="mt-7"><CTAButton href={SITE.bookingUrl} variant="primary">Book a Diagnostic Call</CTAButton></div>
+            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">AI visibility services.</h1>
+            <p className="mt-5 text-lg leading-relaxed text-white/75">Each service can stand alone, but the strongest path is audit first, implementation second, monitoring third.</p>
+            <div className="mt-7"><CTAButton href={SITE.bookingUrl} variant="primary">{CTA.audit}</CTAButton></div>
           </div>
           <div className="mt-12 grid gap-5 md:grid-cols-2">
             {services.map((s, i) => (
