@@ -20,7 +20,7 @@ export default function ImplementationModel() {
         {models.map((m) => (
           <div key={m.t} className="card-light lift accent-top flex flex-col">
             <h3 className="text-lg font-bold text-navy">{m.t}</h3>
-            <p className="mt-3 text-sm text-navy/55"><span className="font-semibold text-navy/80">Best for:</span> {m.best}</p>
+            <p className="mt-3 text-sm text-navy/70"><span className="font-semibold text-navy/80">Best for:</span> {m.best}</p>
             <p className="mt-3 flex-1 text-[15px] leading-relaxed text-navy/65">{m.role}</p>
           </div>
         ))}

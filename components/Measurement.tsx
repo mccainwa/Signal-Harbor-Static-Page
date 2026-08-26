@@ -20,7 +20,7 @@ export default function Measurement() {
       <SectionHeading
         eyebrow="Measurement"
         title="Clear metrics, tied to action."
-        intro="We report the signals that influence AI answer visibility in terms executives can act on."
+        intro="We report the signals that influence AI answer visibility in terms executives can act on. The values below are sample data for illustration, not client results."
       />
 
       <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_1.3fr]">
@@ -29,8 +29,8 @@ export default function Measurement() {
           <p className="text-xs font-semibold uppercase tracking-wider text-white/55">AI visibility score</p>
           <div className="mt-2 flex items-end gap-3">
             <CountUp to={68} className="font-sora text-6xl font-extrabold leading-none text-white" />
-            <span className="mb-1 text-sm text-white/45">/ 100</span>
-            <span className="mb-1.5 ml-auto inline-flex items-center gap-1 rounded-full bg-blue/10 px-2.5 py-1 text-xs font-semibold text-blue">▲ +9 since last audit</span>
+            <span className="mb-1 text-sm text-white/55">/ 100</span>
+            <span className="mb-1.5 ml-auto inline-flex items-center gap-1 rounded-full bg-blue/10 px-2.5 py-1 text-xs font-semibold text-blue">▲ +9 pts (sample)</span>
           </div>
           <svg viewBox="0 0 280 90" className="mt-5 w-full" aria-hidden="true">
             <defs>
@@ -42,7 +42,7 @@ export default function Measurement() {
             <polyline points="0,66 46,58 92,62 138,46 184,48 230,34 280,28" fill="none" stroke="#00C2FF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
             <polygon points="0,66 46,58 92,62 138,46 184,48 230,34 280,28 280,90 0,90" fill="url(#mtrend)" />
           </svg>
-          <p className="mt-2 text-sm text-white/55">Trending up across the last six re-audits.</p>
+          <p className="mt-2 text-sm text-white/55">Illustrative trend across repeated re-audits.</p>
         </div>
 
         {/* Metric bars + stat chips */}
@@ -70,9 +70,9 @@ export default function Measurement() {
         </div>
       </div>
 
-      <p className="mt-6 text-sm leading-relaxed text-white/45">
-        AI visibility is measurable and influenceable, not fully controllable —
-        results vary by model, prompt wording, location, source availability, and time.
+      <p className="mt-6 text-sm leading-relaxed text-white/55">
+        AI visibility is measurable and influenceable, not fully controllable.
+        Results vary by model, prompt wording, location, source availability, and time.
       </p>
     </Section>
   );

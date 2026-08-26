@@ -1,4 +1,4 @@
-type Tone = 'navy' | 'navy-deep' | 'light';
+type Tone = 'navy' | 'navy-deep' | 'light' | 'ice';
 
 type SectionProps = {
   children: React.ReactNode;
@@ -10,12 +10,15 @@ type SectionProps = {
 const tones: Record<Tone, string> = {
   navy: 'bg-navy text-off-white',
   'navy-deep': 'bg-navy-deep text-off-white',
-  light: 'bg-off-white text-navy',
+  /* Light-first system: "light" is the white canvas, "ice" the pale blue band. */
+  light: 'bg-white text-navy',
+  ice: 'bg-ice text-navy',
 };
 
 /**
  * Page section wrapper: controls background tone and consistent vertical
- * rhythm. Alternate tones down the page (dark = authority, light = readability).
+ * rhythm. Light-first: white and pale blue carry most content; navy bands
+ * are reserved for product visuals and selected feature sections.
  */
 export default function Section({
   children,
@@ -23,7 +26,7 @@ export default function Section({
   id,
   className = '',
 }: SectionProps) {
-  const dark = tone !== 'light';
+  const dark = tone === 'navy' || tone === 'navy-deep';
   return (
     <section
       id={id}
@@ -55,8 +58,9 @@ export function SectionHeading({
   tone?: Tone;
   align?: 'left' | 'center';
 }) {
-  const muted = tone === 'light' ? 'text-navy/65' : 'text-white/70';
-  const heading = tone === 'light' ? 'text-navy' : 'text-white';
+  const darkTone = tone === 'navy' || tone === 'navy-deep';
+  const muted = darkTone ? 'text-white/70' : 'text-navy/65';
+  const heading = darkTone ? 'text-white' : 'text-navy';
   const alignment = align === 'center' ? 'mx-auto text-center' : '';
   return (
     <div className={`max-w-2xl ${alignment}`}>

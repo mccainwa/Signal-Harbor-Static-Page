@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Section, { SectionHeading } from './Section';
 import CTAButton from './CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 import { IconRadar, IconRanking, IconMap, IconShield } from './icons';
 
 const tabs = [
@@ -16,7 +16,7 @@ const tabs = [
 type TabId = (typeof tabs)[number]['id'];
 
 const blurbs: Record<TabId, { title: string; body: string }> = {
-  visibility: { title: 'Are you mentioned at all?', body: 'See your AI visibility score, mention share, and which prompt categories include you — and which leave you out.' },
+  visibility: { title: 'Are you mentioned at all?', body: 'See your AI visibility score, mention share, and which prompt categories include you and which leave you out.' },
   competitors: { title: 'Who gets recommended instead?', body: 'Track where competitors appear and you do not, across the same buyer prompts and engines.' },
   sources: { title: 'What does AI actually cite?', body: 'Map the owned, earned, review, directory, and competitor sources shaping the answer.' },
   accuracy: { title: 'What is wrong or outdated?', body: 'Surface unsupported or outdated claims, ranked by correction priority.' },
@@ -44,7 +44,7 @@ function Panel({ id }: { id: TabId }) {
         {[['Competitor A', 72], ['Competitor B', 54], ['Competitor C', 47], ['You', 38]].map(([l, w]) => (
           <div key={l as string}><div className="flex justify-between text-[11px] text-white/65"><span>{l}</span><span>{w}%</span></div><div className="mt-1 h-2 overflow-hidden rounded-full bg-white/10"><div className={`h-full rounded-full ${l === 'You' ? 'bg-white/40' : 'bg-blue'}`} style={{ width: `${w}%` }} /></div></div>
         ))}
-        <p className="pt-1 text-xs text-white/45">14 prompts where a competitor appears and you do not.</p>
+        <p className="pt-1 text-xs text-white/55">14 prompts where a competitor appears and you do not.</p>
       </div>
     );
   }
@@ -62,12 +62,12 @@ function Panel({ id }: { id: TabId }) {
   }
   return (
     <div className="space-y-2.5">
-      {[['Outdated pricing claim', 'high', 'text-alert'], ['Unsupported comparison', 'med', 'text-warn'], ['Missing certification', 'low', 'text-white/45']].map(([t, p, c]) => (
+      {[['Outdated pricing claim', 'high', 'text-alert'], ['Unsupported comparison', 'med', 'text-warn'], ['Missing certification', 'low', 'text-white/55']].map(([t, p, c]) => (
         <div key={t} className="flex items-center justify-between rounded-lg border border-white/10 bg-navy/40 px-3 py-2.5 text-sm">
           <span className="text-white/75">{t}</span><span className={`text-[11px] font-semibold uppercase ${c}`}>{p}</span>
         </div>
       ))}
-      <p className="pt-1 text-xs text-white/45">Ranked by correction priority for brand accuracy.</p>
+      <p className="pt-1 text-xs text-white/55">Ranked by correction priority for brand accuracy.</p>
     </div>
   );
 }
@@ -93,12 +93,12 @@ export default function ProductTour() {
                 <span className={`grid h-10 w-10 flex-none place-items-center rounded-xl ${on ? 'bg-blue/20 text-blue' : 'bg-white/5 text-white/60'}`}><Icon size={20} /></span>
                 <span>
                   <span className={`block text-[15px] font-bold ${on ? 'text-white' : 'text-white/80'}`}>{t.label}</span>
-                  <span className="block text-xs text-white/45">{blurbs[t.id].title}</span>
+                  <span className="block text-xs text-white/55">{blurbs[t.id].title}</span>
                 </span>
               </button>
             );
           })}
-          <div className="mt-2"><CTAButton href={SITE.bookingUrl} variant="primary" className="w-full">Book a Diagnostic Call</CTAButton></div>
+          <div className="mt-2"><CTAButton href={SITE.bookingUrl} variant="primary" className="w-full">{CTA.primary}</CTAButton></div>
         </div>
 
         {/* Panel */}

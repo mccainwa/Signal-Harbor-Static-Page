@@ -7,20 +7,27 @@
     scroll-behavior: smooth;
   }
 
+  /* The sticky header is 80px tall; keep anchored content visible below it. */
+  [id] {
+    scroll-margin-top: 100px;
+  }
+
+  /* Light-first: white canvas, navy text. Dark bands opt in explicitly. */
   body {
-    @apply bg-navy text-off-white font-sans antialiased;
+    @apply bg-white text-navy font-sans antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-sora;
   }
 
-  /* Visible focus ring for accessibility */
+  /* Visible focus ring for accessibility (default white ring offset reads
+     clearly on both light and dark surfaces). */
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
   textarea:focus-visible {
-    @apply outline-none ring-2 ring-blue ring-offset-2 ring-offset-navy;
+    @apply outline-none ring-2 ring-[#0369A1] ring-offset-2;
   }
 }
 
@@ -35,6 +42,64 @@
   /* Dark-section card. */
   .card-dark {
     @apply rounded-2xl border border-white/10 bg-navy-panel transition duration-300;
+  }
+
+  /* Typography for sanitized blog article HTML on the white article canvas.
+     The markup comes from content/blog/posts.json with no classes of its
+     own, so all styling lives here. */
+  .prose-sh {
+    /* break-words: imported articles can contain long unbroken URLs as
+       link text, which must wrap instead of overflowing on small screens. */
+    @apply break-words text-[1.0625rem] leading-relaxed text-navy/80;
+  }
+  .prose-sh > * + * {
+    @apply mt-5;
+  }
+  .prose-sh h2 {
+    @apply mt-11 text-2xl font-bold leading-snug text-navy;
+  }
+  .prose-sh h3 {
+    @apply mt-9 text-xl font-bold leading-snug text-navy;
+  }
+  .prose-sh h4 {
+    @apply mt-8 text-lg font-semibold text-navy;
+  }
+  .prose-sh a {
+    @apply font-medium text-[#0369A1] underline decoration-[#0369A1]/40 underline-offset-2 hover:decoration-[#0369A1];
+  }
+  .prose-sh strong,
+  .prose-sh b {
+    @apply font-semibold text-navy;
+  }
+  .prose-sh ul {
+    @apply list-disc space-y-2 pl-6;
+  }
+  .prose-sh ol {
+    @apply list-decimal space-y-2 pl-6;
+  }
+  .prose-sh blockquote {
+    @apply border-l-2 border-[#0369A1]/50 pl-5 italic text-navy/70;
+  }
+  .prose-sh hr {
+    @apply my-10 border-navy/10;
+  }
+  .prose-sh img {
+    @apply mx-auto my-8 h-auto max-w-full rounded-2xl border border-navy/10;
+  }
+  .prose-sh figure {
+    @apply my-8;
+  }
+  .prose-sh figcaption {
+    @apply mt-2 text-center text-sm text-navy/60;
+  }
+  .prose-sh code {
+    @apply rounded bg-navy/[0.06] px-1.5 py-0.5 font-mono text-[0.9em] text-navy;
+  }
+  .prose-sh pre {
+    @apply overflow-x-auto rounded-xl border border-navy/10 bg-navy-panel p-5 text-white/90;
+  }
+  .prose-sh pre code {
+    @apply bg-transparent p-0 text-white/90;
   }
 
   /* Top accent bar that fades in on hover (used on interactive cards). */
@@ -63,17 +128,40 @@
     @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
   }
 
-  /* Consistent section eyebrow */
+  /* Consistent section eyebrow. Light-first: accessible deep blue on light
+     surfaces, brand cyan on dark bands. */
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.18em] text-blue;
+    @apply text-xs font-semibold uppercase tracking-[0.18em];
+    color: #0369a1;
+  }
+  .bg-navy .eyebrow,
+  .bg-navy-deep .eyebrow,
+  .hero-gradient .eyebrow,
+  .ocean-cta .eyebrow {
+    @apply text-blue;
   }
 
-  /* Premium navy gradient for the hero */
+  /* Premium navy gradient (dark product/demo bands). */
   .hero-gradient {
     background:
       radial-gradient(1200px 520px at 78% -12%, rgba(0, 194, 255, 0.16), transparent 60%),
       radial-gradient(900px 500px at 0% 110%, rgba(0, 194, 255, 0.06), transparent 55%),
       linear-gradient(180deg, #0a1628 0%, #081120 100%);
+  }
+
+  /* Light hero: white with soft harbor-light washes. */
+  .hero-light {
+    background:
+      radial-gradient(1100px 480px at 80% -10%, rgba(0, 194, 255, 0.10), transparent 62%),
+      radial-gradient(900px 420px at 8% 108%, rgba(3, 105, 161, 0.07), transparent 58%),
+      linear-gradient(180deg, #ffffff 0%, #f3f9fc 100%);
+  }
+
+  /* Deep ocean gradient for the closing CTA panel. */
+  .ocean-cta {
+    background:
+      radial-gradient(720px 260px at 50% -8%, rgba(0, 194, 255, 0.22), transparent 68%),
+      linear-gradient(180deg, #0a1628 0%, #062339 58%, #04293f 100%);
   }
 
   /* Brand "signal" motif: faint radar grid, masked so it fades out. CSS-only. */
@@ -95,8 +183,67 @@
   }
 }
 
-/* Motion: hover lift only when the user hasn't asked for reduced motion. */
+/* Chart point tooltips: hidden until the point is hovered or focused.
+   Pure CSS so values are reachable without JavaScript. */
+.chart-pt {
+  cursor: pointer;
+}
+.chart-pt:focus {
+  outline: none;
+}
+.chart-pt .pt-tip {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none;
+}
+.chart-pt:hover .pt-tip,
+.chart-pt:focus .pt-tip,
+.chart-pt:focus-visible .pt-tip {
+  opacity: 1;
+}
+.chart-pt .pt-ring {
+  opacity: 0;
+}
+.chart-pt:hover .pt-ring,
+.chart-pt:focus .pt-ring,
+.chart-pt:focus-visible .pt-ring {
+  opacity: 1;
+}
+
+/* Motion: entrance and hover effects only when the user hasn't asked for
+   reduced motion. Base state (reduced motion, or after the animation ends)
+   is fully visible and static. */
 @media (prefers-reduced-motion: no-preference) {
+  /* One-time staggered entrance used by the credibility band. */
+  .rise {
+    opacity: 0;
+    animation: rise 0.7s ease-out forwards;
+  }
+  .rise-1 { animation-delay: 0.1s; }
+  .rise-2 { animation-delay: 0.22s; }
+  .rise-3 { animation-delay: 0.34s; }
+
+  /* One-time draw-in for the dashboard trend line. */
+  .draw-line {
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 1400;
+    animation: drawline 1.6s 0.2s ease-out forwards;
+  }
+
+  /* Lighthouse beam in the hero: a calm infinite loop. Each 11s cycle is
+     one slow sweep (about 5s), a fade-out, then a dark pause (about 5s)
+     before the next pass. Transform and opacity only; the reset back to the
+     start angle happens while the beam is fully transparent. */
+  .beacon-beam {
+    transform-origin: 50% 100%;
+    animation: beaconsweep 11s ease-in-out 0.8s infinite;
+  }
+
+  /* Smooth arc movement when the selected dashboard metric changes. */
+  .score-arc {
+    transition: stroke-dashoffset 0.6s ease;
+  }
+
   .lift {
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   }
@@ -108,6 +255,45 @@
   }
   .card-dark.lift:hover {
     border-color: rgba(0, 194, 255, 0.4);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drawline {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes beaconsweep {
+  0% {
+    transform: rotate(-42deg);
+    opacity: 0;
+  }
+  7% {
+    opacity: 0.9;
+  }
+  45% {
+    transform: rotate(42deg);
+    opacity: 0.9;
+  }
+  54% {
+    transform: rotate(42deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(42deg);
+    opacity: 0;
   }
 }
 

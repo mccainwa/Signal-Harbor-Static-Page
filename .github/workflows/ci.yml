@@ -1,0 +1,28 @@
+# Pull request checks. Builds the static export and verifies it.
+#
+# This workflow never deploys and never requests Pages permissions. Deployment
+# happens only in deploy.yml, on push to main.
+#
+# `next lint` is deliberately not run: the repository has no ESLint
+# configuration, and the command prompts interactively to create one.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run verify:export

@@ -1,28 +1,45 @@
 import type { Metadata } from 'next';
+import { pageMetadata, OG } from '@/lib/seo';
 import LegalLayout from '@/components/LegalLayout';
 import { SITE } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy | Signal Harbor',
-  description: 'How Signal Harbor handles information collected through this website.',
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Privacy Policy',
+  description:
+    'How Signal Harbor handles information collected through this website.',
+  path: '/privacy/',
+  image: OG.company,
+  imageAlt: 'Signal Harbor privacy policy',
+});
 
 export default function PrivacyPage() {
   return (
     <LegalLayout title="Privacy Policy">
       <p>
         Signal Harbor is an AI visibility intelligence and GEO services company
-        operating the website at signalharborconsulting.com. This notice
+        operating the website at signalharborai.com. This notice
         explains what information may be collected through the website and how it
         is used.
       </p>
 
       <h2>Information we may collect</h2>
       <ul>
-        <li><strong>Booking data:</strong> When you schedule a call, our scheduling provider (Calendly) collects the details you submit, such as your name, email, and any notes you choose to share.</li>
+        <li><strong>Booking data:</strong> Scheduling is provided through Calendly, embedded on our booking page. When you schedule a call, Calendly collects the details you submit, such as your name, email, and any notes you choose to share. When the booking page loads, Calendly may also process technical information such as your IP address, browser characteristics, and usage data under its own privacy policy.</li>
         <li><strong>Contact data:</strong> If you email us, we receive your email address and the contents of your message.</li>
-        <li><strong>Basic analytics:</strong> If web analytics are used now or in the future, they may collect limited, aggregated usage data such as pages viewed and general device or referrer information.</li>
+        <li><strong>Analytics data:</strong> This website uses Google Analytics 4, which helps Signal Harbor understand aggregate site usage. It may collect page views, approximate technical information, device and browser information, referrer information, and interactions with site elements such as buttons and links.</li>
       </ul>
+
+      <h2>Google Analytics</h2>
+      <p>
+        Signal Harbor does not intentionally send names, email addresses,
+        Calendly form contents, or sensitive business information to Google
+        Analytics. Google processes analytics data under its own terms and
+        privacy policies; see{' '}
+        <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">How Google uses information from sites that use its services</a>.
+        Visitors may limit or prevent analytics collection using browser
+        controls, content-blocking tools, or Google&rsquo;s{' '}
+        <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">browser opt-out</a>.
+      </p>
 
       <h2>How we use information</h2>
       <ul>

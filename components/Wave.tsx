@@ -16,5 +16,6 @@ export default function Wave({ top, bottom }: { top: string; bottom: string }) {
 export const TONE = {
   navy: '#0A1628',
   navyDeep: '#060E1A',
-  light: '#F5F7FA',
+  light: '#FFFFFF',
+  ice: '#EFF6FB',
 };

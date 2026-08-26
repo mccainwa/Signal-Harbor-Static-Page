@@ -1,6 +1,6 @@
 import Section, { SectionHeading } from './Section';
 import CTAButton from './CTAButton';
-import { SITE } from '@/lib/site';
+import { SITE, CTA } from '@/lib/site';
 
 export default function MeasureShowcase() {
   return (
@@ -8,7 +8,7 @@ export default function MeasureShowcase() {
       <SectionHeading
         eyebrow="Measurement"
         title="Measure what AI is really saying."
-        intro="One connected view — from the prompts we test to the actions you take."
+        intro="One connected view, from the prompts we test to the actions you take. Sample data shown for illustration."
       />
 
       <div className="mt-12 grid gap-5 lg:grid-cols-3">
@@ -16,9 +16,9 @@ export default function MeasureShowcase() {
         <div className="card-dark rounded-2xl border border-white/12 p-6 lg:col-span-2">
           <p className="text-xs font-semibold uppercase tracking-wider text-white/55">Prompt testing matrix</p>
           <div className="mt-4 overflow-hidden rounded-xl border border-white/10">
-            <div className="grid grid-cols-[1.4fr_repeat(4,1fr)] bg-navy text-[11px] font-semibold text-white/45">
+            <div className="grid grid-cols-[1.4fr_repeat(4,1fr)] bg-navy text-[11px] font-semibold text-white/55">
               <span className="px-3 py-2">Prompt</span>
-              {['ChatGPT', 'Claude', 'Perplexity', 'Gemini'].map((e) => (<span key={e} className="px-2 py-2 text-center">{e}</span>))}
+              {['Platform A', 'Platform B', 'Platform C', 'Platform D'].map((e) => (<span key={e} className="px-2 py-2 text-center">{e}</span>))}
             </div>
             {[
               ['“best providers for…”', [1, 1, 0, 1]],
@@ -76,11 +76,11 @@ export default function MeasureShowcase() {
           </svg>
         </div>
         <div className="card-dark rounded-2xl border border-white/12 p-6">
-          <p className="text-xs font-semibold uppercase tracking-wider text-white/55">30/60/90 action roadmap</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-white/55">Prioritized action roadmap</p>
           <div className="mt-3 space-y-2.5">
-            {[['0–30', 'Fix entity profiles & top claims'], ['30–60', 'Add comparison pages, strengthen sources'], ['60–90', 'Re-test, monitor drift, expand coverage']].map(([d, t]) => (
+            {[['Priority 1', 'Fix entity profiles and top claims'], ['Priority 2', 'Add comparison pages, strengthen sources'], ['Priority 3', 'Re-test, monitor drift, expand coverage']].map(([d, t]) => (
               <div key={d} className="flex items-center gap-3">
-                <span className="inline-flex w-14 flex-none justify-center rounded-full border border-blue/30 bg-blue/10 py-1 text-[11px] font-semibold text-blue">{d}</span>
+                <span className="inline-flex w-20 flex-none justify-center rounded-full border border-blue/30 bg-blue/10 py-1 text-[11px] font-semibold text-blue">{d}</span>
                 <span className="text-sm text-white/75">{t}</span>
               </div>
             ))}
@@ -89,7 +89,7 @@ export default function MeasureShowcase() {
       </div>
 
       <div className="mt-10">
-        <CTAButton href={SITE.bookingUrl} variant="primary">Book a Diagnostic Call</CTAButton>
+        <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
       </div>
     </Section>
   );

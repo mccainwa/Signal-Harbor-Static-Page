@@ -1,18 +1,23 @@
 import type { Metadata } from 'next';
+import { pageMetadata, OG } from '@/lib/seo';
 import LegalLayout from '@/components/LegalLayout';
 import { SITE } from '@/lib/site';
 
-export const metadata: Metadata = {
-  title: 'Terms of Use | Signal Harbor',
-  description: 'Terms governing use of the Signal Harbor website.',
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Terms of Use',
+  description:
+    'Terms governing use of the Signal Harbor website.',
+  path: '/terms/',
+  image: OG.company,
+  imageAlt: 'Signal Harbor terms of use',
+});
 
 export default function TermsPage() {
   return (
     <LegalLayout title="Terms of Use">
       <p>
         These terms govern your use of the Signal Harbor website at
-        signalharborconsulting.com. By using the site, you agree to them.
+        signalharborai.com. By using the site, you agree to them.
       </p>
 
       <h2>Informational use</h2>

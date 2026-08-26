@@ -1,0 +1,85 @@
+# Newsletter synchronization: checks the public Beehiiv RSS feed, runs the
+# existing sanitizing sync pipeline, validates the result, and opens (or
+# updates) a review pull request. It NEVER commits to main and NEVER deploys;
+# content reaches the live site only after the PR is reviewed and merged,
+# which triggers the normal deploy workflow.
+#
+# Required repository setting (one-time): Settings -> Actions -> General ->
+# Workflow permissions -> enable "Allow GitHub Actions to create and approve
+# pull requests". Without it, the PR step fails with a permissions error and
+# nothing is written anywhere.
+#
+# Failure safety: scripts/sync-blog.mjs exits non-zero when a new article
+# image lacks reviewed alt text, so the workflow fails instead of publishing
+# an image without a human-written description. Fix by adding the
+# ALT_OVERRIDES entry locally and merging that first, then re-run.
+name: Blog sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Daily at 13:20 UTC; Beehiiv issues are weekly, so most runs are no-ops.
+    - cron: '20 13 * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: blog-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync the Beehiiv feed (public RSS, no credentials)
+        run: npm run sync:blog
+
+      - name: Detect content changes
+        id: diff
+        run: |
+          if git diff --quiet -- content/blog public/images/blog; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No new newsletter content."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff --stat -- content/blog public/images/blog
+          fi
+
+      - name: Build and verify the export with the new content
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          npm run build
+          npm run verify:export
+
+      - name: Open or update the blog-sync pull request
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BRANCH="blog-sync/feed-update"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git add content/blog public/images/blog
+          git commit -m "Blog sync: new Signal Harbor Weekly content"
+          git push --force origin "$BRANCH"
+          if gh pr list --head "$BRANCH" --state open --json number --jq 'length' | grep -q '^0$'; then
+            gh pr create \
+              --head "$BRANCH" \
+              --title "Blog sync: new Signal Harbor Weekly content" \
+              --body "Automated sync from the public Beehiiv RSS feed. Review the new article content in content/blog/posts.json (and any images under public/images/blog/), then merge to publish. Build and export verification passed in this workflow run. Nothing deploys until this PR is merged."
+          else
+            echo "Existing blog-sync PR updated by the branch push."
+          fi

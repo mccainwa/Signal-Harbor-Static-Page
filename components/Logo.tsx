@@ -1,29 +1,33 @@
 import Link from 'next/link';
 
-type LogoProps = {
-  /** Size of the square mark, in px. */
-  size?: number;
-  href?: string;
-  showWordmark?: boolean;
-};
-
 /**
- * Brand lockup using the small cropped lighthouse mark (public/sh-mark.png) in
- * a clean white rounded square, with the typed "Signal Harbor" wordmark. Plain
- * <img> so it always displays in static export / GitHub Pages.
+ * The official Signal Harbor horizontal lockup: the emblem and the official
+ * "SIGNAL HARBOR" wordmark, both extracted unmodified from the supplied
+ * master artwork and composed side by side (no live text, no substitute
+ * font). public/signal-harbor-lockup-horizontal.png, 671x128 with a real
+ * alpha channel. Explicit width/height attributes pin the aspect ratio so
+ * the responsive height classes cause no layout shift.
  */
-export default function Logo({ size = 44, href = '/', showWordmark = true }: LogoProps) {
+const W = 671;
+const H = 128;
+
+export default function Logo({
+  href = '/',
+  className = 'h-10 w-auto sm:h-[46px]',
+}: {
+  href?: string;
+  /** Tailwind height classes controlling the rendered size. */
+  className?: string;
+}) {
   return (
-    <Link href={href} aria-label="Signal Harbor — home" className="inline-flex items-center gap-3">
-      <span
-        className="inline-flex items-center justify-center overflow-hidden rounded-xl bg-white ring-1 ring-white/15"
-        style={{ width: size, height: size }}
-      >
-        <img src="/sh-mark.png" alt="Signal Harbor" width={size} height={size} className="h-full w-full object-cover" />
-      </span>
-      {showWordmark && (
-        <span className="font-sora text-xl font-bold tracking-tight text-white">Signal Harbor</span>
-      )}
+    <Link href={href} className="inline-flex flex-none items-center">
+      <img
+        src="/signal-harbor-lockup-horizontal.png"
+        alt="Signal Harbor"
+        width={W}
+        height={H}
+        className={`flex-none ${className}`}
+      />
     </Link>
   );
 }
