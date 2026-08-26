@@ -1,14 +1,17 @@
 import type { Metadata } from 'next';
+import { pageMetadata, OG } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Section from '@/components/Section';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Research Basis',
   description:
     'External references and research that inform the Signal Harbor AI visibility methodology, from platform guidance to public measurement research.',
-  alternates: { canonical: '/research/' },
-};
+  path: '/research/',
+  image: OG.platform,
+  imageAlt: 'Research behind the Signal Harbor methodology',
+});
 
 const refs = [
   { cat: 'Platform guidance', title: 'AI features and your website', src: 'Google Search Central', note: 'Guidance for site owners on how AI search features use and surface web content.', href: 'https://developers.google.com/search/docs/appearance/ai-features' },

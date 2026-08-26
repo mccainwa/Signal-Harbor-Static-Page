@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-type Variant = 'primary' | 'secondary' | 'ghost';
+type Variant = 'primary' | 'secondary' | 'ghost' | 'outline';
 
 type CTAButtonProps = {
   href: string;
@@ -15,7 +15,10 @@ const base =
 const variants: Record<Variant, string> = {
   primary:
     'bg-blue text-navy shadow-[0_8px_24px_-10px_rgba(0,194,255,0.7)] hover:bg-[#2bd2ff] hover:shadow-[0_14px_34px_-10px_rgba(0,194,255,0.85)]',
+  /* secondary sits on dark surfaces; outline is its light-surface partner. */
   secondary: 'border border-white/30 bg-transparent text-white hover:border-blue/50 hover:bg-white/10',
+  outline:
+    'border border-navy/20 bg-white text-navy hover:border-[#0369A1]/60 hover:text-[#0369A1]',
   ghost: 'text-white hover:text-blue',
 };
 

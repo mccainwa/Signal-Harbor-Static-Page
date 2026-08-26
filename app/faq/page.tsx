@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata, OG } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FAQ from '@/components/FAQ';
@@ -6,12 +7,14 @@ import { faqs } from '@/lib/faqs';
 import FinalCTA from '@/components/FinalCTA';
 import { SITE } from '@/lib/site';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'FAQ',
   description:
     'Common questions about AI visibility, the complimentary Snapshot, the paid audit, platforms tested, access, pricing, and what happens after the audit.',
-  alternates: { canonical: '/faq/' },
-};
+  path: '/faq/',
+  image: OG.company,
+  imageAlt: 'Signal Harbor frequently asked questions',
+});
 
 /**
  * FAQPage structured data is generated from the same array the page renders,

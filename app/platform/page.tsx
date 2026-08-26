@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata, OG } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MeasureShowcase from '@/components/MeasureShowcase';
@@ -7,12 +8,14 @@ import Deliverables from '@/components/Deliverables';
 import CTAButton from '@/components/CTAButton';
 import { SITE, CTA } from '@/lib/site';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'What We Measure',
   description:
     'The Signal Harbor intelligence layer: visibility scoring, competitor tracking, source mapping, accuracy review, and an action roadmap.',
-  alternates: { canonical: '/platform/' },
-};
+  path: '/platform/',
+  image: OG.platform,
+  imageAlt: 'What Signal Harbor measures',
+});
 
 export default function PlatformPage() {
   return (

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata, OG } from '@/lib/seo';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -7,12 +8,14 @@ import Deliverables from '@/components/Deliverables';
 import CTAButton from '@/components/CTAButton';
 import { SITE, CTA } from '@/lib/site';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Methodology',
   description:
     'How Signal Harbor measures AI visibility: prompt design, repeated testing, source classification, claim verification, and what you receive.',
-  alternates: { canonical: '/methodology/' },
-};
+  path: '/methodology/',
+  image: OG.platform,
+  imageAlt: 'Signal Harbor measurement methodology',
+});
 
 const steps = [
   ['Define the buyer prompt universe', 'Prompt sets built around category, comparison, alternative, local, and objection questions.'],

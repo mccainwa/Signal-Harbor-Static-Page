@@ -22,26 +22,26 @@ export default function NotFound() {
   return (
     <>
       <Header />
-      <main className="bg-navy">
+      <main className="hero-light">
         <section className="container-x py-20 sm:py-28">
           <div className="max-w-2xl">
             <p className="eyebrow mb-3">404</p>
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">Page not found.</h1>
-            <p className="mt-5 text-lg leading-relaxed text-white/70">
+            <h1 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl">Page not found.</h1>
+            <p className="mt-5 text-lg leading-relaxed text-navy/70">
               The page you were looking for does not exist or has moved. These
               routes will get you back on track.
             </p>
             <ul className="mt-8 grid gap-3 sm:grid-cols-2">
               {destinations.map((x) => (
                 <li key={x.href}>
-                  <Link href={x.href} className="block rounded-2xl border border-white/12 bg-navy-panel p-4 transition-colors hover:border-blue/50">
-                    <span className="block text-[15px] font-bold text-white">{x.label}</span>
-                    <span className="mt-1 block text-sm text-white/55">{x.d}</span>
+                  <Link href={x.href} className="card-light lift block !p-4 transition-colors hover:border-[#0369A1]/40">
+                    <span className="block text-[15px] font-bold text-navy">{x.label}</span>
+                    <span className="mt-1 block text-sm text-navy/65">{x.d}</span>
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="mt-8">
+            <div className="mt-8" data-cta-zone="not-found">
               <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
             </div>
           </div>

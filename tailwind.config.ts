@@ -13,6 +13,7 @@ const config: Config = {
         'navy-panel': '#0F1F36',
         blue: '#00C2FF',
         'off-white': '#F5F7FA',
+        ice: '#EFF6FB',
         muted: '#6B7686',
         alert: '#FF5A5F',
         warn: '#FFB020',

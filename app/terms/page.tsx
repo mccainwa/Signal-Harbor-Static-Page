@@ -1,12 +1,16 @@
 import type { Metadata } from 'next';
+import { pageMetadata, OG } from '@/lib/seo';
 import LegalLayout from '@/components/LegalLayout';
 import { SITE } from '@/lib/site';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Terms of Use',
-  description: 'Terms governing use of the Signal Harbor website.',
-  alternates: { canonical: '/terms/' },
-};
+  description:
+    'Terms governing use of the Signal Harbor website.',
+  path: '/terms/',
+  image: OG.company,
+  imageAlt: 'Signal Harbor terms of use',
+});
 
 export default function TermsPage() {
   return (

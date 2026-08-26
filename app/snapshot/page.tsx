@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata, OG } from '@/lib/seo';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -6,12 +7,14 @@ import Section, { SectionHeading } from '@/components/Section';
 import CTAButton from '@/components/CTAButton';
 import { SITE, CTA } from '@/lib/site';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Get a Complimentary AI Visibility Snapshot',
   description:
     'Book an introductory call and receive a complimentary snapshot of how AI platforms describe and recommend your company. The call sets the next step.',
-  alternates: { canonical: '/snapshot/' },
-};
+  path: '/snapshot/',
+  image: OG.snapshot,
+  imageAlt: 'The complimentary Signal Harbor AI Visibility Snapshot',
+});
 
 const included = [
   ['A limited prompt set', 'A focused set of the buyer questions that matter most in your category, run across one or two AI platforms.'],
@@ -54,7 +57,7 @@ export default function SnapshotPage() {
               the call we walk through it and tell you whether the comprehensive
               paid audit is worth doing.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-cta-zone="snapshot-hero">
               <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.short}</CTAButton>
               <CTAButton href={SITE.mailto} variant="secondary">Email Signal Harbor</CTAButton>
             </div>
@@ -88,12 +91,13 @@ export default function SnapshotPage() {
                 full prompt set, measurement across multiple AI platforms,
                 competitor tracking, a source map, an accuracy review, and a
                 prioritized action roadmap. Read the{' '}
-                <Link href="/audit" className="text-blue underline">full audit details</Link> or see{' '}
+                <Link href="/audit" className="text-blue underline">full audit details</Link>, see{' '}
                 <Link href="/services" className="text-blue underline">all services</Link> for how it
-                fits with optimization sprints and ongoing monitoring.
+                fits with optimization sprints and ongoing monitoring, or learn{' '}
+                <Link href="/pricing" className="text-blue underline">how pricing works</Link>.
               </p>
             </div>
-            <div className="flex-none">
+            <div className="flex-none" data-cta-zone="snapshot-footer">
               <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.audit}</CTAButton>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata, OG } from '@/lib/seo';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -6,12 +7,14 @@ import Section, { SectionHeading } from '@/components/Section';
 import CTAButton from '@/components/CTAButton';
 import { SITE, CTA } from '@/lib/site';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'AI Visibility Audit',
   description:
     'The AI Visibility Audit is a comprehensive paid engagement that measures how AI platforms describe, compare, and recommend your company, with a prioritized roadmap.',
-  alternates: { canonical: '/audit/' },
-};
+  path: '/audit/',
+  image: OG.audit,
+  imageAlt: 'The Signal Harbor AI Visibility Audit',
+});
 
 const covers = [
   ['A full buyer prompt set', 'Category, comparison, alternative, local, and objection questions, built around how buyers in your market actually ask.'],
@@ -76,11 +79,14 @@ export default function AuditPage() {
               <Link href="/snapshot" className="text-blue underline">Snapshot</Link> confirm
               it is worth doing.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-cta-zone="audit-hero">
               <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.audit}</CTAButton>
               <CTAButton href="/snapshot" variant="secondary">Start with the Snapshot</CTAButton>
             </div>
-            <p className="mt-6 max-w-2xl text-sm text-white/55">{CTA.boundary}</p>
+            <p className="mt-6 max-w-2xl text-sm text-white/55">
+              {CTA.boundary}{' '}
+              <Link href="/pricing" className="text-blue underline">See how audit pricing works</Link>.
+            </p>
           </div>
         </Section>
 
@@ -159,8 +165,11 @@ export default function AuditPage() {
             systems and does not guarantee placement, ranking, or
             recommendation outcomes.
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="mt-8 flex flex-wrap items-center gap-4" data-cta-zone="audit-footer">
             <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.audit}</CTAButton>
+            <Link href="/pricing" className="inline-flex items-center rounded-xl border border-navy/15 px-5 py-3 text-sm font-semibold text-navy transition-colors hover:border-blue/50 hover:text-[#0369A1]">
+              How pricing works
+            </Link>
             <Link href="/services" className="inline-flex items-center rounded-xl border border-navy/15 px-5 py-3 text-sm font-semibold text-navy transition-colors hover:border-blue/50 hover:text-[#0369A1]">
               See all services
             </Link>

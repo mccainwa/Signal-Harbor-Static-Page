@@ -13,6 +13,18 @@
  *   - no visible em or en dashes
  *   - no "free diagnostic" or "free audit" language
  *   - Snapshot / paid Audit terminology stays consistent
+ *   - /blog/ and every article in content/blog/posts.json exported, with
+ *     readable static text, index cards linking locally (not to Beehiiv),
+ *     and BlogPosting JSON-LD matching the visible headline and date
+ *   - /pricing/ exported and indexable with FAQPage JSON-LD and no dollar
+ *     amounts, numeric prices, or "starting at" language
+ *   - /book/ exported with the Calendly inline embed, its script, a direct
+ *     fallback link, breadcrumb data, and the complimentary/paid boundary
+ *   - Calendly scripts and booking links appear ONLY on /book/ (no badge,
+ *     no popup, booking CTAs point at /book/)
+ *   - the original Signal Harbor logo in a light header and footer, with the
+ *     derived logo variants gone
+ *   - every indexable page listed in the sitemap
  *
  * The Next static export writes the same 404 document to 404.html and
  * 404/index.html. That pair is treated as one noindex error page: it is
@@ -46,6 +58,24 @@ const decode = (s) =>
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>');
 
+/** Rendered text of a page: non-rendered blocks and comments stripped, then tags. */
+const visibleText = (html) =>
+  decode(
+    html
+      .replace(/<(script|style|svg|noscript|template)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ')
+      .replace(/<!--[\s\S]*?-->/g, '')
+      .replace(/<[^>]+>/g, ' '),
+  );
+
+const jsonLdBlocks = (html) =>
+  [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => {
+    try {
+      return JSON.parse(m[1]);
+    } catch {
+      return null;
+    }
+  });
+
 const routeFor = (f) => {
   const rel = path.relative(out, f).split(path.sep).join('/');
   if (rel === 'index.html') return '/';
@@ -68,12 +98,7 @@ for (const f of walk(out)) {
 }
 
 for (const [route, { html }] of pages) {
-  // Visible text: strip non-rendered blocks, then tags.
-  const text = decode(
-    html
-      .replace(/<(script|style|svg|noscript|template)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ')
-      .replace(/<[^>]+>/g, ' '),
-  );
+  const text = visibleText(html);
 
   // Headings.
   const h1s = [...html.matchAll(/<h1[^>]*>/g)];
@@ -127,7 +152,14 @@ for (const [route, { html }] of pages) {
       continue;
     }
     if (!url.startsWith('/')) continue;
-    const [pathPart, fragment] = url.split('#');
+    const [rawPath, fragment] = url.split('#');
+    // Next percent-encodes characters like [slug] in chunk URLs; decode to
+    // compare against the real file name on disk, and drop cache-busting
+    // querystrings (e.g. /favicon.ico?v=3).
+    let pathPart = rawPath.split('?')[0];
+    try {
+      pathPart = decodeURIComponent(pathPart);
+    } catch {}
     if (/\.[a-z0-9]+$/i.test(pathPart)) {
       if (!existsSync(path.join(out, pathPart))) flag(`${route}: asset ${pathPart} missing`);
       continue;
@@ -164,15 +196,259 @@ else {
   if (!/paid/i.test(text)) flag('/snapshot/: does not state the paid boundary');
 }
 
+// Blog: the index and every synced article must be exported as readable
+// static HTML, with index cards linking to local article pages (never to
+// Beehiiv article URLs) and BlogPosting JSON-LD agreeing with the page.
+const postsFile = path.join(root, 'content', 'blog', 'posts.json');
+if (!existsSync(postsFile)) flag('missing content/blog/posts.json (run npm run sync:blog)');
+const posts = existsSync(postsFile) ? JSON.parse(readFileSync(postsFile, 'utf8')) : [];
+const blogIndex = pages.get('/blog/');
+if (!blogIndex) flag('missing /blog/ index page');
+else if (/href="https?:\/\/[^"]*beehiiv\.com\/p\//.test(blogIndex.html)) {
+  flag('/blog/: links to a Beehiiv article URL instead of a local article page');
+}
+for (const post of posts) {
+  const route = `/blog/${post.slug}/`;
+  const page = pages.get(route);
+  if (!page) {
+    flag(`missing article page ${route}`);
+    continue;
+  }
+  if (blogIndex && !blogIndex.html.includes(`/blog/${post.slug}`)) {
+    flag(`/blog/: no card links to ${route}`);
+  }
+  const text = visibleText(page.html).replace(/\s+/g, ' ');
+  if (text.length < 1000) flag(`${route}: article text too short to be full content (${text.length} chars)`);
+  // The exported page must contain the synced article body without needing
+  // JavaScript: sample a sentence from the middle of the stored content.
+  const stored = decode(post.html.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+  const sample = stored.slice(Math.floor(stored.length / 2), Math.floor(stored.length / 2) + 60).trim();
+  if (sample && !text.includes(sample)) flag(`${route}: static HTML is missing article body content`);
+  const bp = jsonLdBlocks(page.html).find((o) => o && o['@type'] === 'BlogPosting');
+  if (!bp) {
+    flag(`${route}: missing BlogPosting JSON-LD`);
+  } else {
+    const h1 = decode(/<h1[^>]*>([\s\S]*?)<\/h1>/.exec(page.html)?.[1]?.replace(/<[^>]+>/g, '') ?? '')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (bp.headline !== h1) flag(`${route}: BlogPosting headline "${bp.headline}" does not match h1 "${h1}"`);
+    if (bp.datePublished !== post.date) flag(`${route}: BlogPosting datePublished does not match synced date`);
+  }
+}
+
+// Blog authorship: every public byline and BlogPosting author must be the
+// Signal Harbor organization. The raw feed creator may exist inside article
+// BODY content (the newsletter's own sign-off), but never as the page's
+// author label, card author, or structured-data author.
+const PUBLIC_AUTHOR = 'Signal Harbor';
+const RAW_CREATOR = 'Sebastian Miller';
+if (blogIndex) {
+  // Visible text only: the sitewide Organization founder structured data
+  // legitimately names the founders inside script blocks.
+  if (visibleText(blogIndex.html).includes(RAW_CREATOR)) flag(`/blog/: card area shows "${RAW_CREATOR}" instead of ${PUBLIC_AUTHOR}`);
+  if (!visibleText(blogIndex.html).includes(`· ${PUBLIC_AUTHOR}`)) flag(`/blog/: cards do not show the ${PUBLIC_AUTHOR} author label`);
+}
+for (const post of posts) {
+  const page = pages.get(`/blog/${post.slug}/`);
+  if (!page) continue;
+  // Strip the article body, then the remaining VISIBLE text (byline,
+  // chrome) must not contain the raw creator name. Script payloads carrying
+  // the body content are excluded by visibleText.
+  const outsideBody = visibleText(page.html.replace(/<div[^>]*class="prose-sh[^"]*"[\s\S]*?<\/div>/, ' '));
+  if (outsideBody.includes(RAW_CREATOR)) flag(`/blog/${post.slug}/: "${RAW_CREATOR}" appears outside the article body`);
+  const bp = jsonLdBlocks(page.html).find((o) => o && o['@type'] === 'BlogPosting');
+  if (bp) {
+    if (!bp.author || bp.author['@type'] !== 'Organization' || bp.author.name !== PUBLIC_AUTHOR) {
+      flag(`/blog/${post.slug}/: BlogPosting author is not the ${PUBLIC_AUTHOR} Organization`);
+    }
+    if (bp.author && bp.author.name && !visibleText(page.html).includes(bp.author.name)) {
+      flag(`/blog/${post.slug}/: structured-data author not visible on the page`);
+    }
+  }
+}
+
+// First-party RSS feed: exists, is well-formed enough to trust, carries
+// every article as a local URL, and never names the raw creator.
+const feedPath = path.join(out, 'feed.xml');
+if (!existsSync(feedPath)) flag('missing feed.xml');
+else {
+  const feed = readFileSync(feedPath, 'utf8');
+  if (!feed.startsWith('<?xml')) flag('feed.xml: missing XML declaration');
+  if ((feed.match(/<item>/g) ?? []).length !== posts.length) flag(`feed.xml: expected ${posts.length} items`);
+  for (const post of posts) {
+    if (!feed.includes(`${ORIGIN}/blog/${post.slug}/`)) flag(`feed.xml: missing ${post.slug}`);
+  }
+  if (feed.includes(RAW_CREATOR)) flag(`feed.xml: names ${RAW_CREATOR}`);
+  if (feed.includes('beehiiv.com/p/')) flag('feed.xml: items link to Beehiiv instead of local pages');
+}
+if (!posts.every((p) => pages.get('/blog/')?.html) || !pages.get('/')?.html.includes('application/rss+xml')) {
+  flag('feed discovery link (rel=alternate application/rss+xml) missing from the homepage head');
+}
+
+// Pricing: exported, indexable, FAQPage schema, and no prices anywhere on
+// the page, visible or in markup.
+const pricing = pages.get('/pricing/');
+if (!pricing) flag('missing /pricing/ page');
+else {
+  const text = visibleText(pricing.html).replace(/\s+/g, ' ');
+  if (/\$\s*\d/.test(text)) flag('/pricing/: dollar amount in visible text');
+  if (/\b\d[\d,]*\s*(USD|dollars)\b/i.test(text)) flag('/pricing/: numeric price in visible text');
+  if (/starting at/i.test(text)) flag('/pricing/: "starting at" pricing language');
+  const pricingLd = jsonLdBlocks(pricing.html);
+  // No price-bearing fields may appear in any schema block on the page.
+  const hasPriceKey = (o) =>
+    o != null && typeof o === 'object' &&
+    Object.entries(o).some(([k, v]) => /price/i.test(k) || hasPriceKey(v));
+  if (pricingLd.some(hasPriceKey)) flag('/pricing/: price field in structured data');
+  if (!pricingLd.find((o) => o && o['@type'] === 'FAQPage')) {
+    flag('/pricing/: missing FAQPage JSON-LD');
+  }
+  if (!/complimentary/i.test(text) || !/paid engagement/i.test(text)) {
+    flag('/pricing/: complimentary Snapshot / paid engagement separation not stated');
+  }
+}
+
+// Booking page: inline Calendly embed, exactly one place sitewide.
+const CALENDLY_EVENT = 'https://calendly.com/walter-mccain-signalharborconsulting/ai-visibility-audit-call';
+const CALENDLY_SCRIPT = 'assets.calendly.com/assets/external/widget.js';
+const book = pages.get('/book/');
+if (!book) flag('missing /book/ page');
+else {
+  const text = visibleText(book.html).replace(/\s+/g, ' ');
+  if (!book.html.includes('calendly-inline-widget')) flag('/book/: missing Calendly inline widget container');
+  if (!book.html.includes(`data-url="${CALENDLY_EVENT}"`)) flag('/book/: widget data-url is not the approved Calendly event');
+  if (!new RegExp(`<script[^>]+src="https://${CALENDLY_SCRIPT.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`).test(book.html) && !book.html.includes(CALENDLY_SCRIPT)) {
+    flag('/book/: Calendly widget script not referenced');
+  }
+  if (!new RegExp(`href="${CALENDLY_EVENT.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`).test(book.html)) {
+    flag('/book/: direct Calendly fallback link missing');
+  }
+  if (/badge|initbadgewidget|initpopupwidget/i.test(book.html.replace(/data-url="[^"]*"/g, ''))) {
+    flag('/book/: badge or popup widget markup present');
+  }
+  if (!/complimentary/i.test(text) || !/paid engagements/i.test(text)) {
+    flag('/book/: complimentary Snapshot / paid engagement boundary not stated');
+  }
+  if (!jsonLdBlocks(book.html).some((o) => o && JSON.stringify(o).includes('BreadcrumbList'))) {
+    flag('/book/: missing BreadcrumbList structured data');
+  }
+}
+
+// Everywhere else: no Calendly scripts, badges, popups, or booking-event
+// links. Booking CTAs must point at the internal /book/ page. (The privacy
+// policy may mention Calendly by name; it may not embed or link the event.)
+for (const [route, { html }] of pages) {
+  if (route === '/book/' || is404(route)) continue;
+  if (html.includes(CALENDLY_SCRIPT)) flag(`${route}: Calendly script loaded outside /book/`);
+  if (html.includes('calendly.com/walter-mccain')) flag(`${route}: direct Calendly booking link outside /book/`);
+  if (/calendly-badge|initBadgeWidget|initPopupWidget/i.test(html)) flag(`${route}: Calendly badge/popup widget outside /book/`);
+}
+for (const route of ['/', '/snapshot/', '/audit/', '/pricing/', '/services/', '/blog/', '/faq/', '/about/', '/book/']) {
+  const page = pages.get(route);
+  if (!page) continue;
+  if (route !== '/book/' && !/href="\/book\/?"/.test(page.html)) flag(`${route}: no booking CTA pointing at /book/`);
+}
+
+// Brand shell: the official transparent lockup on light header and footer,
+// superseded logo assets unreferenced everywhere.
+for (const [route, { html }] of pages) {
+  if (is404(route)) continue;
+  const headerTag = /<header[^>]*class="([^"]*)"/.exec(html)?.[1] ?? '';
+  const footerTag = /<footer[^>]*class="([^"]*)"/.exec(html)?.[1] ?? '';
+  if (!headerTag.includes('bg-white')) flag(`${route}: header is not on a light background`);
+  if (!footerTag.includes('bg-white')) flag(`${route}: footer is not on a light background`);
+  if (!/<header[\s\S]*?signal-harbor-lockup-horizontal\.png[\s\S]*?<\/header>/.test(html)) flag(`${route}: header does not use the official horizontal lockup`);
+  if (/sh-mark-hd\.png|sh-mark-dark\.png|sh-mark-light\.png|sh-mark\.png|SH_Lighthouse_Logo\.png|signal-harbor-logo\.png/.test(html)) {
+    flag(`${route}: references a superseded logo asset`);
+  }
+}
+if (existsSync(path.join(out, 'sh-mark-hd.png')) || existsSync(path.join(out, 'sh-mark-dark.png')) || existsSync(path.join(out, 'sh-mark-light.png'))) {
+  flag('superseded generated logo files still shipped in the export');
+}
+// Icon assets: real alpha channels (PNG color type 6) and a multi-size ICO.
+const pngHasAlpha = (p) => existsSync(p) && readFileSync(p)[25] === 6;
+if (!pngHasAlpha(path.join(out, 'signal-harbor-lockup.png'))) flag('signal-harbor-lockup.png missing or lacks an alpha channel');
+if (!pngHasAlpha(path.join(out, 'signal-harbor-lockup-horizontal.png'))) flag('signal-harbor-lockup-horizontal.png missing or lacks an alpha channel');
+if (!pngHasAlpha(path.join(out, 'signal-harbor-emblem.png'))) flag('signal-harbor-emblem.png missing or lacks an alpha channel');
+if (!pngHasAlpha(path.join(out, 'icon.png'))) flag('icon.png missing or lacks an alpha channel');
+const icoPath = path.join(out, 'favicon.ico');
+if (!existsSync(icoPath)) flag('favicon.ico missing from export');
+else {
+  const ico = readFileSync(icoPath);
+  if (ico.readUInt16LE(4) < 3) flag('favicon.ico does not contain the 16/32/48 size set');
+}
+if (!existsSync(path.join(out, 'apple-icon.png'))) flag('apple-icon.png missing from export');
+
+// Analytics: the approved GA4 ID everywhere, exactly one bootstrap, no Tag
+// Manager, no other measurement IDs, no legacy UA IDs.
+const GA_ID = 'G-24V8BNMLFZ';
+for (const [route, { html }] of pages) {
+  if (is404(route)) continue;
+  const idCount = (html.match(new RegExp(GA_ID, 'g')) ?? []).length;
+  if (idCount === 0) flag(`${route}: GA4 measurement ID missing`);
+  // Count rendered bootstrap script tags only; the RSC flight payload echoes
+  // the same string once and is not a second tag.
+  const bootCount = (html.match(/<script>window\.dataLayer=window\.dataLayer\|\|\[\]/g) ?? []).length;
+  if (bootCount !== 1) flag(`${route}: expected exactly one GA bootstrap script, found ${bootCount}`);
+  if (/googletagmanager\.com\/gtm\.js|GTM-[A-Z0-9]{4,}/.test(html)) flag(`${route}: Google Tag Manager present`);
+  if (/\bUA-\d{4,}-\d+\b/.test(html)) flag(`${route}: legacy Universal Analytics ID present`);
+  for (const m of html.matchAll(/G-[A-Z0-9]{8,12}/g)) {
+    if (m[0] !== GA_ID) flag(`${route}: unexpected measurement ID ${m[0]}`);
+  }
+}
+
+// Open Graph: page-specific titles and images on every indexable page.
+const ogTitles = new Map();
+for (const [route, { html }] of pages) {
+  if (is404(route)) continue;
+  const ogTitle = decode(/property="og:title" content="([^"]*)"/.exec(html)?.[1] ?? '');
+  const ogDesc = decode(/property="og:description" content="([^"]*)"/.exec(html)?.[1] ?? '');
+  const ogImage = /property="og:image" content="([^"]*)"/.exec(html)?.[1];
+  const twImage = /name="twitter:image" content="([^"]*)"/.exec(html)?.[1];
+  const twCard = /name="twitter:card" content="([^"]*)"/.exec(html)?.[1];
+  if (!ogTitle) flag(`${route}: missing og:title`);
+  else ogTitles.set(ogTitle, [...(ogTitles.get(ogTitle) ?? []), route]);
+  if (!ogDesc) flag(`${route}: missing og:description`);
+  if (!ogImage) flag(`${route}: missing og:image`);
+  else {
+    const rel = ogImage.replace(/^https?:\/\/[^/]+/, '').split('?')[0];
+    if (!existsSync(path.join(out, rel))) flag(`${route}: og:image ${rel} not in export`);
+    else if (readFileSync(path.join(out, rel)).readUInt32BE(16) !== 1200) flag(`${route}: og:image is not 1200px wide`);
+  }
+  if (!twImage) flag(`${route}: missing twitter:image`);
+  if (twCard !== 'summary_large_image') flag(`${route}: twitter:card is ${twCard}`);
+  const desc = decode(/<meta name="description" content="([^"]*)"/.exec(html)?.[1] ?? '');
+  if (ogDesc && desc && ogDesc !== desc) flag(`${route}: og:description differs from meta description`);
+}
+for (const [t, routes] of ogTitles) {
+  if (routes.length > 1) flag(`duplicate og:title "${t.slice(0, 50)}" on ${routes.join(', ')}`);
+}
+
+// Blog production residue: narrow list of known artifacts.
+for (const post of posts) {
+  if (/>\s*Strong Conclusion\s*</i.test(post.html)) flag(`posts.json ${post.slug}: "Strong Conclusion" residue`);
+  if (/reply to this email|receiving this email|unsubscribe|powered by beehiiv/i.test(post.html)) {
+    flag(`posts.json ${post.slug}: email boilerplate residue`);
+  }
+}
+
 // Sitemap and robots.
 const sitemapPath = path.join(out, 'sitemap.xml');
 if (!existsSync(sitemapPath)) flag('missing sitemap.xml');
 else {
+  const sitemapRoutes = new Set();
   for (const m of readFileSync(sitemapPath, 'utf8').matchAll(/<loc>([^<]*)<\/loc>/g)) {
     const url = m[1];
     if (!url.startsWith(ORIGIN)) flag(`sitemap: wrong origin ${url}`);
     const p = url.slice(ORIGIN.length) || '/';
+    sitemapRoutes.add(p);
     if (!pages.has(p)) flag(`sitemap: ${p} is not an exported page`);
+  }
+  // Reverse membership: every indexable page (all pages except the 404
+  // documents) must be listed, which covers /pricing/, /blog/, and every
+  // article route.
+  for (const route of pages.keys()) {
+    if (!is404(route) && !sitemapRoutes.has(route)) flag(`sitemap: missing ${route}`);
   }
 }
 if (!existsSync(path.join(out, 'robots.txt'))) flag('missing robots.txt');

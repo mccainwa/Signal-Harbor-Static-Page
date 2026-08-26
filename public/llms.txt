@@ -29,8 +29,11 @@ This file is an experimental supplement for systems that choose to read it. It i
 - [Home](https://signalharborai.com/): what Signal Harbor does and why AI visibility matters
 - [What is AI visibility?](https://signalharborai.com/ai-visibility/): definitions of AI visibility, GEO, and AEO, the ways AI answers go wrong, and what to do about inaccurate answers
 - [Complimentary Snapshot](https://signalharborai.com/snapshot/): what the complimentary AI Visibility Snapshot includes and how to receive it
+- [Book a call](https://signalharborai.com/book/): schedule the free introductory call that includes the complimentary Snapshot
 - [AI Visibility Audit](https://signalharborai.com/audit/): what the comprehensive paid audit covers, how it runs, and how it differs from the Snapshot
 - [Services](https://signalharborai.com/services/): the audit, optimization sprint, monitoring retainer, and implementation models
+- [Pricing](https://signalharborai.com/pricing/): how AI visibility pricing works, what affects scope, and how to request a tailored quote
+- [Blog](https://signalharborai.com/blog/): articles from the Signal Harbor Weekly newsletter on AI visibility, AI search, and GEO
 - [What we measure](https://signalharborai.com/platform/): visibility scoring, competitor tracking, source mapping, and accuracy review
 - [Methodology](https://signalharborai.com/methodology/): how measurement works and why repeated testing matters
 - [Research basis](https://signalharborai.com/research/): the external references that inform the methodology

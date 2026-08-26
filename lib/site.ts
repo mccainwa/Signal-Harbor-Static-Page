@@ -4,11 +4,21 @@ export const SITE = {
   // signalharborconsulting.com now redirects here and still receives mail.
   domain: "signalharborai.com",
   url: "https://signalharborai.com",
-  bookingUrl:
+  /**
+   * Every booking CTA on the site points at the internal booking page, which
+   * hosts the Calendly inline embed. Calendly scripts load only there.
+   */
+  bookingUrl: "/book",
+  /** The Calendly event, used only by the /book page embed and its fallback. */
+  calendlyUrl:
     "https://calendly.com/walter-mccain-signalharborconsulting/ai-visibility-audit-call",
   email: "info@signalharborconsulting.com",
   mailto:
     "mailto:info@signalharborconsulting.com?subject=AI%20Visibility%20Inquiry",
+  /** Verified company LinkedIn page. */
+  linkedin: "https://www.linkedin.com/company/signal-harbor-consulting",
+  /** Approved public founder names, in display order. */
+  founders: ["Walter McCain III", "Sebastian Miller"],
 };
 
 /**

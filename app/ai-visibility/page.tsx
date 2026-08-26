@@ -1,18 +1,22 @@
 import type { Metadata } from 'next';
+import { pageMetadata, OG } from '@/lib/seo';
 import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Section, { SectionHeading } from '@/components/Section';
 import CTAButton from '@/components/CTAButton';
+import AnswerFlow from '@/components/AnswerFlow';
 import FinalCTA from '@/components/FinalCTA';
 import { SITE, CTA } from '@/lib/site';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'What Is AI Visibility?',
   description:
     'AI visibility is how AI platforms describe, compare, and recommend your company. A plain-language guide to GEO, AEO, and how to improve the answers.',
-  alternates: { canonical: '/ai-visibility/' },
-};
+  path: '/ai-visibility/',
+  image: OG.guide,
+  imageAlt: 'What is AI visibility, explained by Signal Harbor',
+});
 
 const whyItMatters = [
   {
@@ -150,6 +154,8 @@ export default function AiVisibilityPage() {
             </div>
           </div>
         </Section>
+
+        <AnswerFlow />
 
         <Section tone="light">
           <SectionHeading
