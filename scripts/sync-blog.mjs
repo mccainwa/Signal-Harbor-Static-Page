@@ -10,11 +10,9 @@
  * content/blog/posts.json plus public/images/blog/. Production and CI builds
  * read only those committed files and never contact Beehiiv.
  *
- * Publishing workflow for a new newsletter issue:
- *   1. npm run sync:blog
- *   2. Review the generated content (git diff content/blog public/images/blog)
- *   3. npm run check   (build + export verification)
- *   4. Commit the generated files and rebuild the site.
+ * The hourly Blog sync workflow imports, validates, commits, and publishes
+ * automatically. Manual fallback: npm run sync:blog, npm run check, then
+ * commit the generated files and deploy.
  *
  * What sanitization removes: scripts, styles, iframes, forms, tracking
  * pixels, the Beehiiv footer and email boilerplate, the duplicate leading h1
@@ -26,7 +24,8 @@
  * Links to the old signalharborconsulting.com domain are rewritten to the
  * production domain, which the old domain 301s to anyway.
  */
-import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseDocument } from 'htmlparser2';
@@ -42,10 +41,9 @@ mkdirSync(imageDir, { recursive: true });
 
 /**
  * Alt text for downloaded article images, keyed by the Beehiiv asset id in
- * the URL. Every image must have an entry: the feed ships empty alt
- * attributes, and shipping an image without a real description would fail
- * both accessibility and the export verifier. Add an entry after reviewing
- * any new image the sync reports.
+ * the URL. These optional descriptions take priority over feed alt text.
+ * New images use supplied alt text, or a factual article-context label when
+ * Beehiiv provides none, so publication does not require a manual code edit.
  */
 const ALT_OVERRIDES = {
   'dee76187-31ac-4b2b-83e9-0fa420635be9':
@@ -107,7 +105,7 @@ function imageSize(buf) {
 
 /* ------------------------------------------------------------- feed parse */
 
-const res = await fetch(FEED_URL);
+const res = await fetch(FEED_URL, { signal: AbortSignal.timeout(30_000) });
 if (!res.ok) {
   console.error(`Feed fetch failed: ${res.status} ${res.statusText}`);
   process.exit(1);
@@ -149,17 +147,15 @@ if (items.length === 0) {
 /* ------------------------------------------------------------- image sync */
 
 const downloadedImages = new Map();
-async function localizeImage(src) {
+async function localizeImage(src, suppliedAlt, articleTitle) {
   if (downloadedImages.has(src)) return downloadedImages.get(src);
   const idMatch = /file\/([0-9a-f-]{36})\//.exec(src);
-  const id = idMatch ? idMatch[1] : Buffer.from(src).toString('hex').slice(0, 24);
-  const alt = ALT_OVERRIDES[id];
-  if (alt === undefined) {
-    console.error(`Image ${src.slice(0, 100)} has no ALT_OVERRIDES entry (id ${id}).`);
-    console.error('Review the image and add a descriptive alt before syncing.');
-    process.exit(1);
-  }
-  const r = await fetch(src, { headers: { Accept: 'image/png,image/jpeg,image/webp,image/gif,*/*' } });
+  const id = idMatch ? idMatch[1] : createHash('sha256').update(src).digest('hex').slice(0, 24);
+  const alt = ALT_OVERRIDES[id] ?? cleanText(suppliedAlt?.trim() || `Image accompanying the article: ${articleTitle}`);
+  const r = await fetch(src, {
+    signal: AbortSignal.timeout(30_000),
+    headers: { Accept: 'image/png,image/jpeg,image/webp,image/gif,*/*' },
+  });
   if (!r.ok) {
     console.error(`Image download failed (${r.status}): ${src}`);
     process.exit(1);
@@ -182,8 +178,10 @@ async function localizeImage(src) {
 
 async function sanitizeArticle(rawHtml, articleTitle) {
   // Localize images first so the sanitizer transform can be synchronous.
-  const imgSrcs = [...rawHtml.matchAll(/<img[^>]*\bsrc="([^"]+)"/g)].map((m) => decodeEntities(m[1]));
-  for (const src of imgSrcs) await localizeImage(src);
+  const images = findAll(parseDocument(rawHtml), 'img');
+  for (const image of images) {
+    if (image.attribs.src) await localizeImage(image.attribs.src, image.attribs.alt, articleTitle);
+  }
 
   let droppedLeadingHeading = false;
   let seenParagraph = false;
@@ -266,14 +264,21 @@ async function sanitizeArticle(rawHtml, articleTitle) {
 const posts = [];
 for (const item of items) {
   const title = cleanText(decodeEntities(textOf(child(item, 'title'))));
-  const description = cleanText(decodeEntities(textOf(child(item, 'description'))));
+  let description = cleanText(decodeEntities(textOf(child(item, 'description'))));
   const link = textOf(child(item, 'link'));
   const slug = new URL(link).pathname.replace(/^\/p\//, '').replace(/\/$/, '');
   const pubDate = textOf(child(item, 'pubDate'));
   const author = textOf(child(item, 'dc:creator')) || null;
   const encoded = child(item, 'content:encoded');
   const raw = textOf(encoded);
+  if (!title || !raw || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+    throw new Error(`Incomplete or invalid feed article: ${link}`);
+  }
+  if (posts.some((p) => p.slug === slug)) throw new Error(`Duplicate feed slug: ${slug}`);
   const html = await sanitizeArticle(raw, title);
+  if (!description) {
+    description = cleanText(textOf(parseDocument(html))).replace(/\s+/g, ' ').slice(0, 160);
+  }
   const date = new Date(pubDate);
   if (Number.isNaN(date.getTime())) {
     console.error(`Bad pubDate for ${slug}: ${pubDate}`);
@@ -292,6 +297,11 @@ for (const item of items) {
   });
 }
 
+// Keep the archive when the upstream RSS feed drops older issues.
+const postsPath = path.join(contentDir, 'posts.json');
+const previous = existsSync(postsPath) ? JSON.parse(readFileSync(postsPath, 'utf8')) : [];
+const currentSlugs = new Set(posts.map((p) => p.slug));
+posts.push(...previous.filter((p) => !currentSlugs.has(p.slug)));
 posts.sort((a, b) => b.date.localeCompare(a.date));
 
 // Disambiguate repeated titles deterministically with the issue date, so

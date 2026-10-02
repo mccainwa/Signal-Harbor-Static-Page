@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "sync:blog": "node scripts/sync-blog.mjs",
+    "test:blog": "node --test scripts/sync-blog.test.mjs",
     "verify:export": "node scripts/verify-export.mjs",
     "check": "npm run build && npm run verify:export"
   },

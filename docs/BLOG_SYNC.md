@@ -1,91 +1,56 @@
-# Blog content sync (Beehiiv to /blog/)
+# Automatic blog publishing
 
-The blog at `/blog/` is statically rendered from `content/blog/posts.json`.
-Production and CI builds read only that committed file. They never contact
-Beehiiv, so the site builds even if Beehiiv is unavailable.
+Publishing a public newsletter in Signal Harbor Weekly on Beehiiv is the only
+routine publishing step. The website imports it automatically from the public
+RSS feed. No GitHub pull request, merge, API key, or manual image entry is needed.
 
-**Publishing a Beehiiv newsletter alone does not update the website.** The
-site updates only after the feed is synchronized, validated, committed
-(via a reviewed pull request), and deployed by the normal merge-to-main
-deploy.
+## How it works
 
-## Automatic synchronization (GitHub Actions)
+`.github/workflows/blog-sync.yml` checks hourly at minute 17 UTC. GitHub may delay
+scheduled runs, so this is an hourly check rather than an immediate publishing
+promise. The workflow can also be started from Actions → Blog sync → Run workflow.
 
-`.github/workflows/blog-sync.yml` checks the public RSS feed daily at 13:20
-UTC and can be run on demand from the Actions tab (`workflow_dispatch`). It:
+Each run:
 
-1. Runs `npm run sync:blog` (public feed, no credentials).
-2. Exits quietly when nothing changed.
-3. When new content exists, runs the production build and the export
-   verifier against it.
-4. Opens (or force-updates) the `blog-sync/feed-update` branch and its
-   pull request. It never commits to `main` and never deploys.
+1. Checks out the latest `main` and imports the public Beehiiv feed.
+2. Sanitizes article HTML, downloads images, and keeps previously imported posts
+   when older issues disappear from the feed. New images use an optional reviewed
+   description, supplied feed alt text, or a factual label naming the article.
+   The fallback identifies the image's context; it does not invent visual details.
+3. Stages only `content/blog/` and `public/images/blog/`, including new image files.
+4. Builds the complete website and runs export verification.
+5. Commits changed, validated content directly to `main`, using a normal push.
+   A concurrent update to `main` fails safely and is retried by the next run.
+6. Uploads the verified export and deploys it to GitHub Pages in the same run.
 
-A new newsletter appears on the live site only after that PR is reviewed,
-merged, and the merge-triggered deploy completes.
+Deploying in the sync workflow is intentional: a push made with `GITHUB_TOKEN`
+does not trigger the normal push-based deployment workflow. Both publishing
+workflows share a Pages concurrency group and do not cancel an active publication.
 
-One-time repository setting required: Settings -> Actions -> General ->
-Workflow permissions -> enable "Allow GitHub Actions to create and approve
-pull requests". Without it the PR step fails safely.
+No-change runs also build and deploy. This lets the next scheduled run recover
+from a deployment failure after content was already committed. Bad feed data,
+failed downloads, or failed validation stop publication and leave the last live
+site in place; the next scheduled run retries automatically. Persistent failures
+remain visible in GitHub Actions and need a technical fix. GitHub repository
+notifications determine who receives failure emails.
 
-**Image alt-text failures:** if a new post contains a new inline image, the
-sync exits non-zero (by design) until a human-written description is added
-to `ALT_OVERRIDES` in `scripts/sync-blog.mjs`. The workflow run shows the
-failing image URL. Look at the actual image, add the alt entry in a normal
-PR, merge it, then re-run the sync workflow from the Actions tab.
+## Validation and content behavior
 
-**Re-running a failed sync:** fix the cause (usually alt text or a Beehiiv
-outage), then Actions -> Blog sync -> Run workflow. Runs are idempotent;
-the same content produces the same `posts.json`.
+- Articles are static HTML, readable without JavaScript.
+- Blog cards, article pages, the sitemap, and `/feed.xml` use the same committed data.
+- `sanitize-html` removes unsafe tags and attributes before content is built.
+- Empty bodies, invalid article slugs or dates, and duplicate feed slugs fail import.
+- Missing newsletter descriptions use a short excerpt from the sanitized article.
+- Optional `ALT_OVERRIDES` descriptions still take priority for known images.
+- No credentials are needed for the RSS feed or article images.
+- The workflow needs repository content write and GitHub Pages deployment permissions.
+  It no longer depends on the setting that allows Actions to create pull requests.
 
-**Verifying an article after deployment:** open
-`https://signalharborai.com/blog/` and the new article URL, confirm the
-article renders with the Signal Harbor byline and date, check it appears in
-`https://signalharborai.com/sitemap.xml` and `/feed.xml`, and spot-check
-the page with JavaScript disabled.
+## Manual fallback for troubleshooting
 
-## Manual fallback
+Run `npm run sync:blog`, then `npm run check`. Review and commit generated files;
+a normal merge to `main` runs the validated deployment workflow. This fallback
+is for troubleshooting, not routine newsletter publication.
 
-The same pipeline runs locally:
-
-1. Run the sync command:
-
-   ```
-   npm run sync:blog
-   ```
-
-   This fetches the public RSS feed (`https://rss.beehiiv.com/feeds/lCr2tO6J1T.xml`),
-   sanitizes each article body with `sanitize-html` (allowlist tags and
-   attributes only), strips Beehiiv boilerplate (footer blocks, subscribe
-   links, tracking pixels, duplicate title headings), normalizes punctuation
-   (em and en dashes are replaced without changing meaning), downloads any
-   inline article images into `public/images/blog/`, and rewrites the data to
-   `content/blog/posts.json`.
-
-2. Review the generated content. Read the new entries in
-   `content/blog/posts.json` (or run the site locally and read the new
-   article pages). Confirm the text is clean, the images have accurate alt
-   text, and nothing unwanted came through.
-
-   If a new post contains an inline image, the sync will fail until an
-   accurate, human-written alt text is added to `ALT_OVERRIDES` in
-   `scripts/sync-blog.mjs`. Look at the actual image before writing it.
-   This is deliberate: alt text is never guessed.
-
-3. Commit the changes (`content/blog/posts.json`, any new files under
-   `public/images/blog/`, and the `ALT_OVERRIDES` edit if one was needed).
-
-4. Rebuild and deploy the site the normal way (merging to `main` triggers
-   the GitHub Pages deploy). `npm run check` runs the build plus
-   `scripts/verify-export.mjs`, which validates every blog route.
-
-## Guarantees
-
-- No API key is used or needed. The public RSS feed contains full post
-  bodies.
-- The sync is deterministic: the same feed input produces the same
-  `posts.json` output.
-- Sanitization is allowlist-based via the maintained `sanitize-html`
-  package, not regular expressions.
-- Article pages render as static HTML and remain readable with JavaScript
-  disabled.
+After deployment, verify `https://signalharborai.com/blog/`, the new article URL,
+`https://signalharborai.com/sitemap.xml`, and `https://signalharborai.com/feed.xml`.
