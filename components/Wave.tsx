@@ -16,6 +16,9 @@ export default function Wave({ top, bottom }: { top: string; bottom: string }) {
 export const TONE = {
   navy: '#0A1628',
   navyDeep: '#060E1A',
-  light: '#FFFFFF',
-  ice: '#EFF6FB',
+  /* Matches the Section tones: slate canvas, mist surface, raised surface. */
+  light: '#F4F9FC',
+  ice: '#EAF4FA',
+  raised: '#FFFFFF',
+  white: '#FFFFFF',
 };

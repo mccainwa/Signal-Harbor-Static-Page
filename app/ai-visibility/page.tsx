@@ -240,9 +240,9 @@ export default function AiVisibilityPage() {
             ))}
           </ol>
           <p className="mt-8 text-[15px] text-white/60">
-            The <Link href="/audit" className="text-blue underline">AI Visibility Audit</Link> runs
-            these steps as a managed engagement, with the baseline, evidence,
-            and roadmap delivered together.
+            Signal Harbor&rsquo;s <Link href="/services" className="text-blue underline">managed program</Link> runs
+            these steps with your team and delivers the work and results in
+            the client portal.
           </p>
         </Section>
 

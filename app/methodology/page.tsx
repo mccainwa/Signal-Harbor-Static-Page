@@ -1,87 +1,115 @@
 import type { Metadata } from 'next';
-import { pageMetadata, OG } from '@/lib/seo';
 import Link from 'next/link';
+import { pageMetadata, OG } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PageHero from '@/components/PageHero';
+import FinalCTA from '@/components/FinalCTA';
+import Wave, { TONE } from '@/components/Wave';
+import MethodSteps from '@/components/MethodSteps';
 import Measurement from '@/components/Measurement';
-import Deliverables from '@/components/Deliverables';
-import CTAButton from '@/components/CTAButton';
-import { SITE, CTA } from '@/lib/site';
+import MethodRetest from '@/components/MethodRetest';
+import MethodSignals from '@/components/MethodSignals';
+import MethodDelivery from '@/components/MethodDelivery';
+import ReadingDetail from '@/components/ReadingDetail';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Methodology',
+  title: 'AI Visibility Measurement Methodology',
   description:
-    'How Signal Harbor measures AI visibility: prompt design, repeated testing, source classification, claim verification, and what you receive.',
+    'How Signal Harbor measures AI visibility: fixed buyer questions, repeated answers, recorded evidence, separate measures, and matched retests after publication.',
   path: '/methodology/',
   image: OG.platform,
-  imageAlt: 'Signal Harbor measurement methodology',
+  imageAlt: 'Signal Harbor AI visibility measurement methodology',
 });
 
-const steps = [
-  ['Define the buyer prompt universe', 'Prompt sets built around category, comparison, alternative, local, and objection questions.'],
-  ['Run repeated measurements', 'Test across selected AI systems over a window to observe patterns, not isolated outputs.'],
-  ['Extract mentions and citations', 'Capture whether you appear, which competitors appear, which domains are cited, and what the answer claims.'],
-  ['Classify source types', 'Group sources into owned, earned, reviews, directories, social, partner, competitor, or unknown.'],
-  ['Score visibility and influence', 'Separate basic presence from answer influence.'],
-  ['Verify claims', 'Flag unsupported, outdated, or incorrect AI statements for correction.'],
-  ['Translate findings into actions', 'Content, source, schema, and messaging fixes tied to observed gaps.'],
+const principles: [term: string, detail: string][] = [
+  ['Fixed buyer questions', 'The same question set for the baseline and the retest'],
+  ['Repeated answers', 'Each question asked more than once on each AI platform'],
+  ['Recorded evidence', 'Every answer stored with its sources and conditions'],
 ];
+
+const onThisPage: [label: string, href: string][] = [
+  ['Measurement steps', '#how-it-works'],
+  ['Four measures', '#measure'],
+  ['Matched retest', '#matched-retest'],
+  ['Search and analytics', '#signals'],
+  ['Where you see the evidence', '#deliverables'],
+];
+
+const linkOnLight = 'font-semibold text-harbor underline decoration-harbor/40 underline-offset-4 hover:decoration-harbor';
 
 export default function MethodologyPage() {
   return (
     <>
       <Header />
-      <main className="bg-navy">
-        <section className="hero-gradient relative overflow-hidden border-b border-white/10">
-          <div aria-hidden className="pointer-events-none absolute inset-0 signal-grid opacity-70" />
-          <div className="container-x relative py-16 sm:py-20">
-            <div className="max-w-3xl">
-              <p className="eyebrow mb-3">Methodology</p>
-              <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">How Signal Harbor measures AI visibility.</h1>
-              <p className="mt-5 text-lg leading-relaxed text-white/75">
-                AI answers change over time, so a single screenshot is not
-                enough. We run structured, repeated measurements, classify the
-                sources shaping answers, verify claims, and translate findings
-                into a practical plan.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section id="how-it-works" className="container-x scroll-mt-20 py-16 sm:py-20">
-          <p className="eyebrow mb-3">How it works</p>
-          <h2 className="text-3xl font-bold tracking-tight text-white">Seven steps, repeated over time.</h2>
-          <ol className="mt-10 grid gap-4 md:grid-cols-2">
-            {steps.map(([t, d], i) => (
-              <li key={t} className="flex gap-4 rounded-2xl border border-white/12 bg-navy-panel p-5">
-                <span className="grid h-9 w-9 flex-none place-items-center rounded-full bg-blue/15 font-sora text-sm font-bold text-blue ring-1 ring-blue/30">{i + 1}</span>
-                <div><h3 className="text-[15px] font-bold text-white">{t}</h3><p className="mt-1 text-sm leading-snug text-white/60">{d}</p></div>
-              </li>
+      <main>
+        <PageHero
+          eyebrow="Methodology"
+          title="How we measure AI visibility and change."
+          intro={
+            <p>
+              Fixed buyer questions. Repeated answers. Recorded evidence. We measure mentions,
+              recommendations, citations, and accuracy separately, then compare like with like.
+            </p>
+          }
+          secondary={{ label: 'See the client portal', href: '/platform/' }}
+          zone="methodology-hero"
+        >
+          <dl className="mt-8 grid gap-3 sm:grid-cols-3">
+            {principles.map(([term, detail]) => (
+              <div key={term} className="rounded-xl border border-harbor/15 bg-white/80 px-4 py-3.5">
+                <dt className="text-base font-bold text-navy">{term}</dt>
+                <dd className="mt-1 text-sm leading-snug text-navy/70">{detail}</dd>
+              </div>
             ))}
-          </ol>
-        </section>
+          </dl>
+        </PageHero>
 
-        <div id="measure" className="scroll-mt-20"><Measurement /></div>
-        <div id="deliverables" className="scroll-mt-20"><Deliverables /></div>
+        <nav aria-label="On this page" className="border-b border-navy/[0.08] bg-raised">
+          <div className="container-x flex flex-wrap items-center gap-x-6 gap-y-2 py-4">
+            <span className="text-sm font-semibold text-navy/75">On this page</span>
+            <ul className="flex flex-wrap gap-x-5 gap-y-2">
+              {onThisPage.map(([label, href]) => (
+                <li key={href}>
+                  <a href={href} className="text-[15px] font-semibold text-harbor underline-offset-4 hover:underline">
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
 
-        <section className="container-x py-16 sm:py-20">
-          <div className="flex flex-col gap-4 rounded-3xl border border-blue/25 bg-blue/[0.06] p-8 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-white">The research behind the method.</h2>
-              <p className="mt-2 max-w-xl text-[15px] text-white/65">
-                See the external references that inform how we test and
-                measure, read the{' '}
-                <Link href="/ai-visibility" className="text-blue underline">plain-language guide to AI visibility</Link>, or
-                review{' '}
-                <Link href="/audit" className="text-blue underline">what the full audit covers</Link>.
-              </p>
+        <Measurement />
+        <section className="bg-canvas" aria-labelledby="method-research">
+          <div className="container-x py-12 sm:py-14">
+            <div className="mb-10">
+              <p className="eyebrow mb-3">Explore the method</p>
+              <ReadingDetail id="how-it-works" title="From buyer questions to campaign priorities">
+                <MethodSteps embedded />
+              </ReadingDetail>
+              <ReadingDetail id="matched-retest" title="How we compare the baseline and retest">
+                <MethodRetest embedded />
+              </ReadingDetail>
+              <ReadingDetail id="signals" title="How search and analytics fit into measurement">
+                <MethodSignals embedded />
+              </ReadingDetail>
+              <ReadingDetail id="deliverables" title="Where your team sees the evidence">
+                <MethodDelivery embedded />
+              </ReadingDetail>
             </div>
-            <div className="flex flex-none gap-3">
-              <Link href="/research" className="inline-flex items-center rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white hover:border-blue/50">View research basis</Link>
-              <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
-            </div>
+            <h2 id="method-research" className="text-2xl font-bold tracking-tight text-navy">The research behind the method.</h2>
+            <p className="mt-3 max-w-2xl text-base leading-relaxed text-navy/80">
+              Read{' '}
+              <Link href="/research/" className={linkOnLight}>the research references that inform how we test</Link>,
+              the{' '}
+              <Link href="/ai-visibility/" className={linkOnLight}>plain language guide to AI visibility</Link>, or{' '}
+              <Link href="/audit/" className={linkOnLight}>how the AI visibility audit works</Link>.
+            </p>
           </div>
         </section>
+        <Wave top={TONE.light} bottom={TONE.light} />
+        <FinalCTA />
       </main>
       <Footer />
     </>

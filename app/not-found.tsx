@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const destinations = [
   { label: 'Home', href: '/', d: 'Start from the top.' },
-  { label: 'Services', href: '/services', d: 'Audits, sprints, and monitoring.' },
+  { label: 'Services', href: '/services', d: 'The managed program, delivered in a client portal.' },
   { label: 'What Is AI Visibility?', href: '/ai-visibility', d: 'The plain-language guide.' },
   { label: 'FAQ', href: '/faq', d: 'Common questions, answered.' },
 ];

@@ -8,9 +8,9 @@ import CTAButton from '@/components/CTAButton';
 import { SITE, CTA } from '@/lib/site';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Get a Complimentary AI Visibility Snapshot',
+  title: 'Complimentary AI Visibility Snapshot and Demo',
   description:
-    'Book an introductory call and receive a complimentary snapshot of how AI platforms describe and recommend your company. The call sets the next step.',
+    'See how AI describes your company with a complimentary AI Visibility Snapshot, then explore Signal Harbor in a live portal demo.',
   path: '/snapshot/',
   image: OG.snapshot,
   imageAlt: 'The complimentary Signal Harbor AI Visibility Snapshot',
@@ -19,14 +19,15 @@ export const metadata: Metadata = pageMetadata({
 const included = [
   ['A limited prompt set', 'A focused set of the buyer questions that matter most in your category, run across one or two AI platforms.'],
   ['A short summary', 'Where your company appears, how it is described, and who is recommended instead, in a few readable pages.'],
-  ['A walkthrough on the call', 'We go through the snapshot together, answer questions, and point out anything that needs attention.'],
-  ['A clear recommendation', 'Whether the comprehensive paid audit is worth doing for your situation, and what it would cover.'],
+  ['A live portal demo', 'See how Insights, Campaign, review, approvals, and Results connect in your client workspace.'],
+  ['A clear recommendation', 'Whether the paid company pilot fits your situation, and which product, audience, or initiative it would start with.'],
 ];
 
 /**
  * The Service schema describes what this page offers: the complimentary
- * AI Visibility Snapshot, received by booking the introductory call. The paid
- * audit has its own description on the services page.
+ * AI Visibility Snapshot, received by booking the introductory call. It is a
+ * sales preview. The paid company pilot, whose work and results are delivered
+ * through the client portal, is described on the services and pricing pages.
  */
 const serviceLd = {
   '@context': 'https://schema.org',
@@ -35,7 +36,7 @@ const serviceLd = {
   name: 'AI Visibility Snapshot',
   serviceType: 'AI visibility snapshot',
   description:
-    'A complimentary snapshot of how AI platforms describe, compare, and recommend a company, received by booking a free introductory call. It is a brief preview, not the comprehensive paid AI Visibility Audit.',
+    'A complimentary snapshot of how AI platforms describe, compare, and recommend a company, with a live portal demo on the introductory call. The paid company pilot delivers work and results through the client portal.',
   url: `${SITE.url}/snapshot/`,
   provider: { '@id': `${SITE.url}/#organization` },
 };
@@ -49,13 +50,13 @@ export default function SnapshotPage() {
           <div className="max-w-3xl">
             <p className="eyebrow mb-3">Included with the introductory call</p>
             <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
-              Get a Complimentary AI Visibility Snapshot.
+              Your AI Visibility Snapshot. A live portal demo.
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-white/75">{CTA.supporting}</p>
             <p className="mt-4 text-lg leading-relaxed text-white/60">
               The snapshot is a brief preview of your current AI visibility. On
-              the call we walk through it and tell you whether the comprehensive
-              paid audit is worth doing.
+              the call we walk through it, show the portal, and discuss whether the company pilot
+              is the right next step for your team.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-cta-zone="snapshot-hero">
               <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.short}</CTAButton>
@@ -69,7 +70,7 @@ export default function SnapshotPage() {
           <SectionHeading
             tone="light"
             eyebrow="What the Snapshot includes"
-            title="A brief preview, not the full audit."
+            title="See the opportunity. See how the work gets done."
           />
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {included.map(([t, d], i) => (
@@ -87,18 +88,19 @@ export default function SnapshotPage() {
             <div className="max-w-2xl">
               <h2 className="text-2xl font-bold text-white">Need more than a preview?</h2>
               <p className="mt-3 text-[15px] leading-relaxed text-white/70">
-                The AI Visibility Audit is the comprehensive paid engagement: a
-                full prompt set, measurement across multiple AI platforms,
-                competitor tracking, a source map, an accuracy review, and a
-                prioritized action roadmap. Read the{' '}
-                <Link href="/audit" className="text-blue underline">full audit details</Link>, see{' '}
-                <Link href="/services" className="text-blue underline">all services</Link> for how it
-                fits with optimization sprints and ongoing monitoring, or learn{' '}
-                <Link href="/pricing" className="text-blue underline">how pricing works</Link>.
+                The company pilot is the paid, managed program. Signal Harbor
+                tests the buyer questions behind your initiative, prioritizes
+                the gaps, and prepares the pages and content the campaign calls
+                for. Your team reviews and approves the work. Findings,
+                campaign work, approvals, publication status, and results are
+                delivered through the client portal, not as a report. See{' '}
+                <Link href="/platform" className="text-blue underline">how the client portal works</Link>, read{' '}
+                <Link href="/services" className="text-blue underline">how the managed program runs</Link>, or review{' '}
+                <Link href="/pricing" className="text-blue underline">the pilot price and commitment</Link>.
               </p>
             </div>
             <div className="flex-none" data-cta-zone="snapshot-footer">
-              <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.audit}</CTAButton>
+              <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
             </div>
           </div>
         </Section>

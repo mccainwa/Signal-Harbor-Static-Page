@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { SITE } from '@/lib/site';
-import { getPosts } from '@/lib/blog';
+import { getPosts, getBlogPageCount, blogPagePath } from '@/lib/blog';
 
 /**
  * Generated at build time by Next's metadata route support, which works with
@@ -31,6 +31,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...routes.map((path) => ({
       url: `${SITE.url}${path}`,
+      changeFrequency: 'monthly' as const,
+    })),
+    ...Array.from({ length: getBlogPageCount() - 1 }, (_, i) => ({
+      url: SITE.url + blogPagePath(i + 2),
       changeFrequency: 'monthly' as const,
     })),
     // Articles carry an accurate lastModified from the feed's publication

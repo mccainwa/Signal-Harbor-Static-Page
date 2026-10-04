@@ -2,101 +2,18 @@ import type { Metadata } from 'next';
 import { pageMetadata, OG } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Section from '@/components/Section';
-import CTAButton from '@/components/CTAButton';
-import { SITE, CTA } from '@/lib/site';
+import Founders from '@/components/Founders';
+import FinalCTA from '@/components/FinalCTA';
+import { SITE } from '@/lib/site';
+import { FOUNDERS } from '@/lib/founders';
 
-export const metadata: Metadata = pageMetadata({
-  title: 'About',
-  description:
-    'Signal Harbor is an AI visibility intelligence and GEO services company. What we do, how we work, and how to reach us.',
-  path: '/about/',
-  image: OG.company,
-  imageAlt: 'About Signal Harbor',
-});
+export const metadata: Metadata = pageMetadata({title:'About Us and Our Founders',description:'Meet Walter McCain III and Sebastian Miller, the founders of Signal Harbor. A managed AI visibility program connecting buyer discovery, content, and measurable impact.',path:'/about/',image:OG.company,imageAlt:'Signal Harbor and its founders'});
+const PRINCIPLES=[['Evidence sets the direction.','Start with the answers buyers see and the sources behind them. Focus the work on gaps that matter to your business.'],['People make the decisions.','Your team brings the company facts, product knowledge, and final approval. AI and agents help the work move.'],['The work completes the loop.','Research becomes a campaign. Approved content gets published. Remeasurement and connected data inform the next move.']];
+const aboutLd={'@context':'https://schema.org','@type':'AboutPage','@id':`${SITE.url}/about/#webpage`,name:'About Signal Harbor and its founders',url:`${SITE.url}/about/`,isPartOf:{'@id':`${SITE.url}/#website`},about:{'@id':`${SITE.url}/#organization`},mainEntity:FOUNDERS.map(f=>({'@type':'Person',name:f.name,image:SITE.url+f.image,jobTitle:'Co-founder',url:`${SITE.url}/about/#${f.id}`,sameAs:[f.linkedin],worksFor:{'@id':`${SITE.url}/#organization`}}))};
 
-export default function AboutPage() {
-  return (
-    <>
-      <Header />
-      <main>
-        <Section tone="navy">
-          <div className="max-w-2xl">
-            <p className="eyebrow mb-3">Company</p>
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">About Signal Harbor.</h1>
-            <div className="mt-6 space-y-5 text-lg leading-relaxed text-white/75">
-              <p>
-                Signal Harbor helps companies understand and improve how AI
-                systems describe, cite, compare, and recommend them, so they can
-                capture more qualified demand and protect their reputation in AI
-                buyer research.
-              </p>
-              <p className="text-white/60">
-                We measure observable AI visibility signals across major answer
-                platforms, diagnose the sources and gaps behind them, flag
-                inaccurate claims, and turn the findings into a practical action
-                plan for marketing, SEO, and leadership teams.
-              </p>
-              <p className="text-white/60">
-                Every engagement starts the same way: book an introductory call
-                and receive a complimentary snapshot of how AI platforms
-                currently describe and recommend your company. Full audits and
-                ongoing monitoring are paid engagements, scoped on that call.
-              </p>
-            </div>
-            <div className="mt-10 rounded-2xl border border-white/10 bg-navy-panel/70 p-6" data-cta-zone="about-founders">
-              <h2 className="text-lg font-bold text-white">The people behind Signal Harbor</h2>
-              <p className="mt-3 text-[15px] leading-relaxed text-white/70">
-                Signal Harbor was founded by Walter McCain III and Sebastian Miller.
-              </p>
-              <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-                {SITE.founders.map((name) => (
-                  <li key={name} className="rounded-xl border border-white/10 bg-navy/40 px-4 py-3.5">
-                    <p className="text-[15px] font-bold text-white">{name}</p>
-                    <p className="mt-0.5 text-sm text-white/60">Co-founder</p>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-5">
-                <a
-                  href={SITE.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl border border-white/25 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:border-blue/60 hover:text-blue"
-                >
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.32 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.1 20.45H3.53V9H7.1v11.45z" /></svg>
-                  Follow Signal Harbor on LinkedIn
-                  <span className="sr-only">(opens in a new tab)</span>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg>
-                </a>
-              </p>
-            </div>
-
-            <div className="mt-6 rounded-2xl border border-white/10 bg-navy-panel/70 p-6">
-              <h2 className="text-lg font-bold text-white">Part of Chicago&rsquo;s startup ecosystem</h2>
-              <ul className="mt-3 space-y-2 text-[15px] leading-relaxed text-white/70">
-                <li>
-                  Member of{' '}
-                  <a href="https://www.luc.edu/leadershiphub/centers/ignitelab/" target="_blank" rel="noopener noreferrer" className="text-blue underline">
-                    Loyola University Chicago&rsquo;s Ignite Lab
-                  </a>
-                </li>
-                <li>
-                  Member of{' '}
-                  <a href="https://1871.com/" target="_blank" rel="noopener noreferrer" className="text-blue underline">
-                    1871
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row" data-cta-zone="about-page">
-              <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
-              <CTAButton href={SITE.mailto} variant="secondary">Email Signal Harbor</CTAButton>
-            </div>
-          </div>
-        </Section>
-      </main>
-      <Footer />
-    </>
-  );
-}
+export default function AboutPage(){return <><Header/><main>
+<section className="hero-light overflow-hidden" aria-labelledby="about-title"><div className="container-x about-story py-12 sm:py-16"><div><p className="eyebrow">About us</p><h1 id="about-title" className="mt-4 text-4xl font-extrabold leading-[1.12] tracking-tight text-navy sm:text-5xl">Good companies should be easier to find.</h1><p className="mt-6 max-w-xl text-lg leading-relaxed text-navy/85">Buyers are asking AI who to trust. We help your company become easier to discover, understand, and choose.</p><p className="mt-4 max-w-xl text-base leading-relaxed text-navy/85">Signal Harbor brings AI search intelligence, prepared marketing work, and a managed team into one connected program for middle-market companies, enterprise teams, and agency partners.</p><a href="#founders" className="harbor-text-link mt-7 inline-flex font-semibold text-harbor underline underline-offset-4">Meet Walter and Sebastian <span aria-hidden="true"> ↘</span></a></div><div className="about-signal harbor-aura"><p className="portal-kicker">The Signal Harbor idea</p><h2>Clarity at every step.</h2><ol>{[['01','Be found.','Understand the questions buyers ask.'],['02','Be understood.','Give AI and buyers a clear, accurate story.'],['03','Be considered.','Turn evidence into content that helps buyers choose.']].map(([n,title,text])=><li key={n}><span aria-hidden="true">{n}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol></div></div></section>
+<section className="bg-mist" aria-labelledby="approach-title"><div className="container-x py-12 sm:py-14"><div className="max-w-2xl"><p className="eyebrow">How we work</p><h2 id="approach-title" className="mt-3 text-3xl font-bold tracking-tight text-navy">Built for the team behind the brand.</h2><p className="mt-4 text-base leading-relaxed text-navy/85">Marketing teams need a clear priority and the capacity to act on it. We connect the research, the work, and the measurement while your people stay in control.</p></div><div className="about-principles mt-8">{PRINCIPLES.map(([title,text])=><article key={title}><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>
+<Founders/>
+<section className="bg-canvas" aria-labelledby="ecosystem-title"><div className="container-x pb-12 sm:pb-16"><div className="about-ecosystem"><div><p className="eyebrow">Our community</p><h2 id="ecosystem-title">Part of Chicago’s startup ecosystem.</h2><p>Building alongside founders, operators, and people bringing new ideas to life.</p></div><ul><li><a href="https://www.luc.edu/leadershiphub/centers/ignitelab/" target="_blank" rel="noopener noreferrer">Loyola University Chicago’s Ignite Lab <span className="sr-only">(opens in a new tab)</span><span aria-hidden="true">↗</span></a><span>Member</span></li><li><a href="https://1871.com/" target="_blank" rel="noopener noreferrer">1871 <span className="sr-only">(opens in a new tab)</span><span aria-hidden="true">↗</span></a><span>Member</span></li></ul></div></div></section>
+<FinalCTA/></main><Footer/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(aboutLd)}}/></>}

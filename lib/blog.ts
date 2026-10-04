@@ -34,8 +34,15 @@ export const BLOG_AUTHOR = 'Signal Harbor';
 
 /** All posts, newest first (the sync script writes them sorted). */
 export function getPosts(): BlogPost[] {
-  return posts;
+  return [...posts].sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 }
+
+export const BLOG_PAGE_SIZE = 10;
+export function getBlogPageCount() { return Math.max(1, Math.ceil(posts.length / BLOG_PAGE_SIZE)); }
+export function getBlogPage(page: number) {
+  return getPosts().slice((page - 1) * BLOG_PAGE_SIZE, page * BLOG_PAGE_SIZE);
+}
+export function blogPagePath(page: number) { return page === 1 ? '/blog/' : '/blog/page/' + page + '/'; }
 
 export function getPost(slug: string): BlogPost | undefined {
   return posts.find((p) => p.slug === slug);

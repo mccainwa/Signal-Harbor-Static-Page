@@ -1,226 +1,99 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { pageMetadata, OG } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Section, { SectionHeading } from '@/components/Section';
-import CTAButton from '@/components/CTAButton';
-import { SITE } from '@/lib/site';
+import PricingPilotCard from '@/components/PricingPilotCard';
+import ProviderLogos from '@/components/ProviderLogos';
+import FinalCTA from '@/components/FinalCTA';
+import OfferComparison from '@/components/OfferComparison';
+import PilotScope from '@/components/PilotScope';
+import DiscoveryConnections from '@/components/DiscoveryConnections';
+import AgencyPlanCard from '@/components/AgencyPlanCard';
+import { SITE, OFFER } from '@/lib/site';
 
+const PILOT_SUMMARY = `${OFFER.price} ${OFFER.priceUnit} with a ${OFFER.minimum} and a ${OFFER.pilot.toLowerCase()}.`;
 export const metadata: Metadata = pageMetadata({
-  title: 'AI Visibility Pricing',
-  description:
-    'How Signal Harbor prices the AI Visibility Audit, GEO services, and ongoing monitoring. Pricing is tailored to scope. Contact us for a quote built around your company.',
-  path: '/pricing/',
-  image: OG.pricing,
-  imageAlt: 'Signal Harbor AI visibility pricing',
+  title: 'AI Visibility Pricing for Companies and Agencies',
+  description: `Managed AI visibility for companies and agencies. Company founding rate: ${PILOT_SUMMARY} Agency partnerships: contact for pricing.`,
+  path: '/pricing/', image: OG.pricing, imageAlt: 'Signal Harbor managed AI visibility company pilot',
 });
-
-const offers = [
-  {
-    name: 'AI Visibility Snapshot',
-    tag: 'Complimentary with a booked call',
-    paid: false,
-    desc: 'Complimentary when an introductory call is booked. It is a brief preview of how AI platforms currently describe and recommend your company, not the comprehensive paid Audit.',
-  },
-  {
-    name: 'AI Visibility Audit',
-    tag: 'Paid engagement',
-    paid: true,
-    desc: 'A paid engagement with pricing based on the testing, analysis, competitors, sources, and deliverables included in the agreed scope.',
-  },
-  {
-    name: 'Optimization Sprint',
-    tag: 'Paid engagement',
-    paid: true,
-    desc: 'A separately scoped paid engagement for companies that want help implementing prioritized improvements after the Audit.',
-  },
-  {
-    name: 'Ongoing Monitoring',
-    tag: 'Paid engagement',
-    paid: true,
-    desc: 'A tailored paid engagement. AI visibility monitoring pricing is based on monitoring coverage, reporting requirements, and operating cadence.',
-  },
+const VALUE = [
+  ['01', 'Find where buyers miss you.', 'Understand who gets mentioned, which sources influence answers, and where your company is misrepresented.'],
+  ['02', 'Turn the evidence into content.', 'Get a monthly campaign plan and weekly content templates your team can review and use.'],
+  ['03', 'Connect discovery to business outcomes.', 'AI visibility, SEO discovery, traffic sources, and tracked conversions come together in your client portal.'],
 ];
-
-const factors = [
-  { name: 'Number and type of buyer questions', desc: 'How many buyer questions we test, and whether they are broad discovery questions or specific comparison and recommendation prompts.' },
-  { name: 'AI platforms included', desc: 'How many AI platforms the engagement measures, agreed with you during scoping.' },
-  { name: 'Number of competitors', desc: 'How many competitors we track alongside your company in every test.' },
-  { name: 'Repeat-testing requirements', desc: 'How many times each question is repeated. AI answers vary, so stable measurement needs repetition.' },
-  { name: 'Source and accuracy analysis', desc: 'Whether the engagement maps the sources shaping AI answers and reviews AI claims about your company for accuracy.' },
-  { name: 'Reporting depth', desc: 'The level of reporting you need, from a concise executive scorecard to detailed findings for multiple stakeholders.' },
-  { name: 'Implementation support', desc: 'Whether you want Signal Harbor to help execute the roadmap or hand a prioritized plan to your team.' },
-  { name: 'Ongoing monitoring requirements', desc: 'Whether measurement continues after the initial engagement, and at what cadence and coverage.' },
+const COMMITMENT = [
+  { when: 'First 90 days', what: `Your minimum commitment is ${OFFER.firstTerm} in total at ${OFFER.price} ${OFFER.priceUnit}.` },
+  { when: 'Your choice at day 90', what: 'Stop or continue. The monthly rate stays the same.' },
+  { when: 'Through month six', what: `The six month full pilot is ${OFFER.fullPilot} if you complete all six months.` },
 ];
-
-const steps = [
-  { step: '1', title: 'Book an introductory call.', desc: 'The call is free. We talk through your market, your buyers, and what you want to learn.' },
-  { step: '2', title: 'Receive the complimentary Snapshot.', desc: 'A brief preview of how AI platforms currently describe and recommend your company.' },
-  { step: '3', title: 'Discuss the appropriate scope.', desc: 'Together we define the questions, platforms, competitors, and deliverables that fit your situation.' },
-  { step: '4', title: 'Receive a tailored proposal before paid work begins.', desc: 'You see exactly what the engagement covers and what it costs before anything is billed.' },
-];
-
 const faqs = [
-  {
-    q: 'How much does an AI Visibility Audit cost?',
-    a: 'There is no fixed price. AI Visibility Audit pricing depends on the buyer questions tested, the AI platforms included, the number of competitors measured, the depth of source and accuracy analysis, and the deliverables in the agreed scope. Book an introductory call and you will receive a tailored proposal before any paid work begins.',
-  },
-  {
-    q: 'Why does Signal Harbor use tailored pricing?',
-    a: 'Because the required measurement and implementation scope differs by company. A company tracking a handful of buyer questions in one market needs a different engagement than one measuring many questions, platforms, and competitors. Tailored pricing means you pay for the scope your situation requires and nothing more.',
-  },
-  {
-    q: 'Is the AI Visibility Snapshot free?',
-    a: 'The introductory call is free, and the AI Visibility Snapshot that comes with it is complimentary. The Snapshot is a brief preview of how AI platforms describe and recommend your company. It is not the comprehensive paid Audit.',
-  },
-  {
-    q: 'What affects GEO service pricing?',
-    a: 'Generative Engine Optimization, or GEO, is the work of improving how AI systems describe and recommend your company. GEO service pricing follows the scope of that work: how many pages and sources need optimization, the structured data and entity work involved, the content support you want, and whether a follow-up re-audit is included.',
-  },
-  {
-    q: 'Are implementation and monitoring included in the Audit?',
-    a: 'No. The AI Visibility Audit is a standalone paid engagement that delivers measurement, analysis, and a prioritized action roadmap. Implementation support runs as a separately scoped Optimization Sprint, and ongoing monitoring is a separate tailored engagement priced on coverage and cadence.',
-  },
+  { q: 'How much does Signal Harbor cost?', a: `For companies, the founding partner rate is ${PILOT_SUMMARY} That is ${OFFER.firstTerm} across the first three months, and ${OFFER.fullPilot} if you complete all six months. Agency partnerships are priced separately.` },
+  { q: 'What does the company pilot include?', a: 'Eight-platform AI visibility audits, competitor and source analysis, company claim review, one campaign plan per month, and five content templates per week. The offer includes Signal Harbor AI, Agent Connections, Google Analytics 4, Google Search Console, and connected attribution. Your client portal brings Insights, Campaign, review, approvals, publication records, and Results together.' },
+  { q: 'Is six months the minimum commitment?', a: 'No. The minimum commitment is 90 days. Six months is the length of the full pilot. After the first 90 days, you choose whether to stop or continue at the same monthly rate.' },
+  { q: 'What happens after the first 90 days?', a: `You can stop once the 90 day minimum commitment is complete, or continue at the same monthly rate of ${OFFER.price} ${OFFER.priceUnit} through the six month full pilot.` },
+  { q: 'What does the founding partner rate mean?', a: `The ${OFFER.price} monthly rate is the offer for companies joining at Signal Harbor's founding stage. Future program pricing will reflect a broader platform and delivery scope. Your six month full pilot remains at ${OFFER.price} per month, with a 90 day minimum commitment.` },
+  { q: 'How is this different from buying an AI visibility tool?', a: 'Signal Harbor combines the client portal with a managed program. We interpret the audit evidence, prioritize the campaign, and prepare weekly content templates for your team. Your team reviews the facts and approves the specific version. The program connects that work to publication records and agreed measures.' },
+  { q: 'Are Signal Harbor AI and Agent Connections included?', a: 'Yes. Signal Harbor AI supports content work using your company facts, brand preferences, and campaign context. Agent Connections give Claude, Codex, and compatible agents permissioned access to approved context and work. Your team retains human review and final approval.' },
+  { q: 'Which data connections are included?', a: 'Google Analytics 4 and Google Search Console. Connect the properties selected for your program to bring traffic sources, landing pages, engagement, conversion events, and organic query and page performance into the client portal.' },
+  { q: 'How does attribution work?', a: 'We establish the baseline, record published changes, and remeasure the same buyer questions and AI platforms. We combine visibility changes with Search Console discovery, identified AI referrals, landing pages, and tracked conversion events to estimate impact. Estimates show their evidence and assumptions separately from recorded outcomes, helping your team judge progress and choose the next move.' },
+  { q: 'How much monitoring and AI usage do we need?', a: 'The pilot covers eight AI answer platforms. Before work starts, we confirm your buyer question set, markets, collection cadence, and AI workflow needs around the business priorities you want to address.' },
+  { q: 'How does access work for our team?', a: 'Named team access and permissioned agent connections keep company context and campaign work in the right hands. Your reviewers confirm facts, request changes, and approve the specific version prepared for publication.' },
+  { q: 'Who publishes the approved work?', a: 'Publication is agreed for your engagement. Your team, your agency, or another agreed owner publishes the approved version, and the portal records the published URL and date.' },
+  { q: 'How do we follow progress?', a: 'Insights shows AI answers, competitors, citations, and accuracy. Campaign connects prepared work and approvals. Google Analytics 4 and Search Console bring traffic sources, organic discovery, landing-page performance, and tracked conversions into Results, alongside publication records and the program baseline.' },
+  { q: 'How is agency pricing set?', a: 'Agency partnerships show Contact for pricing. The quote depends on the number of client companies, any custom portal requirements and their costs, and the scope of the engagement.' },
+  { q: 'Are the Snapshot and demo complimentary?', a: 'Yes. The introductory call, AI Visibility Snapshot, and live portal demo are complimentary. We review how AI describes your company, show how the platform and managed team work together, and discuss the right next move. The company pilot and agency partnerships are paid engagements.' },
 ];
-
-/**
- * FAQPage structured data is generated from the same array the page renders,
- * so the schema can never disagree with the visible questions and answers.
- * No prices appear anywhere, visible or in schema.
- */
-const faqLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  '@id': `${SITE.url}/pricing/#faq`,
-  mainEntity: faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
+const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', '@id': `${SITE.url}/pricing/#faq`, mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+const serviceLd = { '@context': 'https://schema.org', '@type': 'Service', '@id': `${SITE.url}/pricing/#company-pilot`, name: OFFER.name, serviceType: 'Managed AI search visibility program', provider: { '@id': `${SITE.url}/#organization` }, url: `${SITE.url}/pricing/`, offers: { '@type': 'Offer', priceCurrency: 'USD', price: OFFER.priceValue, priceSpecification: { '@type': 'UnitPriceSpecification', price: OFFER.priceValue, priceCurrency: 'USD', unitText: 'MONTH', referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MON' } }, description: PILOT_SUMMARY } };
+const agencyLd = { '@context': 'https://schema.org', '@type': 'Service', '@id': `${SITE.url}/pricing/#agencies`, name: 'Agency partnership', serviceType: 'Managed AI search visibility agency partnership', provider: { '@id': `${SITE.url}/#organization` }, url: `${SITE.url}/pricing/#agencies`, description: 'AI visibility programs, managed campaign support, AI and agent connections, connected analytics and attribution, and custom portal needs for agency partners. Contact for pricing based on client count, portal requirements and costs, and scope.' };
+const link = 'harbor-text-link font-semibold text-harbor underline decoration-harbor/40 underline-offset-4';
 
 export default function PricingPage() {
-  return (
-    <>
-      <Header />
-      <main>
-        <section className="hero-light relative overflow-hidden">
-          <div className="container-x relative py-16 sm:py-20">
-            <div className="max-w-3xl">
-              <p className="eyebrow mb-3">Pricing</p>
-              <h1 className="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl">AI Visibility Pricing</h1>
-              <p className="mt-5 text-lg leading-relaxed text-navy/70">
-                Signal Harbor does not use one fixed price because the required
-                measurement and implementation scope differs by company. Pricing
-                is tailored to the buyer questions tested, AI platforms included,
-                competitors measured, reporting depth, implementation support,
-                and ongoing monitoring requirements.
-              </p>
-              <p className="mt-4 text-lg font-semibold text-navy">
-                Contact us for pricing and a scope tailored to your company.
-              </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row" data-cta-zone="pricing-hero">
-                <CTAButton href={SITE.bookingUrl} variant="primary">Contact Us for Pricing</CTAButton>
-                <CTAButton href={SITE.mailto} variant="outline">Email {SITE.email}</CTAButton>
-              </div>
-            </div>
-          </div>
-        </section>
+  return <><Header /><main>
+    <section className="hero-light relative overflow-hidden" aria-labelledby="pricing-title">
+      <div className="pricing-story-grid container-x py-12 sm:py-16">
+        <div className="pricing-intro">
+          <p className="eyebrow">AI visibility program pricing</p>
+          <h1 id="pricing-title" className="mt-4 text-4xl font-extrabold leading-[1.12] tracking-tight text-navy sm:text-5xl">Help AI find you.<br /><span className="text-tint">Give buyers a reason to choose you.</span></h1>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-navy/80">Make AI search part of your lead generation strategy. We find where buyers miss you, prepare the content to address the gaps, and keep the work moving in your client portal.</p>
+          <nav aria-label="Choose your program" className="pricing-audience-links mt-6"><Link href="#company-pilot">For companies <span aria-hidden="true">↓</span></Link><Link href="#agencies">For agencies <span aria-hidden="true">↓</span></Link></nav>
+        </div>
+        <div className="pricing-offer pricing-plans"><PricingPilotCard /><AgencyPlanCard /></div>
+        <div className="pricing-value">
+          <div className="price-value-list">{VALUE.map(([n, title, body]) => <div key={n} className="price-value-item"><span className="price-value-icon font-sora text-xs font-bold" aria-hidden="true">{n}</span><div><h2 className="text-base font-bold text-navy">{title}</h2><p className="mt-1 max-w-md text-sm leading-relaxed text-navy/80">{body}</p></div></div>)}</div>
+          <p className="mt-7 text-sm"><Link href="/platform/" className={link}>Explore the client portal <span aria-hidden="true">↗</span></Link></p>
+        </div>
+      </div>
+    </section>
 
-        <Section tone="light">
-          <SectionHeading
-            tone="light"
-            eyebrow="The offers"
-            title="What you can engage us for."
-            intro="The introductory call is free, and the Snapshot that comes with it is complimentary. The Audit, Optimization Sprint, and Ongoing Monitoring are paid engagements, each priced on its agreed scope."
-          />
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {offers.map((o) => (
-              <div key={o.name} className="card-light lift accent-top flex flex-col">
-                <p className={`inline-flex self-start rounded-full px-3 py-1 text-xs font-semibold ${o.paid ? 'bg-navy/[0.06] text-navy/80' : 'bg-[#0369A1]/10 text-[#0369A1]'}`}>
-                  {o.tag}
-                </p>
-                <h3 className="mt-4 text-xl font-bold text-navy">{o.name}</h3>
-                <p className="mt-3 flex-1 text-[15px] leading-relaxed text-navy/70">{o.desc}</p>
-              </div>
-            ))}
-          </div>
-        </Section>
+    <section id="included" className="bg-canvas" aria-labelledby="included-title"><div className="container-x py-12 sm:py-14">
+      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><div><p className="eyebrow">Included in your company pilot</p><h2 id="included-title" className="mt-3 text-3xl font-bold tracking-tight text-navy">A clear plan. A steady flow of work.</h2></div><Link href="/services/#how-it-runs" className={link}>See how it runs <span aria-hidden="true">→</span></Link></div>
+      <div className="mt-8 grid gap-5 md:grid-cols-3">
+        <div className="pricing-inclusion"><p className="pricing-inclusion-number">8</p><h3 className="mt-2 text-lg font-bold text-navy">AI answer platforms</h3><p className="mt-3 text-sm leading-relaxed text-navy/80">Audit the answers buyers encounter, the competitors they see, and the sources behind them.</p></div>
+        <div className="pricing-inclusion"><p className="pricing-inclusion-number">1 <span className="text-sm font-semibold">per month</span></p><h3 className="mt-2 text-lg font-bold text-navy">Campaign plan</h3><p className="mt-3 text-sm leading-relaxed text-navy/80">Turn evidence into priorities tied to your product, audience, and business goals.</p></div>
+        <div className="pricing-inclusion"><p className="pricing-inclusion-number">5 <span className="text-sm font-semibold">per week</span></p><h3 className="mt-2 text-lg font-bold text-navy">Content templates</h3><p className="mt-3 text-sm leading-relaxed text-navy/80">Prepared from your company facts, with creative and distribution guidance for your team.</p></div>
+      </div>
+      <div className="mt-8 grid gap-7 border-t-[1.5px] border-[#BED8E7] pt-8 lg:grid-cols-[1.25fr_1fr] lg:gap-12">
+        <div><h3 className="text-lg font-bold text-navy">Meet buyers across AI search.</h3><div className="mt-4"><ProviderLogos /></div><p className="mt-4 text-sm leading-relaxed text-navy/80">Branded and unbranded buyer questions. Competitor presence. Citation and source influence. Claim accuracy. SEO, AEO, and GEO priorities.</p></div>
+        <div><h3 className="text-lg font-bold text-navy">Your portal keeps the work moving.</h3><p className="mt-3 text-sm leading-relaxed text-navy/80">Review prepared pages, FAQs, comparison content, and other campaign templates. Request changes, approve a version, and follow publication and results.</p><div className="portal-mini-path"><span>Insights</span><i /><span>Campaign</span><i /><span>Results</span></div><p className="text-sm text-navy/80">Your team keeps control of the facts and final approvals.</p></div>
+      </div>
+      <PilotScope />
+    </div></section>
 
-        <Section tone="ice">
-          <SectionHeading
-            tone="light"
-            eyebrow="Scope drivers"
-            title="What affects AI visibility pricing?"
-            intro="Eight variables set the scope of an engagement. The introductory call is where we work out which ones matter for your company."
-          />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {factors.map((f, i) => (
-              <div key={f.name} className="card-light lift">
-                <span className="font-sora text-sm font-bold text-[#0369A1]">0{i + 1}</span>
-                <h3 className="mt-2 text-base font-bold leading-snug text-navy">{f.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-navy/65">{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </Section>
+    <OfferComparison />
 
-        <Section tone="light">
-          <SectionHeading
-            tone="light"
-            eyebrow="Process"
-            title="How pricing works."
-            intro="No paid work starts until you have seen and agreed to a tailored proposal."
-          />
-          <ol className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s) => (
-              <li key={s.step} className="card-light lift flex flex-col">
-                <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[#0369A1]/10 font-sora text-sm font-bold text-[#0369A1]">{s.step}</span>
-                <h3 className="mt-4 text-base font-bold leading-snug text-navy">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-navy/65">{s.desc}</p>
-              </li>
-            ))}
-          </ol>
-        </Section>
+    <DiscoveryConnections />
 
-        <Section tone="light">
-          <SectionHeading
-            tone="light"
-            eyebrow="Pricing FAQ"
-            title="Common pricing questions."
-          />
-          <div className="mt-10 max-w-3xl space-y-4">
-            {faqs.map((f) => (
-              <details key={f.q} className="group rounded-2xl border border-[#E0EAF2] bg-white px-6 py-5 shadow-[0_14px_36px_-26px_rgba(10,22,40,0.35)]">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-navy [&::-webkit-details-marker]:hidden">
-                  {f.q}
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="flex-none text-[#0369A1] transition-transform group-open:rotate-45" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
-                </summary>
-                <p className="mt-3 text-[15px] leading-relaxed text-navy/70">{f.a}</p>
-              </details>
-            ))}
-          </div>
+    <section id="commitment" className="bg-canvas"><div className="container-x py-12 sm:py-14">
+      <p className="eyebrow mb-3">Join at the founding stage</p><h2 className="text-3xl font-bold tracking-tight text-navy">Start with 90 days. Continue on your terms.</h2><p className="mt-4 max-w-3xl text-base leading-relaxed text-navy/85">Your full pilot stays at the founding partner rate. Future program pricing will reflect the platform and delivery scope as Signal Harbor expands.</p><ol className="commitment-line mt-9">{COMMITMENT.map(c => <li key={c.when}><h3 className="text-lg font-bold text-navy">{c.when}</h3><p className="mt-3 text-sm leading-relaxed text-navy/80">{c.what}</p></li>)}</ol>
+    </div></section>
 
-          <div className="ocean-cta mt-14 flex flex-col gap-6 overflow-hidden rounded-3xl border border-navy/15 p-8 shadow-[0_36px_80px_-40px_rgba(6,35,57,0.7)] lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-2xl">
-              <h2 className="text-2xl font-bold text-white">Get a scope built around your company.</h2>
-              <p className="mt-3 text-[15px] leading-relaxed text-white/75">
-                Book the free introductory call, receive your complimentary
-                Snapshot, and walk away with a tailored proposal you can
-                evaluate before any paid work begins.
-              </p>
-            </div>
-            <div className="flex-none" data-cta-zone="pricing-footer">
-              <CTAButton href={SITE.bookingUrl} variant="primary">Contact Us for Pricing</CTAButton>
-            </div>
-          </div>
-        </Section>
-      </main>
-      <Footer />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
-      />
-    </>
-  );
+    <section id="faq" className="bg-canvas"><div className="container-x grid gap-8 pb-12 sm:pb-16 lg:grid-cols-[.8fr_1.2fr] lg:gap-14">
+      <div><h2 className="text-3xl font-bold tracking-tight text-navy">Before we get started.</h2><p className="mt-4 text-base leading-relaxed text-navy/80">The terms, the work, and how your team stays in control. <Link href="/faq/" className={link}>Visit the full FAQ</Link>.</p></div>
+      <div className="divide-y divide-[#BED8E7] border-y border-[#BED8E7]">{faqs.map(f => <details key={f.q} className="group"><summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-base font-semibold text-navy [&::-webkit-details-marker]:hidden">{f.q}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="flex-none text-harbor transition-transform group-open:rotate-45" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></summary><p className="pb-4 text-sm leading-relaxed text-navy/80">{f.a}</p></details>)}</div>
+    </div></section>
+    <FinalCTA />
+  </main><Footer /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(agencyLd) }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} /></>;
 }

@@ -16,8 +16,17 @@
  *   - /blog/ and every article in content/blog/posts.json exported, with
  *     readable static text, index cards linking locally (not to Beehiiv),
  *     and BlogPosting JSON-LD matching the visible headline and date
- *   - /pricing/ exported and indexable with FAQPage JSON-LD and no dollar
- *     amounts, numeric prices, or "starting at" language
+ *   - /pricing/ exported and indexable, stating the confirmed company pilot
+ *     in visible text ($3,000 per month, 90 day minimum commitment, six
+ *     month full pilot, continuation at the same monthly rate) and "Contact
+ *     for pricing" for agencies; Signal Harbor amounts restricted to $3,000,
+ *     $9,000, and $18,000, with the anonymous sampled benchmark isolated; no
+ *     "starting at", "half the market", or six month minimum
+ *     language; every structured data price field equal to the $3,000
+ *     monthly rate in USD; Offer and FAQPage JSON-LD matching visible text;
+ *     and the complimentary Snapshot / paid engagement boundary stated
+ *   - company price amounts appear only on /pricing/; other pages focus on
+ *     the program, outcomes, and the complimentary Snapshot and demo
  *   - /book/ exported with the Calendly inline embed, its script, a direct
  *     fallback link, breadcrumb data, and the complimentary/paid boundary
  *   - Calendly scripts and booking links appear ONLY on /book/ (no badge,
@@ -201,11 +210,31 @@ else {
 // Beehiiv article URLs) and BlogPosting JSON-LD agreeing with the page.
 const postsFile = path.join(root, 'content', 'blog', 'posts.json');
 if (!existsSync(postsFile)) flag('missing content/blog/posts.json (run npm run sync:blog)');
-const posts = existsSync(postsFile) ? JSON.parse(readFileSync(postsFile, 'utf8')) : [];
+const posts = existsSync(postsFile) ? JSON.parse(readFileSync(postsFile, 'utf8')).sort((a, b) => Date.parse(b.date) - Date.parse(a.date)) : [];
 const blogIndex = pages.get('/blog/');
 if (!blogIndex) flag('missing /blog/ index page');
 else if (/href="https?:\/\/[^"]*beehiiv\.com\/p\//.test(blogIndex.html)) {
   flag('/blog/: links to a Beehiiv article URL instead of a local article page');
+}
+// Ten recent articles per archive page; older articles remain reachable by
+// static links and retain their own canonical article URLs.
+const archiveSize = 10;
+const archiveCount = Math.max(1, Math.ceil(posts.length / archiveSize));
+const archivePath = n => n === 1 ? '/blog/' : `/blog/page/${n}/`;
+for (let n = 1; n <= archiveCount; n++) {
+  const route = archivePath(n);
+  const archive = pages.get(route);
+  if (!archive) { flag(`missing blog archive ${route}`); continue; }
+  const expected = posts.slice((n - 1) * archiveSize, n * archiveSize);
+  const cards = [...archive.html.matchAll(/<article\b[\s\S]*?<\/article>/g)].map(m => m[0]);
+  if (cards.length !== expected.length) flag(`${route}: expected ${expected.length} article cards, found ${cards.length}`);
+  expected.forEach((post, i) => {
+    if (!cards[i]?.includes(`/blog/${post.slug}/`)) flag(`${route}: article ${i + 1} does not match newest-first order`);
+  });
+  for (const dest of new Set([1, archiveCount, n, Math.max(1, n - 1), Math.min(archiveCount, n + 1)])) {
+    if (!archive.html.includes(`href="${archivePath(dest)}#articles"`)) flag(`${route}: missing pagination link to ${archivePath(dest)}`);
+  }
+  if (!archive.html.includes('aria-current="page"')) flag(`${route}: missing current-page marker`);
 }
 for (const post of posts) {
   const route = `/blog/${post.slug}/`;
@@ -213,9 +242,6 @@ for (const post of posts) {
   if (!page) {
     flag(`missing article page ${route}`);
     continue;
-  }
-  if (blogIndex && !blogIndex.html.includes(`/blog/${post.slug}`)) {
-    flag(`/blog/: no card links to ${route}`);
   }
   const text = visibleText(page.html).replace(/\s+/g, ' ');
   if (text.length < 1000) flag(`${route}: article text too short to be full content (${text.length} chars)`);
@@ -285,26 +311,157 @@ if (!posts.every((p) => pages.get('/blog/')?.html) || !pages.get('/')?.html.incl
   flag('feed discovery link (rel=alternate application/rss+xml) missing from the homepage head');
 }
 
-// Pricing: exported, indexable, FAQPage schema, and no prices anywhere on
-// the page, visible or in markup.
+// Pricing: exported, indexable, and stating the offer the founders
+// confirmed on October 2, 2026, exactly. The company pilot is $3,000 per
+// month with a 90 day minimum commitment and a six month full pilot, then
+// continuation at the same monthly rate; agencies see "Contact for pricing".
+// Signal Harbor amounts remain the rate and its two confirmed totals.
+// An anonymous sampled benchmark is allowed only in its labeled comparison.
+// Six months is never presented as Signal Harbor's minimum, and every price
+// field in structured data carries the same $3,000 monthly rate in USD.
 const pricing = pages.get('/pricing/');
+const BENCHMARK_SECTION = /<section\b[^>]*data-competitor-benchmark="managed-sample-2026-10-03"[^>]*>[\s\S]*?<\/section>/g;
+const ownOfferText = (html) => visibleText(html.replace(BENCHMARK_SECTION, '')).replace(/\s+/g, ' ');
 if (!pricing) flag('missing /pricing/ page');
 else {
   const text = visibleText(pricing.html).replace(/\s+/g, ' ');
-  if (/\$\s*\d/.test(text)) flag('/pricing/: dollar amount in visible text');
-  if (/\b\d[\d,]*\s*(USD|dollars)\b/i.test(text)) flag('/pricing/: numeric price in visible text');
+  const ownText = ownOfferText(pricing.html);
+
+  // Published benchmarks cannot become Signal Harbor contract terms.
+  const benchmarks = pricing.html.match(BENCHMARK_SECTION) ?? [];
+  if (benchmarks.length !== 1) flag('/pricing/: expected one sourced managed-program comparison');
+  const benchmark = benchmarks[0] ?? '';
+  const benchmarkText = visibleText(benchmark).replace(/\s+/g, ' ');
+  const selectedBenchmarkPrices = [4000, 5250, 7500];
+  const benchmarkMean = selectedBenchmarkPrices.reduce((total, price) => total + price, 0) / selectedBenchmarkPrices.length;
+  const roundedBenchmarkMean = Math.round(benchmarkMean / 100) * 100;
+  const allowedBenchmarkAmounts = new Set(['$3,000', '$4,000', `$${roundedBenchmarkMean.toLocaleString('en-US')}`, '$7,500']);
+  if (!(3000 / benchmarkMean >= 0.45 && 3000 / benchmarkMean <= 0.60)) flag('/pricing/: about-half benchmark claim is unsupported');
+  for (const m of benchmarkText.matchAll(/\$\s*\d[\d,]*(?:\.\d+)?/g)) {
+    const amount = m[0].replace(/\s+/g, '').replace(/[.,]+$/, '');
+    if (!allowedBenchmarkAmounts.has(amount)) flag(`/pricing/: unsourced benchmark amount ${amount}`);
+  }
+  for (const fact of ['id="compare-panel-managed"', 'id="compare-panel-software"']) {
+    if (!benchmark.includes(fact)) flag(`/pricing/: missing sampled benchmark fact ${fact}`);
+  }
+  for (const fact of [`$${roundedBenchmarkMean.toLocaleString('en-US')}`, '3 selected published', 'About half the benchmark cost.']) {
+    if (!benchmarkText.includes(fact)) flag(`/pricing/: missing sampled benchmark fact ${fact}`);
+  }
+  if (/WebFX|GeoCited|Soarion|Scrunch|Peec|Profound|webfx\.com|geocited\.io|soariondigital\.com|tryprofound\.com/i.test(pricing.html)) flag('/pricing/: competitor identity or link is public');
+  for (const capability of ['Signal Harbor AI', 'Agent Connections', 'Google Analytics 4', 'Google Search Console', 'attribution']) {
+    if (!text.includes(capability)) flag(`/pricing/: missing included capability ${capability}`);
+  }
+  for (const scope of ['Agency partnership', 'Matched retests', 'Impact estimates', 'formsubmit.co/info@signalharborconsulting.com']) {
+    if (!pricing.html.includes(scope)) flag(`/pricing/: missing current agency or measurement scope ${scope}`);
+  }
+  if (/Product direction|AI-assisted marketing and connected agents|almost ready|coming soon/i.test(text)) flag('/pricing/: included capabilities are incorrectly treated as future scope');
+  if (!benchmarkText.includes('October 3, 2026')) flag('/pricing/: missing benchmark review date');
+
+  // (a) The confirmed terms, together, in visible text.
+  const REQUIRED_TERMS = [
+    [/\$3,000/, '"$3,000"'],
+    [/per month/i, '"per month"'],
+    [/90 day minimum commitment/i, '"90 day minimum commitment"'],
+    [/six month full pilot/i, '"six month full pilot"'],
+    [/same monthly rate/i, '"same monthly rate"'],
+    [/Contact for pricing/, '"Contact for pricing"'],
+    [/Founding partner rate/i, '"Founding partner rate"'],
+  ];
+  for (const [re, label] of REQUIRED_TERMS) {
+    if (!re.test(ownText)) flag(`/pricing/: visible offer text is missing ${label}`);
+  }
+
+  // (b) Only confirmed amounts: the monthly rate, the first three months,
+  // and all six months. Anything else is an unconfirmed commercial term.
+  const ALLOWED_AMOUNTS = new Set(['$3,000', '$9,000', '$18,000']);
+  for (const m of ownText.matchAll(/\$\s*\d[\d,]*(?:\.\d+)?/g)) {
+    const amount = m[0].replace(/\s+/g, '').replace(/[.,]+$/, '');
+    if (!ALLOWED_AMOUNTS.has(amount)) flag(`/pricing/: unconfirmed dollar amount ${amount} in visible text`);
+  }
+  for (const m of ownText.matchAll(/\b(\d[\d,]*)\s*(USD|dollars)\b/gi)) {
+    const amount = `$${Number(m[1].replace(/,/g, '')).toLocaleString('en-US')}`;
+    if (!ALLOWED_AMOUNTS.has(amount)) flag(`/pricing/: unconfirmed price "${m[0]}" in visible text`);
+  }
+
+  // (c) Banned framings: price floors, market discounts, and any wording
+  // that makes six months the minimum commitment.
   if (/starting at/i.test(text)) flag('/pricing/: "starting at" pricing language');
+  if (/half the\b[^.]*\bmarket/i.test(text)) flag('/pricing/: "half the market" price comparison');
+  if (
+    /\b(six|6)[\s-]*months?[\s-]+(minimum|min\.?|commitment|contract)\b/i.test(ownText) ||
+    /\bminimum (commitment |term |contract )?(is |of )(six|6)[\s-]*months?\b/i.test(ownText)
+  ) {
+    flag('/pricing/: six months presented as the minimum commitment');
+  }
+
+  // (d) Structured data: every key matching /price/ must carry the
+  // confirmed rate (3000), a USD currency, or be a priceSpecification
+  // object whose own price fields obey the same rule.
   const pricingLd = jsonLdBlocks(pricing.html);
-  // No price-bearing fields may appear in any schema block on the page.
-  const hasPriceKey = (o) =>
-    o != null && typeof o === 'object' &&
-    Object.entries(o).some(([k, v]) => /price/i.test(k) || hasPriceKey(v));
-  if (pricingLd.some(hasPriceKey)) flag('/pricing/: price field in structured data');
-  if (!pricingLd.find((o) => o && o['@type'] === 'FAQPage')) {
+  const badPriceFields = [];
+  const checkPrices = (o, at) => {
+    if (Array.isArray(o)) return o.forEach((v, i) => checkPrices(v, `${at}[${i}]`));
+    if (o == null || typeof o !== 'object') return;
+    for (const [k, v] of Object.entries(o)) {
+      const where = `${at}.${k}`;
+      if (!/price/i.test(k)) {
+        checkPrices(v, where);
+      } else if (/^priceSpecification$/i.test(k) && v != null && typeof v === 'object') {
+        checkPrices(v, where);
+      } else if (/currency/i.test(k) ? v !== 'USD' : !(v === 3000 || v === '3000')) {
+        badPriceFields.push(`${where}=${JSON.stringify(v)}`);
+      }
+    }
+  };
+  pricingLd.forEach((o, i) => checkPrices(o, `ld[${i}]`));
+  for (const f of badPriceFields) flag(`/pricing/: structured data ${f} is not the confirmed $3,000 monthly rate in USD`);
+
+  // Offer descriptions and FAQ entries in structured data must be visible.
+  const offers = [];
+  const collectOffers = (o) => {
+    if (Array.isArray(o)) return o.forEach(collectOffers);
+    if (o == null || typeof o !== 'object') return;
+    if (o['@type'] === 'Offer') offers.push(o);
+    Object.values(o).forEach(collectOffers);
+  };
+  pricingLd.forEach(collectOffers);
+  for (const offer of offers) {
+    const d = typeof offer.description === 'string' ? offer.description.replace(/\s+/g, ' ').trim() : '';
+    if (d && !text.includes(d)) flag(`/pricing/: Offer description is not visible on the page: "${d}"`);
+  }
+
+  // (e) FAQPage schema and the complimentary / paid boundary.
+  const faq = pricingLd.find((o) => o && o['@type'] === 'FAQPage');
+  if (!faq) {
     flag('/pricing/: missing FAQPage JSON-LD');
+  } else {
+    for (const q of faq.mainEntity ?? []) {
+      const name = String(q?.name ?? '').replace(/\s+/g, ' ').trim();
+      const answer = String(q?.acceptedAnswer?.text ?? '').replace(/\s+/g, ' ').trim();
+      if (name && !text.includes(name)) flag(`/pricing/: FAQPage question not visible: "${name}"`);
+      if (answer && !text.includes(answer)) flag(`/pricing/: FAQPage answer not visible for "${name}"`);
+    }
   }
   if (!/complimentary/i.test(text) || !/paid engagement/i.test(text)) {
     flag('/pricing/: complimentary Snapshot / paid engagement separation not stated');
+  }
+}
+
+// Founder direction: commercial amounts appear only on /pricing/.
+// Other routes focus on the program, outcomes, and booking path.
+for (const [route, { html }] of pages) {
+  if (is404(route)) continue;
+  const text = route === '/pricing/' ? ownOfferText(html) : visibleText(html).replace(/\s+/g, ' ');
+  if (route !== '/pricing/' && /\$(?:3,000|9,000|18,000)\b/.test(html)) flag(`${route}: company pricing must stay on /pricing/`);
+  if (!text.includes('$3,000')) continue;
+  if (!/90 day/i.test(text)) flag(`${route}: shows $3,000 without the 90 day minimum commitment`);
+  if (!/six month/i.test(text)) flag(`${route}: shows $3,000 without the six month full pilot`);
+  if (/\b(six|6)[\s-]*months?[\s-]+(minimum|commitment|contract)\b/i.test(text)) {
+    flag(`${route}: six months presented as the minimum commitment`);
+  }
+  for (const m of text.matchAll(/\$\s*\d[\d,]*/g)) {
+    const amount = m[0].replace(/\s+/g, '').replace(/,$/, '');
+    if (!['$3,000', '$9,000', '$18,000'].includes(amount)) flag(`${route}: unconfirmed dollar amount ${amount}`);
   }
 }
 

@@ -1,45 +1,70 @@
 # Signal Harbor
 
-> Signal Harbor is an AI visibility intelligence and GEO services company. It tests the questions buyers ask AI platforms, measures how AI systems describe, compare, and recommend companies, identifies where a company is missing or misrepresented, and turns the findings into a clear executive scorecard and action plan.
+> Signal Harbor provides managed AI search visibility, marketing execution, connected analytics, and discovery attribution for middle market and enterprise companies, delivered through a client portal. It finds where AI platforms leave a company out, describe it inaccurately, or favor a competitor on the questions buyers ask, turns the gaps that matter into campaigns and content, and shows the work, approvals, publication status, and results in one place.
 
-This file is an experimental supplement for systems that choose to read it. It is not a ranking mechanism and does not control any AI system. It states only what the public site states: no statistics, no customer claims, and no outcome promises.
+This file summarizes Signal Harbor's public offer, client portal, and measurement methods.
+
+## Who it is for
+
+- Marketing teams at middle market and enterprise companies that want to be found, understood, and considered during buyer discovery, comparison, and evaluation in AI search
+- Agencies working with several client companies, through agency partnerships
 
 ## What Signal Harbor does
 
-- Tests realistic buyer questions across selected AI platforms, repeatedly, because a single answer is not a stable result
-- Measures visibility, recommendations, brand accuracy, competitor appearance, answer consistency, and the sources shaping answers
-- Flags unsupported, outdated, or incorrect AI claims about a company
-- Delivers an executive scorecard and a prioritized action roadmap
-- Offers implementation support and ongoing monitoring as separate paid engagements
+The program runs as one six step loop:
+
+1. Find: test the questions buyers ask AI platforms and show where the company is left out, described inaccurately, or passed over for a competitor, with the recorded answers and cited sources as evidence
+2. Prioritize: tie each gap to a product, an audience, and an initiative, so the work starts with what matters to the business rather than every gap at once
+3. Prepare: Signal Harbor prepares the pages and content the campaign calls for, written from supported company facts and ready for review
+4. Review: the client team confirms facts, comments, requests changes, and approves a specific version
+5. Publish: approved work goes to whoever publishes it (the client team, its agency, or as agreed for the engagement), and the portal records the published URL and date. An approved page is not counted as published.
+6. Measure and improve: compare matched retests with the baseline after publication, combine visibility changes with search discovery, traffic, and tracked conversions, and use evidence-based impact estimates to improve the next campaign. Recorded outcomes and estimates keep separate labels, sources, windows, and assumptions.
+
+## The client portal
+
+Client work and results are delivered through the client portal.
+
+- Home: next actions and what needs the client team's review
+- Insights: the questions tested, the recorded answers, competitors named, and cited sources
+- Campaign: the plan, prepared content, review, and approval
+- Results: publication records, AI visibility, organic query and page performance from Search Console, and traffic sources, landing pages, and tracked conversions from Google Analytics 4. Each measure retains its source and dates.
 
 ## The offer structure
 
 - The introductory call is free.
-- Booking the call includes a complimentary AI Visibility Snapshot: a brief preview of how AI platforms currently describe and recommend the company.
-- The AI Visibility Audit is a separate, comprehensive, paid engagement. Optimization sprints, retainers, and implementation support are also paid.
+- Booking the call includes a complimentary AI Visibility Snapshot and live portal demo: see how AI describes and recommends the company, then explore the managed program. Client work is delivered in the portal.
+- Company pilot: a 90 day minimum commitment within a six month full pilot. After the first 90 days, the client chooses whether to stop or continue at the same monthly rate. Current rates and full commercial terms are published only on the [pricing page](https://signalharborai.com/pricing/).
+- The company-pilot price is the founding partner rate. Future program pricing will reflect a broader platform and delivery scope. The same monthly rate applies throughout the six month full pilot.
+- Agency partnerships: contact for pricing. Agency pricing depends on the number of client companies, custom portal requirements and their costs, and the scope of the engagement.
+- Included company-pilot delivery: one campaign plan per month, five content templates per week, and the client portal for evidence, prepared work, review, approvals, publication records, and results.
+- Company-pilot audit coverage: eight AI answer platforms, comprising ChatGPT, Claude, Gemini, Perplexity, Grok, Google AI Overviews, Google AI Mode, and Meta AI.
+- Included intelligence and connections: Signal Harbor AI for context-aware content work; Agent Connections for approved company context and campaign workflows; Google Analytics 4; Google Search Console; and AI search, SEO discovery, and attribution. These are part of the offer companies sign up for.
 
 ## Key definitions
 
 - AI visibility: how often, how accurately, and how favorably AI platforms present a company when buyers ask them to compare options or recommend providers
 - Generative Engine Optimization (GEO): the practice of improving how generative AI systems describe and recommend a company in the answers they produce
 - Answer Engine Optimization (AEO): the practice of structuring content so systems that return direct answers can find, interpret, and reuse it accurately
+- Mentioned versus recommended: an answer can name a company without recommending it, so the two are recorded separately, along with answers where the company is not mentioned at all
+- Matched retest: the same buyer questions asked of the same AI services after the work is published, so later answers are compared with the baseline on equal terms
 
 ## Pages
 
-- [Home](https://signalharborai.com/): what Signal Harbor does and why AI visibility matters
+- [Home](https://signalharborai.com/): managed AI search visibility and marketing execution for middle market and enterprise companies, the six step program, and the offer
+- [Services](https://signalharborai.com/services/): the managed AI search optimization program, including GEO and AEO, what Signal Harbor does, what the client team does, and how the work moves through the client portal
+- [Client portal](https://signalharborai.com/platform/): the AI visibility and execution platform where clients see the evidence, review the work, and follow publication and results across Home, Insights, Campaign, and Results
+- [AI visibility audit](https://signalharborai.com/audit/): how buyer question testing finds the AI search gaps that matter, including competitor visibility and answer accuracy, and how those findings feed Insights and campaign priorities
+- [Pricing](https://signalharborai.com/pricing/): the company pilot price, minimum commitment, and full pilot length, and how agency pricing works
+- [Methodology](https://signalharborai.com/methodology/): how AI visibility is measured, including repeated answer testing, mentions versus recommendations, cited sources, and matched retests
+- [FAQ](https://signalharborai.com/faq/): direct answers about fit, responsibilities, price and commitment, publishing, existing agencies, and what results mean
 - [What is AI visibility?](https://signalharborai.com/ai-visibility/): definitions of AI visibility, GEO, and AEO, the ways AI answers go wrong, and what to do about inaccurate answers
 - [Complimentary Snapshot](https://signalharborai.com/snapshot/): what the complimentary AI Visibility Snapshot includes and how to receive it
-- [Book a call](https://signalharborai.com/book/): schedule the free introductory call that includes the complimentary Snapshot
-- [AI Visibility Audit](https://signalharborai.com/audit/): what the comprehensive paid audit covers, how it runs, and how it differs from the Snapshot
-- [Services](https://signalharborai.com/services/): the audit, optimization sprint, monitoring retainer, and implementation models
-- [Pricing](https://signalharborai.com/pricing/): how AI visibility pricing works, what affects scope, and how to request a tailored quote
+- [Book a call](https://signalharborai.com/book/): schedule the complimentary AI Visibility Snapshot and live portal demo
+- [Contact](https://signalharborai.com/contact/): email Signal Harbor or book the introductory call
 - [Blog](https://signalharborai.com/blog/): articles from the Signal Harbor Weekly newsletter on AI visibility, AI search, and GEO
-- [What we measure](https://signalharborai.com/platform/): visibility scoring, competitor tracking, source mapping, and accuracy review
-- [Methodology](https://signalharborai.com/methodology/): how measurement works and why repeated testing matters
 - [Research basis](https://signalharborai.com/research/): the external references that inform the methodology
-- [FAQ](https://signalharborai.com/faq/): common questions, including the Snapshot and audit distinction
-- [About](https://signalharborai.com/about/): the company and how to reach it
+- [About](https://signalharborai.com/about/): the company, co-founders Walter McCain III and Sebastian Miller, their professional backgrounds, and how to reach them
 
 ## Boundaries
 
-Signal Harbor measures observable AI visibility signals across selected platforms and prompt sets. Results can vary by model, location, account state, prompt wording, source availability, and time. Signal Harbor does not guarantee placement, ranking, recommendation, or sales outcomes.
+Signal Harbor measures observable AI visibility signals across selected platforms and buyer questions. Results can vary by model, location, account state, prompt wording, source availability, and time. Signal Harbor does not control AI systems and does not guarantee placement, ranking, mentions, recommendations, leads, or sales outcomes.

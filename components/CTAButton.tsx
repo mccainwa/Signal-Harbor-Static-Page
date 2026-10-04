@@ -10,15 +10,15 @@ type CTAButtonProps = {
 };
 
 const base =
-  'inline-flex items-center justify-center rounded-xl px-6 py-3 text-sm font-semibold transition duration-200 focus-visible:outline-none motion-safe:hover:-translate-y-0.5';
+  'harbor-button inline-flex min-h-[44px] items-center justify-center rounded-xl px-6 py-3 text-[15px] font-semibold focus-visible:outline-none';
 
 const variants: Record<Variant, string> = {
   primary:
-    'bg-blue text-navy shadow-[0_8px_24px_-10px_rgba(0,194,255,0.7)] hover:bg-[#2bd2ff] hover:shadow-[0_14px_34px_-10px_rgba(0,194,255,0.85)]',
+    'harbor-button-primary border border-[#008FBD] bg-blue text-navy shadow-[0_8px_22px_-12px_rgba(0,194,255,0.7),inset_0_1px_0_rgba(255,255,255,0.3)] hover:bg-[#2bd2ff]',
   /* secondary sits on dark surfaces; outline is its light-surface partner. */
-  secondary: 'border border-white/30 bg-transparent text-white hover:border-blue/50 hover:bg-white/10',
+  secondary: 'border border-white/35 bg-transparent text-white hover:border-blue/60 hover:bg-white/10',
   outline:
-    'border border-navy/20 bg-white text-navy hover:border-[#0369A1]/60 hover:text-[#0369A1]',
+    'border border-navy/25 bg-raised text-navy hover:border-harbor/60 hover:text-harbor',
   ghost: 'text-white hover:text-blue',
 };
 
@@ -41,7 +41,7 @@ export default function CTAButton({
   if (isHttp) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
-        {children}
+        <span className="harbor-button-label">{children}</span>
       </a>
     );
   }
@@ -49,14 +49,14 @@ export default function CTAButton({
   if (isMailtoOrTel) {
     return (
       <a href={href} className={cls}>
-        {children}
+        <span className="harbor-button-label">{children}</span>
       </a>
     );
   }
 
   return (
     <Link href={href} className={cls}>
-      {children}
+      <span className="harbor-button-label">{children}</span>
     </Link>
   );
 }

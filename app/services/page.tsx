@@ -1,93 +1,66 @@
 import type { Metadata } from 'next';
-import { pageMetadata, OG } from '@/lib/seo';
 import Link from 'next/link';
+import { pageMetadata, OG } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Section, { SectionHeading } from '@/components/Section';
-import ServiceLadder from '@/components/ServiceLadder';
-import ImplementationModel from '@/components/ImplementationModel';
-import CTAButton from '@/components/CTAButton';
-import { IconRadar, IconRoute, IconMap, IconShield, IconScale, IconLayers, IconMonitor } from '@/components/icons';
-import { SITE, CTA } from '@/lib/site';
+import PageHero from '@/components/PageHero';
+import ProgramLoop from '@/components/ProgramLoop';
+import Responsibilities from '@/components/Responsibilities';
+import ReadingDetail from '@/components/ReadingDetail';
+import FinalCTA from '@/components/FinalCTA';
+import Wave, { TONE } from '@/components/Wave';
+import { SITE, OFFER } from '@/lib/site';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'AI Visibility and GEO Services',
-  description:
-    'AI visibility audits, GEO strategy, citation mapping, accuracy review, vendor accountability, optimization, and ongoing monitoring.',
-  path: '/services/',
-  image: OG.services,
-  imageAlt: 'Signal Harbor AI visibility and GEO services',
+  title: 'AI Search Optimization and GEO Services',
+  description: 'Managed GEO and AI search optimization services with campaign planning, content, Signal Harbor AI, connected analytics, and discovery attribution.',
+  path: '/services/', image: OG.services, imageAlt: 'Signal Harbor managed AI search optimization services',
 });
-
-const services = [
-  { id: 'diagnostic', icon: IconRadar, name: 'AI Visibility Diagnostic', desc: 'Repeated prompt testing across selected AI engines, with competitor tracking, mentions, citations, answer patterns, and executive scorecards.', outcome: 'A baseline view of where the brand appears, disappears, or trails competitors.' },
-  { id: 'geo-sprint', icon: IconRoute, name: 'GEO Strategy Sprint', desc: 'Prioritized recommendations for content, source structure, schema, entity consistency, earned media, review surfaces, and comparison pages.', outcome: 'A clear plan for improving AI answer visibility and representation.' },
-  { id: 'citation-map', icon: IconMap, name: 'Citation & Source Mapping', desc: 'Classification of cited sources into brand-owned, earned, social/community, directories, reviews, and competitor-owned assets.', outcome: 'A map of the sources AI systems rely on when describing the market.' },
-  { id: 'accuracy', icon: IconShield, name: 'AI Accuracy & Hallucination Review', desc: 'Detection of unsupported, outdated, incomplete, or incorrect AI claims about the company.', outcome: 'A risk register and correction plan for brand accuracy.' },
-  { id: 'vendor', icon: IconScale, name: 'SEO Vendor Accountability Audit', desc: 'Comparison of existing SEO reports and workstreams against AI visibility gaps and search performance exports.', outcome: 'A practical view of where current vendor work helps, misses, or needs redirection.' },
-  { id: 'content', icon: IconLayers, name: 'Content & Entity Optimization', desc: 'Execution support for pages, FAQs, comparison content, schema, knowledge-base structure, review/source improvements, and messaging consistency.', outcome: 'Improved machine readability, buyer clarity, and source usefulness.' },
-  { id: 'monitoring', icon: IconMonitor, name: 'Ongoing AI Visibility Monitoring', desc: 'Monthly or rolling measurement of prompts, sources, competitors, hallucinations, drift, and new opportunities.', outcome: 'A management rhythm for AI visibility, not a one-time report.' },
+const SUMMARY = 'Managed AI search optimization and GEO services for middle market and enterprise companies. We find where AI overlooks you, prepare content to address the gaps, and connect AI visibility, organic discovery, and attribution in your client portal.';
+const NEEDS = [
+  { id: 'diagnostic', title: 'Know where you stand.', text: 'Buyer questions, competitor mentions, and cited sources make the gaps clear.', area: 'Insights' },
+  { id: 'content', title: 'Get the work moving.', text: 'A campaign plan and prepared content give your team something concrete to review.', area: 'Campaign' },
+  { id: 'progress', title: 'Keep everyone aligned.', text: 'Approvals, publication records, AI visibility, and connected search and conversion data stay together.', area: 'Campaign and Results' },
 ];
-
+const TERMS = [
+  ['Generative engine optimization (GEO)', 'Improve how AI platforms describe, compare, and recommend your company through the facts, pages, and sources their answers draw on.'],
+  ['Answer engine optimization (AEO)', 'Make content easy for answer systems to find, interpret, and quote: direct answers, clear definitions, and consistent terms.'],
+  ['Search engine optimization (SEO)', 'Help search engines discover and rank your pages. GEO and AEO extend that work to what AI answers say and recommend.'],
+];
+const link = 'font-semibold text-harbor underline decoration-harbor/40 underline-offset-4 hover:decoration-harbor';
+const serviceLd = {
+  '@context': 'https://schema.org', '@type': 'Service', '@id': SITE.url + '/services/#service',
+  name: 'Managed AI search optimization', serviceType: 'AI search optimization services', description: SUMMARY,
+  url: SITE.url + '/services/', provider: { '@id': SITE.url + '/#organization' },
+  audience: { '@type': 'BusinessAudience', audienceType: 'Middle market and enterprise marketing teams' },
+};
 export default function ServicesPage() {
-  return (
-    <>
-      <Header />
-      <main>
-        <Section tone="navy" id="services-top">
-          <div className="max-w-2xl">
-            <p className="eyebrow mb-3">Services</p>
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">AI visibility and GEO services.</h1>
-            <p className="mt-5 text-lg leading-relaxed text-white/75">Each service can stand alone, but the strongest path is audit first, implementation second, monitoring third.</p>
-            <p className="mt-4 text-[15px] leading-relaxed text-white/60">
-              Signal Harbor is built for companies where being misunderstood or
-              excluded from an AI recommendation can affect a high-value buying
-              decision: research-heavy purchases, trust-dependent comparisons,
-              and high-value customers or contracts.
-            </p>
-            <div className="mt-7"><CTAButton href={SITE.bookingUrl} variant="primary">{CTA.audit}</CTAButton></div>
-          </div>
-          <div className="mt-12 grid gap-5 md:grid-cols-2">
-            {services.map((s, i) => {
-              const Icon = s.icon;
-              return (
-              <div key={s.id} id={s.id} className="card-dark scroll-mt-24 rounded-2xl border border-white/12 p-7">
-                <div className="flex items-center justify-between">
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-blue/10 text-blue ring-1 ring-blue/25"><Icon size={22} /></span>
-                  <span className="font-sora text-sm font-bold text-white/60">0{i + 1}</span>
-                </div>
-                <h2 className="mt-4 text-xl font-bold text-white">{s.name}</h2>
-                <p className="mt-2 text-[15px] leading-relaxed text-white/70">{s.desc}</p>
-                <p className="mt-4 border-t border-white/10 pt-3 text-sm text-white/65"><span className="font-semibold text-white">Outcome:</span> {s.outcome}</p>
-                {s.id === 'diagnostic' && (
-                  <p className="mt-3 text-sm">
-                    <Link href="/audit" className="font-semibold text-blue underline">Full audit details</Link>
-                  </p>
-                )}
-              </div>
-              );
-            })}
-          </div>
-        </Section>
-        <ServiceLadder />
-        <ImplementationModel />
-        <Section tone="navy-deep" id="pricing">
-          <div className="flex flex-col gap-6 rounded-3xl border border-blue/25 bg-blue/[0.06] p-8 lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-2xl">
-              <SectionHeading
-                eyebrow="Pricing"
-                title="Priced on scope, not a rate card."
-                intro="Every engagement is scoped to the buyer questions, platforms, competitors, and deliverables your situation requires. See what affects AI visibility pricing and how the proposal process works."
-              />
-            </div>
-            <div className="flex flex-none flex-col gap-3 sm:flex-row">
-              <CTAButton href="/pricing" variant="primary">See How Pricing Works</CTAButton>
-              <CTAButton href={SITE.bookingUrl} variant="secondary">{CTA.audit}</CTAButton>
-            </div>
-          </div>
-        </Section>
-      </main>
-      <Footer />
-    </>
-  );
+  return <><Header /><main>
+    <PageHero id="services-top" zone="services-hero" eyebrow="Managed program" title="A clear path from AI search gaps to action." intro={<p>{SUMMARY}</p>} secondary={{ label: 'See the client portal', href: '/platform/' }} />
+    <Wave top="#EDF7FC" bottom={TONE.light} />
+    <section id="problems" className="soft-aura bg-canvas"><div className="container-x py-12 sm:py-14">
+      <h2 className="max-w-2xl text-3xl font-bold tracking-tight text-navy sm:text-[2.35rem]">More clarity. Less work on your team.</h2>
+      <ul className="mt-8 grid gap-4 md:grid-cols-3">{NEEDS.map(n => <li key={n.id} id={n.id} className="card-light !p-6"><p className="portal-kicker">{n.area}</p><h3 className="mt-3 text-xl font-bold text-navy">{n.title}</h3><p className="mt-3 text-base leading-relaxed text-navy/75">{n.text}</p></li>)}</ul>
+    </div></section>
+    <section id="how-it-runs" className="bg-mist"><div id="monitoring" className="container-x py-12 sm:py-14">
+      <p className="eyebrow">One connected program</p><h2 className="mt-3 text-3xl font-bold tracking-tight text-navy sm:text-[2.35rem]">Six steps. One continuous loop.</h2>
+      <div className="mt-8"><ProgramLoop /></div>
+    </div></section>
+    <section className="bg-canvas"><div className="container-x py-12 sm:py-14">
+      <ReadingDetail id="geo-sprint" title="How GEO, AEO, and SEO work together">
+        <div className="p-6"><dl className="grid gap-6 md:grid-cols-3">{TERMS.map(([term, def]) => <div key={term}><dt className="font-sora text-base font-bold text-navy">{term}</dt><dd className="mt-3 text-base leading-relaxed text-navy/75">{def}</dd></div>)}</dl><p className="mt-6"><Link href="/ai-visibility/" className={link}>Read the guide to AI visibility</Link></p></div>
+      </ReadingDetail>
+      <ReadingDetail id="demand-generation" title="How AI visibility supports demand generation">
+        <div className="p-6"><p className="max-w-3xl text-base leading-relaxed text-navy/80">Lead generation begins with buyers discovering and considering your company. AI answers can shape that shortlist before a prospect visits your site. The program focuses your content marketing on the questions those buyers ask, the claims they need to trust, and the comparisons they use to make a decision.</p><p className="mt-5"><Link href="/audit/" className={link}>Explore the buyer questions behind your AI visibility audit</Link></p></div>
+      </ReadingDetail>
+      <ReadingDetail id="connected-intelligence" title="Signal Harbor AI, agents, and data connections">
+        <div className="p-6"><p className="max-w-3xl text-base leading-relaxed text-navy/80">The program includes Signal Harbor AI for context-aware content work and Agent Connections for permissioned access from your preferred agents. Google Analytics 4 and Google Search Console connect traffic sources, organic search discovery, and tracked conversions with the evidence behind your campaign.</p><p className="mt-5"><Link href="/platform/#connections" className={link}>Explore connected discovery and attribution</Link></p></div>
+      </ReadingDetail>
+      <ReadingDetail id="responsibilities" title="How we work with your team and agency">
+        <div className="p-6"><p className="mb-6 max-w-2xl text-base leading-relaxed text-navy/75">Signal Harbor operates the program. Your team makes the decisions, and existing partners retain the work agreed for them.</p><Responsibilities tone="ice" /></div>
+      </ReadingDetail>
+      <div id="pricing" className="mt-10 rounded-2xl border-[1.5px] border-[#BED8E7] bg-white p-6 sm:p-8"><h2 className="text-2xl font-bold text-navy">A program built around your buyers.</h2><p className="mt-3 max-w-3xl text-base leading-relaxed text-navy/85">For company marketing teams and agency partners: research, campaign planning, prepared content, connected intelligence, and a managed team to keep the work moving.</p><div className="mt-5 flex flex-wrap gap-x-7 gap-y-3"><Link href="/pricing/" className={link}>Explore the company pilot</Link><Link href="/pricing/#agencies" className={link}>Explore agency partnerships</Link></div></div>
+    </div></section>
+    <Wave top={TONE.light} bottom={TONE.light} /><FinalCTA />
+  </main><Footer /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }} /></>;
 }

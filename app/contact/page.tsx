@@ -4,12 +4,13 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CTAButton from '@/components/CTAButton';
+import AgencyInquiryForm from '@/components/AgencyInquiryForm';
 import { SITE, CTA } from '@/lib/site';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Contact',
   description:
-    'Contact Signal Harbor by email for general questions, or book a free introductory call that includes a complimentary AI Visibility Snapshot.',
+    'Contact Signal Harbor, send an agency partnership inquiry, or book a complimentary AI Visibility Snapshot and live portal demo.',
   path: '/contact/',
   image: OG.company,
   imageAlt: 'Contact Signal Harbor',
@@ -29,7 +30,7 @@ const contactLd = {
       name: 'Contact Signal Harbor',
       url: `${SITE.url}/contact/`,
       description:
-        'Contact Signal Harbor by email, or book a free introductory call that includes a complimentary AI Visibility Snapshot.',
+        'Contact Signal Harbor, send an agency inquiry, or book a complimentary AI Visibility Snapshot and live portal demo.',
       isPartOf: { '@id': `${SITE.url}/#website` },
       breadcrumb: { '@id': `${SITE.url}/contact/#breadcrumb` },
     },
@@ -63,9 +64,11 @@ export default function ContactPage() {
                 <h2 className="text-lg font-bold text-navy">See where your company stands</h2>
                 <p className="mt-2 flex-1 text-[15px] leading-relaxed text-navy/65">
                   The fastest path. Book the free introductory call and receive
-                  a complimentary AI Visibility Snapshot of how selected AI
-                  platforms describe and recommend your company. Pricing
-                  questions are also scoped on this call.
+                  a complimentary AI Visibility Snapshot and live portal demo.
+                  See how AI describes your company and how the managed program works. The company
+                  pilot terms are published on the{' '}
+                  <Link href="/pricing" className="font-medium text-[#0369A1] underline decoration-[#0369A1]/40 underline-offset-2 hover:decoration-[#0369A1]">pricing page</Link>.
+                  Agencies can use the inquiry form below.
                 </p>
                 <div className="mt-5" data-cta-zone="contact-page">
                   <CTAButton href={SITE.bookingUrl} variant="primary">{CTA.primary}</CTAButton>
@@ -90,6 +93,7 @@ export default function ContactPage() {
             </p>
           </div>
         </section>
+        <section id="agency-inquiry" className="bg-canvas"><div className="container-x grid gap-8 py-12 sm:py-16 lg:grid-cols-[1fr_1.1fr]"><div><p className="eyebrow">Agency partnerships</p><h2 className="mt-3 text-3xl font-bold text-navy">Let’s build your agency program.</h2><p className="mt-4 max-w-lg text-base leading-relaxed text-navy/85">Tell us about your clients and the work you want to offer. We’ll scope the partnership around your team, portal needs, and client portfolio.</p></div><div className="rounded-2xl border-[1.5px] border-[#A9CDDD] bg-white p-6 sm:p-8"><AgencyInquiryForm /></div></div></section>
       </main>
       <Footer />
       <script

@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function PrivacyPage() {
   return (
-    <LegalLayout title="Privacy Policy">
+    <LegalLayout title="Privacy Policy" updated="October 3, 2026">
       <p>
         Signal Harbor is an AI visibility intelligence and GEO services company
         operating the website at signalharborai.com. This notice
@@ -25,7 +25,7 @@ export default function PrivacyPage() {
       <h2>Information we may collect</h2>
       <ul>
         <li><strong>Booking data:</strong> Scheduling is provided through Calendly, embedded on our booking page. When you schedule a call, Calendly collects the details you submit, such as your name, email, and any notes you choose to share. When the booking page loads, Calendly may also process technical information such as your IP address, browser characteristics, and usage data under its own privacy policy.</li>
-        <li><strong>Contact data:</strong> If you email us, we receive your email address and the contents of your message.</li>
+        <li><strong>Contact data:</strong> If you email us or submit the agency inquiry form, we receive the details you provide, such as your name, work email, agency name, client-count range, and message. FormSubmit processes website inquiry submissions to deliver them to our business inbox.</li>
         <li><strong>Analytics data:</strong> This website uses Google Analytics 4, which helps Signal Harbor understand aggregate site usage. It may collect page views, approximate technical information, device and browser information, referrer information, and interactions with site elements such as buttons and links.</li>
       </ul>
 
@@ -43,7 +43,7 @@ export default function PrivacyPage() {
 
       <h2>How we use information</h2>
       <ul>
-        <li>To respond to inquiries and schedule and conduct diagnostic calls.</li>
+        <li>To respond to inquiries and provide introductory calls, AI Visibility Snapshots, and live portal demos.</li>
         <li>To provide and improve our services and this website.</li>
         <li>To understand, in aggregate, how the website is used.</li>
       </ul>
@@ -52,7 +52,7 @@ export default function PrivacyPage() {
       <p>
         This website relies on third-party services that operate under their own
         privacy policies, including <a href="https://calendly.com" target="_blank" rel="noopener noreferrer">Calendly</a> for
-        scheduling and GitHub Pages for static hosting. We encourage you to
+        scheduling, <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener noreferrer">FormSubmit</a> for inquiry delivery, and GitHub Pages for static hosting. We encourage you to
         review their policies.
       </p>
 

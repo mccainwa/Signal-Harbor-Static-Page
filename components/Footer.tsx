@@ -4,24 +4,24 @@ import { SITE, CTA } from '@/lib/site';
 
 const columns = [
   {
-    heading: 'Platform',
+    heading: 'Program',
     links: [
-      { label: 'What We Measure', href: '/platform' },
+      { label: 'Managed Program', href: '/services' },
+      { label: 'Client Portal', href: '/platform' },
+      { label: 'AI Visibility Audit', href: '/audit' },
       { label: 'Methodology', href: '/methodology' },
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'Agency Pricing', href: '/pricing#agencies' },
+    ],
+  },
+  {
+    heading: 'Resources',
+    links: [
       { label: 'AI Visibility Guide', href: '/ai-visibility' },
       { label: 'Research', href: '/research' },
       { label: 'Blog', href: '/blog' },
       { label: 'FAQ', href: '/faq' },
-    ],
-  },
-  {
-    heading: 'Services',
-    links: [
       { label: 'Complimentary Snapshot', href: '/snapshot' },
-      { label: 'AI Visibility Audit', href: '/audit' },
-      { label: 'All Services', href: '/services' },
-      { label: 'Pricing', href: '/pricing' },
-      { label: CTA.short, href: SITE.bookingUrl },
     ],
   },
   {
@@ -29,6 +29,7 @@ const columns = [
     links: [
       { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
+      { label: CTA.short, href: SITE.bookingUrl },
       { label: 'Privacy', href: '/privacy' },
       { label: 'Terms', href: '/terms' },
     ],
@@ -49,9 +50,9 @@ export default function Footer() {
           <div>
             <Logo className="h-[52px] w-auto" />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-navy/65">
-              AI visibility intelligence and GEO services for companies that
-              need to be found, cited, understood, and recommended across
-              AI-mediated buyer research.
+              Managed AI search visibility and marketing execution for middle
+              market and enterprise companies, delivered through a client
+              portal your team can review, approve, and follow.
             </p>
             <p className="mt-5 text-sm">
               <a href={SITE.mailto} className="font-medium text-navy/80 underline decoration-navy/25 underline-offset-2 hover:text-[#0369A1]">
@@ -95,13 +96,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Short results disclaimer — present but not prominent. */}
-        <p className="mt-14 max-w-3xl text-xs leading-relaxed text-navy/70">
-          Signal Harbor measures observable AI visibility signals across selected
-          platforms and prompt sets. Results can vary by model, location, account
-          state, prompt wording, source availability, and time. Signal Harbor does
-          not guarantee placement, ranking, recommendation, or sales outcomes.
-        </p>
       </div>
 
       {/* Legal bar */}

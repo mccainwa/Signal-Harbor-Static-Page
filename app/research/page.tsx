@@ -50,7 +50,7 @@ export default function ResearchPage() {
               </a>
             ))}
           </div>
-          <p className="mt-8 max-w-3xl text-xs leading-relaxed text-white/40">
+          <p className="mt-8 max-w-3xl text-xs leading-relaxed text-white/75">
             These references inform Signal Harbor&rsquo;s methodology. They are not
             endorsements of Signal Harbor and do not represent Signal Harbor client
             results.

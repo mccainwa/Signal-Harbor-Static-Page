@@ -23,13 +23,20 @@ const dmSans = DM_Sans({
   display: 'optional',
 });
 
+/** Homepage description, reused for Open Graph and Twitter so they agree. */
+const HOME_DESCRIPTION =
+  'Managed AI visibility and GEO services for middle market and enterprise teams. Turn buyer discovery gaps into campaign plans, content, and measurable work.';
+
+/* These defaults are the homepage's metadata: app/page.tsx sets none of its
+   own, so the RSS alternate below stays in the homepage head. Every other
+   route overrides title, description, canonical, and social tags through
+   pageMetadata() in lib/seo.ts. */
 export const metadata: Metadata = {
   title: {
-    default: 'Understand and Improve How AI Recommends Your Company | Signal Harbor',
+    default: 'AI Visibility and Marketing Execution | Signal Harbor',
     template: '%s | Signal Harbor',
   },
-  description:
-    'Signal Harbor tests the questions buyers ask AI platforms, identifies where your company is missing or misrepresented, and turns the findings into a clear plan.',
+  description: HOME_DESCRIPTION,
   metadataBase: new URL(SITE.url),
   alternates: {
     canonical: '/',
@@ -47,18 +54,16 @@ export const metadata: Metadata = {
   },
   openGraph: {
     siteName: 'Signal Harbor',
-    title: 'Understand and improve how AI recommends your company',
-    description:
-      'Signal Harbor tests the questions buyers ask AI platforms, identifies where your company is missing or misrepresented, and turns the findings into a clear plan.',
+    title: 'AI search visibility and marketing execution',
+    description: HOME_DESCRIPTION,
     url: '/',
     type: 'website',
-    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Signal Harbor: see how AI recommends your company' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Signal Harbor: AI search visibility and marketing execution' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Understand and improve how AI recommends your company',
-    description:
-      'Signal Harbor tests realistic buyer questions across AI platforms and turns the findings into a clear executive scorecard and plan.',
+    title: 'AI search visibility and marketing execution',
+    description: HOME_DESCRIPTION,
     images: ['/og/og-default.png'],
   },
 };
@@ -97,7 +102,7 @@ const organizationLd = {
         },
       ],
       description:
-        'Signal Harbor tests the questions buyers ask AI platforms, measures how AI systems describe, compare, and recommend companies, and turns the findings into a clear executive scorecard and plan.',
+        'Signal Harbor provides managed AI search visibility and marketing execution for middle market and enterprise companies. It finds where AI answers leave a company out or get it wrong, prepares campaigns and content for client review, and tracks publication and results in a client portal.',
     },
     {
       '@type': 'WebSite',
