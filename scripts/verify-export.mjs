@@ -164,7 +164,7 @@ for (const [route, { html }] of pages) {
     const [rawPath, fragment] = url.split('#');
     // Next percent-encodes characters like [slug] in chunk URLs; decode to
     // compare against the real file name on disk, and drop cache-busting
-    // querystrings (e.g. /favicon.ico?v=3).
+    // querystrings (e.g. /favicon.ico?v=4).
     let pathPart = rawPath.split('?')[0];
     try {
       pathPart = decodeURIComponent(pathPart);

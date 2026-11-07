@@ -42,15 +42,15 @@ export const metadata: Metadata = {
     canonical: '/',
     types: { 'application/rss+xml': [{ url: '/feed.xml', title: 'Signal Harbor Blog' }] },
   },
-  /* v=3 busts stale cached favicons in browsers that saw the earlier
+  /* v=4 busts stale cached favicons in browsers that saw the earlier
      icons; the unversioned /favicon.ico path stays valid for compatibility. */
   icons: {
     icon: [
-      { url: '/favicon.ico?v=3', sizes: 'any' },
-      { url: '/icon.png?v=3', type: 'image/png', sizes: '512x512' },
+      { url: '/favicon.ico?v=4', sizes: 'any' },
+      { url: '/icon.png?v=4', type: 'image/png', sizes: '512x512' },
     ],
-    shortcut: '/favicon.ico?v=3',
-    apple: '/apple-icon.png?v=3',
+    shortcut: '/favicon.ico?v=4',
+    apple: '/apple-icon.png?v=4',
   },
   openGraph: {
     siteName: 'Signal Harbor',
